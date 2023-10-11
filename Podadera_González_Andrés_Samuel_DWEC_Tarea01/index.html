@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DWEC - Tarea Unidad 1</title>
+</head>
+
+<body>
+
+    <h1>Ejercicios Tarea Unidad 1: Segunda parte</h1>
+
+    <script>
+        /*1.-Cadenas ordenadas
+        Pida dos cadenas. Muéstrelos en ordenadas de mayor a menor. 
+        Por ejemplo "zz" es menor que "aa".
+        */
+        document.write("<br>Cadenas ordenadas<br>");
+
+        let cadena1 = prompt("Introduce la primera cadena");
+        let cadena2 = prompt("Introduce la segunda cadena");
+
+        if (cadena1 > cadena2) {
+            document.write(cadena1 + " es mayor que " + cadena2);
+        } else if (cadena1 < cadena2) {
+            document.write(cadena1 + " es menor que " + cadena2);
+        } else {
+            document.write("Las cadenas son iguales");
+        }
+
+
+        /*2.-Realice un programa en JavaScript que te pregunte por tres números que se introducen desde teclado usando prompt.
+        El primer número será el número inicial.
+        El segundo número ser el número final.
+        El tercer número será el incremente.
+        Así si introduces 1, 10 y 2 el resultado sería:
+        > 1 3 5 7 9.
+        Si introduces 1, 10  y 1 el resultado sería:
+        > 1 2 3 4 5 6 7 8 9 10.
+        Se debe realizar la misma tarea con tres bucles diferentes.
+        Debes comprar que sea número.  No debes aceptar números negativos.
+        Debes comprar los límites mayores y menores de los mismos. Por ejemplo, que no sea inicio 10, fin  1 e incremento 1 ya que el bucle no termina*/
+        document.write("<hr><br>Listado de números<br>");
+
+        let numeroInicial = parseInt(prompt("Introduce el primer número"));
+        let numeroFinal = parseInt(prompt("Introduce el segundo número"));
+        let incremento = parseInt(prompt("Introduce el incremento"));
+
+        if (numeroInicial > 0 && numeroFinal > 0 && incremento > 0) {
+
+            if (numeroInicial < numeroFinal) {
+
+                document.write("Con bucle For:<br>");
+                for (let i = numeroInicial; i <= numeroFinal; i += incremento) {
+                    document.write(i + " ");
+                }
+                document.write("<br>Con bucle while:<br>");
+                i = numeroInicial;
+                while (i <= numeroFinal) {
+                    document.write(i + " ");
+                    i += incremento;
+                }
+                document.write("<br>Con bucle do while:<br>");
+                i = numeroInicial;
+                do {
+                    document.write(i + " ");
+                    i += incremento;
+                } while (i <= numeroFinal);
+            } else {
+                document.write("El orden de los números introducidos no es correcto");
+            }
+        } else {
+            document.write("Sólo se admiten números positivos");
+        }
+
+
+        /*División por restas sucesivas.  Sin decimales.
+        1.-Usar un bucle do while. Aunque los do while los debemos usar para entradas y salidas, aquí lo haremos como un desafío.
+        2.-El algoritmo de restas sucesivas para realizar la división entera de dos números positivos. Este algoritmo consiste en ir restando al dividendo el divisor hasta obtener un resultado menor que el divisor, que será el resto de la división. El número de restas efectuado será el cociente.
+        3.-Mostrar el resultado el resto y el cociente.*/
+
+        document.write("<hr><br>División por restas sucesivas<br>");
+
+        let dividendo = parseInt(prompt("Introduce el dividendo"));
+        let divisor = parseInt(prompt("Introduce el divisor"));
+        let cociente = 0;
+        let aux = dividendo;
+
+        if (dividendo > 0 && divisor > 0) {
+            do {
+                aux -= divisor;
+                cociente++;
+            } while (aux >= divisor);
+            document.write("Para el dividendo " + dividendo + " y divisor " + divisor + ",el cociente es " + cociente + " y el resto es " + aux + ".");
+        } else {
+            document.write("Sólo se admiten números positivos");
+        }
+
+    </script>
+
+</body>
+
+</html>
