@@ -27,7 +27,7 @@
         //Comprobamos que las cadenas no estén vacías
         if (cadena1 == "" || cadena2 == "") {
             document.write("No se admiten cadenas vacías");
-            exit();
+            throw new Error("No se admiten cadenas vacías");
         }
         //Comprobamos si las cadenas son iguales, mayores o menores
         //Mostramos el resultado
@@ -55,16 +55,16 @@
         //Mostramos un separador y el título del ejercicio
         document.write("<hr><br>Listado de números<br>");
 
-        //Solicitamos los números
-        let numeroInicial = parseInt(prompt("Introduce el primer número"));
-        let numeroFinal = parseInt(prompt("Introduce el segundo número"));
-        let incremento = parseInt(prompt("Introduce el incremento"));
+        //Solicitamos los números y los convertimos a number(acepta decimales introducidos con punto)
+        let numeroInicial = Number(prompt("Introduce el primer número"));
+        let numeroFinal = Number(prompt("Introduce el segundo número"));
+        let incremento = Number(prompt("Introduce el incremento"));
 
-        //Comprobamos que los números sean positivos
-        if (numeroInicial >= 0 && numeroFinal >= 0 && incremento > 0) {
+        //Comprobamos que sean números positivos
+        if (numeroInicial >= 0 && numeroFinal >= 0 && incremento > 0 && typeof numeroInicial == "number" && typeof numeroFinal == "number" && typeof incremento == "number") {
 
             //Comprobamos que el número inicial sea menor que el número final
-            if (numeroInicial < numeroFinal) {
+            if (numeroInicial <= numeroFinal) {
 
                 //Mostramos el resultado con un bucle for
                 document.write("Con bucle For:<br>");
@@ -87,15 +87,14 @@
                     i += incremento;
                 } while (i <= numeroFinal);
             } else { 
-                //Si el número inicial es mayor que el número final o el incremento no es mayor de 0,
-                //mostramos un mensaje de error y salimos del programa
+                //Si el número inicial es mayor que el número final o el incremento no es mayor de 0,mostramos un mensaje de error y salimos del programa
                 document.write("El orden de los números introducidos no es correcto");
-                exit();
+                throw new Error("El orden de los números introducidos no es correcto");
             }
         } else {
             //Si los números no son positivos, mostramos un mensaje de error y salimos del programa
             document.write("Sólo se admiten números positivos");
-            exit();
+            throw new Error("Sólo se admiten números positivos");
         }
 
 
@@ -107,26 +106,26 @@
         //Mostramos un separador y el título del ejercicio
         document.write("<hr><br>División por restas sucesivas<br>");
 
-        //Solicitamos los números
+        //Solicitamos los números y los convertimos a enteros (no se admiten decimales)
         let dividendo = parseInt(prompt("Introduce el dividendo"));
         let divisor = parseInt(prompt("Introduce el divisor"));
         let cociente = 0;
         let aux = dividendo;
 
-        //Compromabos que los números sean positivos
+        //Compromabos que sean números positivos
         if (dividendo > 0 && divisor > 0) {
             //Realizamos la división por restas sucesivas
             do {
-                //Si el dividendo es menor que el divisor, el cociente es 0 y el resto es el dividendo
-                //Si el dividendo es mayor que el divisor, el cociente es 1 y el resto es el dividendo menos el divisor
+                //Si el dividendo es menor que el divisor, el cociente será el numero de divisiones realizadas y el resto es el dividendo, almacenado en la variable aux
                 aux -= divisor;
                 cociente++;
             } while (aux >= divisor);
             //Mostramos el resultado
-            document.write("Para el dividendo " + dividendo + " y divisor " + divisor + ",el cociente es " + cociente + " y el resto es " + aux + ".");
+            document.write(`Para el dividendo ${dividendo} y divisor ${divisor}, el cociente es ${cociente} y el resto es ${aux}.`);
         } else {
-            //Si los números no son positivos, mostramos un mensaje de error
+            //Si alguno de los números no es positivo, mostramos un mensaje de error y salimos del programa
             document.write("Sólo se admiten números positivos");
+            throw new Error("Sólo se admiten números positivos");
         }
     </script>
 
