@@ -11,6 +11,23 @@
 
     <h1>Ejercicios Tarea Unidad 1: Segunda parte</h1>
 
+    <h2>Cadenas Ordenadas</h2>
+    <div id="cadenasOrdenadas"></div>
+
+    <hr>
+
+    <h2>Listado de números</h2>
+    <div id="listadoNumeros">
+        <p id="bucleFor"></p>
+        <p id="bucleWhile"></p>
+        <p id="bucleDoWhile"></p>
+    </div>
+
+    <hr>
+
+    <h2>División por restas sucesivas</h2>
+    <div id="divDivisionRestasSucesivas"></div>
+
     <script type="text/javaScript">
         //añadimos el modo estricto para que no permita usar variables no declaradas y tener un código más limpio y seguro
         "use strict";
@@ -18,27 +35,27 @@
         Pida dos cadenas. Muéstrelos en ordenadas de mayor a menor. 
         Por ejemplo "zz" es menor que "aa".
         */
-
-        //Mostramos el título del ejercicio
-        document.write("<br>Cadenas ordenadas<br>");
-
         //Solicitamos las cadenas
         let cadena1 = prompt("Introduce la primera cadena");
         let cadena2 = prompt("Introduce la segunda cadena");
 
+        //Seleccionamos el div donde mostraremos el resultado
+        let divCadenasOrdenadas = document.getElementById("cadenasOrdenadas");
+
         //Comprobamos que las cadenas no estén vacías
         if (cadena1 == "" || cadena2 == "") {
-            document.write("No se admiten cadenas vacías");
+            //añadimos un hijo
+            divCadenasOrdenadas.appendChild(document.createTextNode("No se admiten cadenas vacías"));
             throw new Error("No se admiten cadenas vacías");
         }
         //Comprobamos si las cadenas son iguales, mayores o menores
         //Mostramos el resultado
         if (cadena1 > cadena2) {
-            document.write(cadena1 + " es mayor que " + cadena2);
+            divCadenasOrdenadas.appendChild(document.createTextNode(cadena1 + " es mayor que " + cadena2));
         } else if (cadena1 < cadena2) {
-            document.write(cadena1 + " es menor que " + cadena2);
+            divCadenasOrdenadas.appendChild(document.createTextNode(cadena1 + " es menor que " + cadena2));
         } else {
-            document.write("Las cadenas son iguales");
+            divCadenasOrdenadas.appendChild(document.createTextNode(cadena1 + " es igual que " + cadena2));
         }
 
 
@@ -54,48 +71,56 @@
         Debes comprar que sea número.  No debes aceptar números negativos.
         Debes comprar los límites mayores y menores de los mismos. Por ejemplo, que no sea inicio 10, fin  1 e incremento 1 ya que el bucle no termina*/
 
-        //Mostramos un separador y el título del ejercicio
-        document.write("<hr><br>Listado de números<br>");
-
         //Solicitamos los números y los convertimos a number(acepta decimales introducidos con punto)
         let numeroInicial = Number(prompt("Introduce el primer número"));
         let numeroFinal = Number(prompt("Introduce el segundo número"));
         let incremento = Number(prompt("Introduce el incremento"));
 
-        //Comprobamos que sean números positivos
+        //Seleccionamos el div donde mostraremos el resultado
+        let divListadoNumeros = document.getElementById("listadoNumeros");
+        let resultadosFor = document.getElementById("bucleFor");
+        let resultadosWhile = document.getElementById("bucleWhile");
+        let resultadosDoWhile = document.getElementById("bucleDoWhile");
+
+        // Comprobamos que sean números positivos
         if (numeroInicial >= 0 && numeroFinal >= 0 && incremento > 0 && typeof numeroInicial == "number" && typeof numeroFinal == "number" && typeof incremento == "number") {
-
-            //Comprobamos que el número inicial sea menor que el número final
+            // Comprobamos que el número inicial sea menor que el número final
             if (numeroInicial <= numeroFinal) {
-
-                //Mostramos el resultado con un bucle for
-                document.write("Con bucle For:<br>");
+                // Mostramos el resultado con un bucle for
+                resultadosFor.appendChild(document.createTextNode("Con bucle for:"));
                 for (let i = numeroInicial; i <= numeroFinal; i += incremento) {
-                    document.write(i + " ");
+                    resultadosFor.appendChild(document.createTextNode(" " + i));
                 }
-                //Mostramos el resultado con un bucle while
-                document.write("<br>Con bucle while:<br>");
-                i = numeroInicial;
+
+                // Mostramos el resultado con un bucle while
+                resultadosWhile.appendChild(document.createTextNode("Con bucle while:"));
+                let i = numeroInicial;
                 while (i <= numeroFinal) {
-                    //mostar el número y un espacio para que no salgan todos seguidos
-                    document.write(i + " ");
+                    // mostar el número y un espacio para que no salgan todos seguidos
+                    resultadosWhile.appendChild(document.createTextNode(" " + i));
                     i += incremento;
                 }
-                //Mostramos el resultado con un bucle do while
-                document.write("<br>Con bucle do while:<br>");
+
+                // Mostramos el resultado con un bucle do while
+                resultadosDoWhile.appendChild(document.createTextNode("Con bucle do while:"));
                 i = numeroInicial;
                 do {
-                    document.write(i + " ");
+                    resultadosDoWhile.appendChild(document.createTextNode(" " + i));
                     i += incremento;
                 } while (i <= numeroFinal);
-            } else { 
-                //Si el número inicial es mayor que el número final o el incremento no es mayor de 0,mostramos un mensaje de error y salimos del programa
-                document.write("El orden de los números introducidos no es correcto");
+
+                // Agregamos las cabeceras al div principal
+                divListadoNumeros.appendChild(resultadosFor);
+                divListadoNumeros.appendChild(resultadosWhile);
+                divListadoNumeros.appendChild(resultadosDoWhile);
+            } else {
+                // Si el número inicial es mayor que el número final o el incremento no es mayor de 0, mostramos un mensaje de error y salimos del programa
+                divListadoNumeros.appendChild(document.createTextNode("El orden de los números introducidos no es correcto"));
                 throw new Error("El orden de los números introducidos no es correcto");
             }
         } else {
-            //Si los números no son positivos, mostramos un mensaje de error y salimos del programa
-            document.write("Sólo se admiten números positivos");
+            // Si los números no son positivos, mostramos un mensaje de error y salimos del programa
+            divListadoNumeros.appendChild(document.createTextNode("Sólo se admiten números positivos"));
             throw new Error("Sólo se admiten números positivos");
         }
 
@@ -104,9 +129,6 @@
         1.-Usar un bucle do while. Aunque los do while los debemos usar para entradas y salidas, aquí lo haremos como un desafío.
         2.-El algoritmo de restas sucesivas para realizar la división entera de dos números positivos. Este algoritmo consiste en ir restando al dividendo el divisor hasta obtener un resultado menor que el divisor, que será el resto de la división. El número de restas efectuado será el cociente.
         3.-Mostrar el resultado el resto y el cociente.*/
-
-        //Mostramos un separador y el título del ejercicio
-        document.write("<hr><br>División por restas sucesivas<br>");
 
         //Solicitamos los números y los convertimos a enteros (no se admiten decimales)
         let dividendo = parseInt(prompt("Introduce el dividendo"));
@@ -118,15 +140,19 @@
         if (dividendo > 0 && divisor > 0) {
             //Realizamos la división por restas sucesivas
             do {
-                //Si el dividendo es menor que el divisor, el cociente será el numero de divisiones realizadas y el resto es el dividendo, almacenado en la variable aux
+                //Si el dividendo es menor que el divisor, salimos del bucle
+                if (aux < divisor) {
+                    break;
+                }
+                //Si no, restamos el divisor al dividendo y aumentamos el cociente, es decir, el número de restas efectuadas
                 aux -= divisor;
                 cociente++;
             } while (aux >= divisor);
             //Mostramos el resultado
-            document.write(`Para el dividendo ${dividendo} y divisor ${divisor}, el cociente es ${cociente} y el resto es ${aux}.`);
+            divDivisionRestasSucesivas.appendChild(document.createTextNode(`Para el dividendo ${dividendo} y divisor ${divisor}, el cociente es ${cociente} y el resto es ${aux}.`));
         } else {
             //Si alguno de los números no es positivo, mostramos un mensaje de error y salimos del programa
-            document.write("Sólo se admiten números positivos");
+            divDivisionRestasSucesivas.appendChild(document.createTextNode("Sólo se admiten números positivos"));
             throw new Error("Sólo se admiten números positivos");
         }
     </script>
