@@ -1,10 +1,12 @@
 /*Calcule el número de días, semanas y años desde el día de hoy hasta una fecha introducida por teclado. Usad el objeto Date para el cálculo. La fecha se puede meter por separado (primero día, luego mes y luego año) o junta (indica el formato de fecha esperado en el prompt.*/
 
-//const fechaUsuario = new Date(prompt("Introduce una fecha en formato dd/mm/aaaa"));
+//Pruebas
 //const fechaUsuario = new Date(2024, 10, 1); //Falta
 //const fechaUsuario = new Date(2025, 9, 3); //Faltan
 //const fechaUsuario = new Date(2023, 9, 31); //Ha
-const fechaUsuario = new Date(2023, 9, 1); //Han
+//const fechaUsuario = new Date(2023, 9, 1); //Han
+
+const fechaUsuario = new Date(prompt("Introduce una fecha en formato dd/mm/aaaa"));
 
 const divRespuestas = document.getElementsByClassName("respuestas");
 const fechaActual = new Date();
