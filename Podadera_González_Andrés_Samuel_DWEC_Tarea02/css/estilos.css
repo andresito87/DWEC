@@ -1,0 +1,28 @@
+ul {
+    width: 100%;
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+li {
+    padding-right: 10px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+}
+
+li a {
+    background-color: blue;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 5px;
+    padding: 10px 40px;
+}
+
+li a:hover {
+    background-color: darkblue;
+}
