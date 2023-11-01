@@ -1,3 +1,5 @@
+//Ejercicio 3:Vamos a trabajar con los objetos del navegador y vamos a averiguar si nuestro navegador tiene las siguientes propiedades u métodos.*/
+
 const respuesta = document.getElementsByClassName("respuesta");
 
 //Avisar por escrito si el navegador está en pantalla completa o no.

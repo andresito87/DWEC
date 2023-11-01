@@ -1,4 +1,4 @@
-/*Calcule el número de días, semanas y años desde el día de hoy hasta una fecha introducida por teclado. Usad el objeto Date para el cálculo. La fecha se puede meter por separado (primero día, luego mes y luego año) o junta (indica el formato de fecha esperado en el prompt.*/
+/*Ejercicio 4:Calcule el número de días, semanas y años desde el día de hoy hasta una fecha introducida por teclado. Usad el objeto Date para el cálculo. La fecha se puede meter por separado (primero día, luego mes y luego año) o junta (indica el formato de fecha esperado en el prompt.*/
 
 //Pruebas
 //const fechaUsuario = new Date(2024, 10, 1); //Falta
