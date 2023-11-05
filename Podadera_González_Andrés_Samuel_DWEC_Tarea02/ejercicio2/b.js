@@ -1,8 +1,13 @@
 /*Ejercicio 2: Ejercicios de cadenas.*/
 
 //Parte 1: Elimina el carácter elegido.
-const frase = prompt("Introduce una frase");
-const letra = prompt("Introduce una letra");
+let frase = "";
+let letra = "";
+do {
+    frase = prompt("Introduce una frase");
+    letra = prompt("Introduce una letra");
+} while (frase === "" || letra === "" || frase === null || letra === null);
+
 const respuestaBorrarLetra = document.getElementsByClassName("borrarLetra");
 let respuestaInvertirMayusMinus = document.getElementsByClassName("contarLetra");
 //me aseguro que la frase no esté vacía si no contiene el carácter a borrar
@@ -22,9 +27,15 @@ respuestaBorrarLetra[0].innerHTML = `La frase "${frase}" sin la letra "${letra}"
 //Parte 2: Invertir las mayúsculas y minúsculas solo en las posiciones múltiplos de un número entero dado.
 const fraseAConvertir = prompt("Introduce una frase que desea convertir");
 const numero = parseInt(prompt("Introduce un número"));
+//Se puede realizar la validación de los datos introducidos con un bucle do-while
+// pero como no se especifica en el enunciado, prefiero simplificar el código
+// do {
+//     fraseAConvertir = prompt("Introduce una frase que desea convertir");
+//     numero = parseInt(prompt("Introduce un número"));
+// } while (fraseAConvertir === "" || numero === "" || fraseAConvertir === null || numero === null);
 respuestaInvertirMayusMinus = document.getElementsByClassName("invertirMayusMinus");
 //validar que la frase no esté vacía y el número sea entero
-if (fraseAConvertir === "") {
+if (!fraseAConvertir) {
     respuestaInvertirMayusMinus[0].innerHTML = `La frase no puede estar vacía`;
     throw new Error("La frase no puede estar vacía");
 }

@@ -6,9 +6,13 @@
 //const fechaUsuario = new Date(2023, 9, 31); //Ha
 //const fechaUsuario = new Date(2023, 9, 1); //Han
 
-const divRespuestas = document.getElementsByClassName("respuestas");
-const fechaUsuario = new Date(prompt("Introduce una fecha en formato dd/mm/aaaa"));
+let datoIntroducido = "";
+do {
+    datoIntroducido = prompt("Introduce una fecha en formato dd/mm/aaaa");
+} while (datoIntroducido === null);
 
+const fechaUsuario = new Date(datoIntroducido);
+const divRespuestas = document.getElementsByClassName("respuestas");
 if (fechaUsuario == "Invalid Date") {
     divRespuestas[0].innerHTML = "La fecha introducida no es válida.";
 } else {
