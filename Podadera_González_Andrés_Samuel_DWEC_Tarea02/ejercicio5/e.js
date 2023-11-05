@@ -7,8 +7,8 @@ El volumen de un casquete esférico es: V = πh^2/3*(3R-h)= πh/6*(3a^2+h^2)
 
 let radio;
 let altura;
+let divRespuesta = document.getElementsByClassName("respuestas");
 
-//TODO: Cuando dejar de solicitar datos
 do {
     if (radio <= 0 || isNaN(radio)) {
         radio = prompt("Introduce el radio de la esfera");
@@ -16,11 +16,13 @@ do {
     if (altura <= 0 || isNaN(altura)) {
         altura = prompt("Introduce la altura del casquete");
     }
-} while (isNaN(radio) || isNaN(altura) || radio <= 0 || altura <= 0);
+} while ((radio <= 0 || altura <= 0) && (radio !== null || altura !== null) && (radio !== "" || altura !== ""));
 
-let area = 2 * Math.PI * radio * altura;
-let volumen = Math.PI * Math.pow(altura, 2) / 3 * (3 * radio - altura);
+if (isNaN(radio) || isNaN(altura) || radio === null || altura === null || radio === "" || altura === "") {
+    divRespuesta[0].innerHTML = `Los datos introducidos no son correctos.`;
+} else {
+    let area = 2 * Math.PI * radio * altura;
+    let volumen = Math.PI * Math.pow(altura, 2) / 3 * (3 * radio - altura);
 
-let divRespuesta = document.getElementsByClassName("respuestas");
-divRespuesta[0].innerHTML = `Para un casquete esférico con altura de: ${altura} y radio de : ${radio}, su área es: ${area.toFixed(2)} y su volumen es: ${volumen.toFixed(2)}.`;
-
+    divRespuesta[0].innerHTML = `Para un casquete esférico con altura de: ${altura} y radio de : ${radio}, su área es: ${area.toFixed(2)} y su volumen es: ${volumen.toFixed(2)}.`;
+}
