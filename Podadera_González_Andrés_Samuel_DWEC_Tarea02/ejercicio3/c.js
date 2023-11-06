@@ -8,12 +8,23 @@ const respuesta = document.getElementsByClassName("respuesta");
 console.log(window.screen.width, window.screen.height, window.screen.availWidth, window.screen.availHeight)
 console.log(window.innerWidth, window.innerHeight, window.outerWidth, window.outerHeight)
 
-//sólo funciona en firefox
-if (window.screen.width == window.outerWidth && window.screen.height == (window.outerHeight)) {
-    respuesta[0].innerHTML += "<br>Está en pantalla completa.";
+//Para Chrome
+if (!window.navigator.userAgent.match("Mobile") && window.navigator.userAgent.match("Chrome")) {
+    if (window.screen.width - 14 == window.outerWidth && window.screen.height - 14 == (window.outerHeight)) {
+        respuesta[0].innerHTML += "<br>Está en pantalla completa.";
+    }
+    else {
+        respuesta[0].innerHTML += "<br>No está en pantalla completa.";
+    }
 }
+//Para Firefox, Edge, Safari y moviles
 else {
-    respuesta[0].innerHTML += "<br>No está en pantalla completa.";
+    if (window.screen.width == window.outerWidth && window.screen.height == (window.outerHeight)) {
+        respuesta[0].innerHTML += "<br>Está en pantalla completa.";
+    }
+    else {
+        respuesta[0].innerHTML += "<br>No está en pantalla completa.";
+    }
 }
 
 //Determinar si estamos visualizando la página en un dispositivo móvil o no.
