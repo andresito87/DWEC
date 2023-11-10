@@ -7,8 +7,10 @@ El volumen de un casquete esférico es: V = πh^2/3*(3R-h)= πh/6*(3a^2+h^2)
 
 let radio;
 let altura;
+//Guardar el div donde se mostrará la respuesta
 let divRespuesta = document.getElementsByClassName("respuestas");
 
+//Pedir los datos al usuario, si introduce un valor de radio o altura incorrectos, vuelvo a pedirlo, hasta que introduzca un valor correcto
 do {
     if (radio <= 0 || isNaN(radio)) {
         radio = prompt("Introduce el radio de la esfera");
@@ -16,7 +18,7 @@ do {
     if (altura <= 0 || isNaN(altura)) {
         altura = prompt("Introduce la altura del casquete");
     }
-} while ((radio <= 0 || altura <= 0) && (radio !== null || altura !== null) && (radio !== "" || altura !== ""));
+} while ((radio <= 0 || altura <= 0) || isNaN(radio) || isNaN(altura));
 
 if (isNaN(radio) || isNaN(altura) || radio === null || altura === null || radio === "" || altura === "") {
     divRespuesta[0].innerHTML = `Los datos introducidos no son correctos.`;

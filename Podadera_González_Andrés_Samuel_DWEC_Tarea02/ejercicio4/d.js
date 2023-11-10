@@ -11,10 +11,14 @@ do {
     datoIntroducido = prompt("Introduce una fecha en formato dd/mm/aaaa");
 } while (datoIntroducido === null);
 
+//Convertir la fecha introducida en un objeto Date
 const fechaUsuario = new Date(datoIntroducido);
+//Guardar el div donde se mostrará la respuesta
 const divRespuestas = document.getElementsByClassName("respuestas");
+//Si la fecha introducida no es válida, mostrar un mensaje de error
 if (fechaUsuario == "Invalid Date") {
     divRespuestas[0].innerHTML = "La fecha introducida no es válida.";
+    //Si la fecha introducida es válida, calcular la diferencia entre la fecha introducida y la fecha actual
 } else {
     const fechaActual = new Date();
     let diferenciaEntreFechas = 0;
@@ -26,6 +30,7 @@ if (fechaUsuario == "Invalid Date") {
         esMayorFechaActual = true;
     }
 
+    //Calcular el número de años, semanas y días restantes
     let años = Math.floor(diferenciaEntreFechas / (1000 * 60 * 60 * 24 * 365));
     let semanasRestantes = diferenciaEntreFechas % (1000 * 60 * 60 * 24 * 365);
     let semanas = Math.floor(semanasRestantes / (1000 * 60 * 60 * 24 * 7));
@@ -33,8 +38,10 @@ if (fechaUsuario == "Invalid Date") {
     let dias = Math.floor(diasRestantes / (1000 * 60 * 60 * 24));
 
     let respuesta = "";
+    //Si la fecha introducida es la fecha actual, mostrar un mensaje de error
     if (fechaUsuario.toLocaleDateString("es-ES") === fechaActual.toLocaleDateString("es-ES")) {
         respuesta = "Has introducido la fecha de hoy.";
+        //Sino mostrar el mensaje con el número de años, semanas y días restantes
     } else {
         respuesta += esMayorFechaActual ? "Ha" : "Falta";
         respuesta += (años > 0 && semanas > 0) || (años > 0 && dias > 0) || ((semanas > 0 && dias > 0)) ? "n " : " ";
@@ -51,6 +58,7 @@ if (fechaUsuario == "Invalid Date") {
         respuesta += esMayorFechaActual ? ` desde la fecha introducida ${fechaUsuario.toLocaleDateString("es-ES")}` : ` para que llegue la fecha introducida ${fechaUsuario.toLocaleDateString("es-ES")}`;
     }
 
+    //Mostrar la respuesta en el div
     divRespuestas[0].innerHTML = respuesta;
 }
 

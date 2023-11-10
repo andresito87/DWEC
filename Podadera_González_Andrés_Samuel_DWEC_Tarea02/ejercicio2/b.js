@@ -45,16 +45,21 @@ if (Number.isInteger(numero) === false) {
 }
 
 let fraseConvertida = "";
+//recorro la frase
 for (let i = 0; i < fraseAConvertir.length; i++) {
+    //si la posición es múltiplo del número introducido y la letra es mayúscula, la convierto en minúscula
     if ((i + 1) % numero === 0 && fraseAConvertir.charAt(i) === fraseAConvertir.charAt(i).toUpperCase()) {
+        //concateno la letra convertida
         fraseConvertida += fraseAConvertir.charAt(i).toLowerCase();
+        //si la posición es múltiplo del número introducido y la letra es minúscula, la convierto en mayúscula
     } else if ((i + 1) % numero === 0 && fraseAConvertir.charAt(i) === fraseAConvertir.charAt(i).toLowerCase()) {
         fraseConvertida += fraseAConvertir.charAt(i).toUpperCase();
+        //si no es múltiplo, concateno la letra sin convertir
     } else {
         fraseConvertida += fraseAConvertir.charAt(i);
     }
 }
-
+//muestro la frase convertida
 respuestaInvertirMayusMinus[0].innerHTML = `La frase "${fraseAConvertir}" convirtiendo mayúsculas y minúsculas es: "${fraseConvertida}".`;
 
 

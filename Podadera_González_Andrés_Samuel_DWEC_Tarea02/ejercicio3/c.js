@@ -2,14 +2,13 @@
 
 const respuesta = document.getElementsByClassName("respuesta");
 
-//Avisar por escrito si el navegador está en pantalla completa o no.
-
-//TODO: Comprobar si el navegador está en pantalla completa o no.
+//Parte1: Avisar por escrito si el navegador está en pantalla completa o no.
 console.log(window.screen.width, window.screen.height, window.screen.availWidth, window.screen.availHeight)
 console.log(window.innerWidth, window.innerHeight, window.outerWidth, window.outerHeight)
-
+console.log(window.navigator.userAgent);
 //Para Chrome
 if (!window.navigator.userAgent.match("Mobile") && window.navigator.userAgent.match("Chrome")) {
+    //
     if (window.screen.width - 14 == window.outerWidth && window.screen.height - 14 == (window.outerHeight)) {
         respuesta[0].innerHTML += "<br>Está en pantalla completa.";
     }
@@ -32,5 +31,5 @@ let esMovil = false;
 if (window.navigator.userAgent.match("Mobile")) {
     esMovil = true;
 }
-
+//Mostrar la respuesta en el div
 respuesta[0].innerHTML += `<br>${esMovil ? "Sí" : "No"} está en un dispositivo móvil.`;
