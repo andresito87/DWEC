@@ -1,5 +1,4 @@
-
-import Ciudadano from './ciudadano.js';
+import Ciudadano from './Ciudadano.js';
 
 export default class Espia extends Ciudadano {
     #type;

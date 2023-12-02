@@ -48,7 +48,8 @@ export default class Ciudadano {
                 break;
             default:
                 this.#country = "Suiza";
-                throw new Error("Nombre del país no aceptado, asignado Suiza como valor por defecto");
+            //TODO: No dice que lance excepcion
+            //throw new Error("Nombre del país no aceptado, asignado Suiza como valor por defecto");
         }
     }
 

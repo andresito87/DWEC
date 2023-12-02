@@ -1,21 +1,20 @@
-import Espia from "./espia.js";
-import Ciudadano from './ciudadano.js';
+import Espia from "./Espia.js";
 
 export default class Agencia {
-    #nameAgency;
+    #name;
     #country;
     #_agents = [];
-    constructor(nameAgency, country) {
-        this.nameAgency = nameAgency;
+    constructor(name, country) {
+        this.name = name;
         this.country = country;
     }
 
     get nameAgency() {
-        return this.#nameAgency;
+        return this.#name;
     }
 
     set nameAgency(name) {
-        this.#country = name;
+        this.#name = name;
     }
 
     get country() {
@@ -25,28 +24,39 @@ export default class Agencia {
     set country(country) {
         switch (country) {
             case "USA":
-                this.#nameAgency = country;
+                this.#country = country;
                 break;
             case "Reino Unido":
-                this.#nameAgency = country;
+                this.#country = country;
                 break;
             case "URSS":
-                this.#nameAgency = country;
+                this.#country = country;
                 break;
             default:
                 throw new Error("Nombre de agencia no válido")
         }
     }
 
+    get _agents() {
+        // proteccion del array enviando una copia del mismo
+        let mutableAgents = [...this.#_agents];
+        return mutableAgents;
+    }
+
     //reclutarAgente()
     toRecruitAgent(wantedAgent) {
         let initialSize = this.#_agents.length;
+        let finalSize;
+        let agentFound = false;
         for (let agent of this.#_agents) {
-            if (wantedAgent === agent) {
-                throw new Error("¡¡¡El agente ya es de los nuestros!!!");
+            if (wantedAgent.name === agent.name) {
+                agentFound = true;
             }
         }
-        return initialSize !== this.#_agents.push(wantedAgent);
+        if (!agentFound) {
+            finalSize = this.#_agents.push(wantedAgent);
+        }
+        return initialSize !== finalSize;
     }
 
     //cesarAgente()
@@ -103,33 +113,36 @@ export default class Agencia {
 
     //_formateaInfo()
     #_giveFormatToInfo(agent) {
-        return `| ${agent.name.padEnd(13)} | ${agent.country.padEnd(11)} | ${agent.age.toString().padEnd(4)} | ${agent.type.padEnd(16)} |`;
+        return `| ${agent.name.padEnd(21)} | ${agent.country.padEnd(11)} | ${agent.age.toString().padEnd(4)} | ${agent.type.padEnd(16)} |\n`;
     }
 
     toString() {
-        const header = "| Nombre        | País        | Edad | Tipo             |";
-        const separator = "+---------------+-------------+------+------------------+";
-        console.log(separator);
-        console.log(header);
-        console.log(separator);
+        const agencyTitle = `|         Agencia: ${this.name.padEnd(13)}     País: ${this.country.padEnd(15)}      |`
+        const header = "| Nombre                | País        | Edad | Tipo             |";
+        const separator = "+-----------------------+-------------+------+------------------+";
+
+        let result = "";
+        result = `${separator}\n${agencyTitle}\n${separator}\n${header}\n${separator}\n`;
         this.#_agents.forEach((agent) => {
-            console.log(this.#_giveFormatToInfo(agent));
+            result += this.#_giveFormatToInfo(agent);
         });
-        console.log(separator);
+        result += `${separator}\n`;
+
+        return result;
     }
 
 }
 
 //Creamos el objeto.
-let cia = new Agencia("CIA", "USA");
-let jamesbond = new Espia("James Bond1", "Reino Unido", 39, "desestabilizador");
-jamesbond.toString();
-let mataHari = new Espia("Margaret", "URSS", 25, "infiltrado");
-mataHari.toString();
+// let cia = new Agencia("CIA", "USA");
+// let jamesbond = new Espia("James Bond1", "Reino Unido", 39, "desestabilizador");
+// jamesbond.toString();
+// let mataHari = new Espia("Margaret", "URSS", 25, "infiltrado");
+// mataHari.toString();
 
-cia.toRecruitAgent(mataHari);
-cia.toRecruitAgent(jamesbond);
-cia.toString();
-console.log(cia.toOrderedAgentList());
-console.log(cia.toListAgents("infiltrado"));
-console.log(cia.toListAgents("sin tipo"));
+// cia.toRecruitAgent(mataHari);
+// cia.toRecruitAgent(jamesbond);
+// cia.toString();
+// console.log(cia.toOrderedAgentList());
+// console.log(cia.toListAgents("infiltrado"));
+// console.log(cia.toListAgents("sin tipo"));
