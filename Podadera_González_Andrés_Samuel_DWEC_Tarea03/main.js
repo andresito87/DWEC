@@ -3,23 +3,23 @@ import Espia from './Espia.js';
 import Agencia from './Agencia.js';
 
 //4 ciudadanos
-console.log("CIUDADANOS:")
+document.getElementById("salida").innerHTML = "CIUDADANOS:<br>";
 try {
     let ciudadano1 = new Ciudadano("Roger", "USA", 34);
-    console.log(ciudadano1.toString());
+    document.getElementById("salida").innerHTML += ciudadano1.toString() + "<br>";
     let ciudadano2 = new Ciudadano("Benard", "Francia", 55);
-    console.log(ciudadano2.toString());
+    document.getElementById("salida").innerHTML += ciudadano2.toString() + "<br>";
     let ciudadano3 = new Ciudadano("Sigmund", "Suiza", 64);
-    console.log(ciudadano3.toString());
+    document.getElementById("salida").innerHTML += ciudadano3.toString() + "<br>";
     let ciudadano4 = new Ciudadano("Alexander", "RFA", 21);
-    console.log(ciudadano4.toString());
+    document.getElementById("salida").innerHTML += ciudadano4.toString() + "<br>";
     new Ciudadano("Alexander", "RFA", -21);
 } catch (error) {
-    console.log(error.message);
+    console.warn(error.message);
 }
 
 //10 espías
-console.log("\nESPÍAS:");
+document.getElementById("salida").innerHTML += "ESPÍAS:<br>";
 let jamesbond;
 let mataHari;
 let sidneyReilly;
@@ -92,3 +92,4 @@ agent = "Margaretha Geertruida";
 console.log(`La agente ${agent} ${searchMole(cia, kgb, agent) ? "es" : "no es"} una agente doble.`);
 agent = "Sidney Reilly";
 console.log(`El agente ${agent} ${searchMole(cia, kgb, agent) ? "es" : "no es"} un agente doble.`);
+
