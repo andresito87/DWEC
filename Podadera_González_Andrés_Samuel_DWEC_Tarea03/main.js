@@ -32,6 +32,7 @@ let vitalyYurchenko;
 let günterGuillaume;
 try {
     jamesbond = new Espia("James Bond", "Reino Unido", 39, "desestabilizador");
+    //TODO: Continuar cambiando console.log por document.getElementById()
     console.log(jamesbond.toString());
     mataHari = new Espia("Margaretha Geertruida", "KFA", 25, "infiltrado");
     console.log(mataHari.toString());
