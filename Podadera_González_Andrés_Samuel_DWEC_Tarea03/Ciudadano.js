@@ -57,34 +57,34 @@ export default class Ciudadano {
     }
 
     set age(age) {
-        if (age < 16 || age > 125) {
+        if (age < 1 || age > 125) {
             throw new Error("Edad fuera del rango permitido.")
         }
         this.#age = age;
     }
 
     toString() {
-        console.log(`${this.name} es un ciudadano de ${this.country} que tiene ${this.age} años.`)
+        return `${this.name} es un ciudadano de ${this.country} que tiene ${this.age} años.`;
     }
 }
 
 // try {
 //     let ciudadano1 = new Ciudadano("Roger1", "USA", 34);
-//     ciudadano1.toString();
+//     console.log(ciudadano1.toString());
 // } catch (error) {
 //     console.log(error.message);
 // }
 
 // try {
 //     let ciudadano2 = new Ciudadano("Roger2", "USA", 12);
-//     ciudadano2.toString();
+//     console.log(ciudadano2.toString());
 // } catch (error) {
 //     console.log(error.message);
 // }
 
 // try {
 //     let ciudadano3 = new Ciudadano("Roger3", "US", 34);
-//     ciudadano3.toString();
+//     console.log(ciudadano3.toString());
 // } catch (error) {
 //     console.log(error.message);
 // }

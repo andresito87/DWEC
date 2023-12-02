@@ -1,7 +1,7 @@
 
 import Ciudadano from './ciudadano.js';
 
-class Espia extends Ciudadano {
+export default class Espia extends Ciudadano {
     #type;
     constructor(name, country, age, type) {
         super(name, country, age);
@@ -42,19 +42,68 @@ class Espia extends Ciudadano {
         }
     }
 
+    get age() {
+        return super.age;
+    }
+
+    set age(age) {
+        if (age < 16 || age > 125) {
+            throw new Error("Edad fuera del rango permitido.")
+        }
+        super.age = age;
+    }
+
     get type() {
         return this.#type;
     }
 
     set type(type) {
-        this.#type = type;
+        switch (type) {
+            case "desestabilizador":
+                this.#type = type;
+                break;
+            case "diplomático":
+                this.#type = type;
+                break;
+            case "infiltrado":
+                this.#type = type;
+                break;
+            case "ilegal":
+                this.#type = type;
+                break;
+            case "operativo":
+                this.#type = type;
+                break;
+            case "provocador":
+                this.#type = type;
+                break;
+            case "durmiente":
+                this.#type = type;
+                break;
+            default:
+                throw new Error("Tipo de espía no válido")
+        }
     }
 
     toString() {
-        console.log(`${this.name} es un agente ${this.type} de ${this.country} que tiene ${super.age} años.`)
+        return `${this.name} es un agente ${this.type} de ${this.country} que tiene ${this.age} años.`;
     }
 
 }
 
-let jamesbond = new Espia("James Bond", "Reino Unido", 39, "desestabilizador");
-jamesbond.toString();
+// let jamesbond1 = new Espia("James Bond1", "Reino Unido", 39, "desestabilizador");
+// console.log(jamesbond1.toString());
+
+// try {
+//     let jamesbond2 = new Espia("James Bond2", "Reino Unido", 12, "desestabilizador");
+//     console.log(jamesbond2.toString());
+// } catch (error) {
+//     console.log(error.message)
+// }
+
+// try {
+//     let jamesbond3 = new Espia("James Bond3", "Reino Unido", 39, "prueba");
+//     console.log(jamesbond3.toString());
+// } catch (error) {
+//     console.log(error.message)
+// }
