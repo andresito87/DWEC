@@ -32,33 +32,32 @@ let vitalyYurchenko;
 let günterGuillaume;
 try {
     jamesbond = new Espia("James Bond", "Reino Unido", 39, "desestabilizador");
-    //TODO: Continuar cambiando console.log por document.getElementById()
-    console.log(jamesbond.toString());
+    document.getElementById("salida").innerHTML += jamesbond.toString() + "<br>";
     mataHari = new Espia("Margaretha Geertruida", "KFA", 25, "infiltrado");
-    console.log(mataHari.toString());
+    document.getElementById("salida").innerHTML += mataHari.toString() + "<br>";
     sidneyReilly = new Espia("Sidney Reilly", "Reino Unido", 44, "ilegal");
-    console.log(sidneyReilly.toString());
+    + "<br>"; sidneyReilly.toString() + "<br>";
     kimPhilby = new Espia("Kim Philby", "URSS", 39, "operativo");
-    console.log(kimPhilby.toString());
+    document.getElementById("salida").innerHTML += kimPhilby.toString() + "<br>";
     johnAnthonyWalker = new Espia("John Anthony Walker", "USA", 30, "provocador");
-    console.log(johnAnthonyWalker.toString());
+    document.getElementById("salida").innerHTML += johnAnthonyWalker.toString() + "<br>";
     olegGordievski = new Espia("Oleg Gordievski", "Reino Unido", 65, "infiltrado");
-    console.log(olegGordievski.toString());
+    document.getElementById("salida").innerHTML += olegGordievski.toString() + "<br>";
     aldrichAmes = new Espia("Aldrich Ames", "URSS", 42, "durmiente");
-    console.log(aldrichAmes.toString());
+    document.getElementById("salida").innerHTML += aldrichAmes.toString() + "<br>";
     karelKoecher = new Espia("Karel Koecher", "URSS", 40, "diplomático");
-    console.log(karelKoecher.toString());
+    document.getElementById("salida").innerHTML += karelKoecher.toString() + "<br>";
     vitalyYurchenko = new Espia("Vitaly Yurchenko", "URSS", 29, "infiltrado");
-    console.log(vitalyYurchenko.toString());
+    document.getElementById("salida").innerHTML += vitalyYurchenko.toString() + "<br>";
     günterGuillaume = new Espia("Günter Guillaume", "KDA", 26, "operativo")
-    console.log(günterGuillaume.toString());
+    document.getElementById("salida").innerHTML += günterGuillaume.toString() + "<br>";
     new Espia("Günter Guillaume", "KDA", 6, "operativo")
 } catch (error) {
     console.log(error.message);
 }
 
 //2 agencias
-console.log("\nAGENCIAS:")
+document.getElementById("salida").innerHTML += "AGENCIAS:<br>";
 let cia = new Agencia("CIA", "USA");
 let kgb = new Agencia("KGB", "URSS");
 
@@ -74,8 +73,8 @@ kgb.toRecruitAgent(vitalyYurchenko);
 kgb.toRecruitAgent(günterGuillaume);
 kgb.toRecruitAgent(jamesbond);
 kgb.toRecruitAgent(mataHari);
-console.log(cia.toString());
-console.log(kgb.toString());
+document.getElementById("salida").innerHTML += cia.toString() + "<br>";
+document.getElementById("salida").innerHTML += kgb.toString() + "<br>";
 
 
 //buscaTopos()
@@ -86,11 +85,11 @@ function searchMole(agency1, agency2, agentName) {
     return isInAgency1 && isInAgency2;
 }
 
-console.log("AGENTES DOBLES:")
+document.getElementById("salida").innerHTML += "AGENTES DOBLES:<br>";
 let agent = "James Bond";
-console.log(`El agente ${agent} ${searchMole(cia, kgb, agent) ? "es" : "no es"} un agente doble.`);
+document.getElementById("salida").innerHTML += `El agente ${agent} ${searchMole(cia, kgb, agent) ? "es" : "no es"} un agente doble.<br>`;
 agent = "Margaretha Geertruida";
-console.log(`La agente ${agent} ${searchMole(cia, kgb, agent) ? "es" : "no es"} una agente doble.`);
+document.getElementById("salida").innerHTML += `La agente ${agent} ${searchMole(cia, kgb, agent) ? "es" : "no es"} una agente doble.` + "<br>";
 agent = "Sidney Reilly";
-console.log(`El agente ${agent} ${searchMole(cia, kgb, agent) ? "es" : "no es"} un agente doble.`);
+document.getElementById("salida").innerHTML += `El agente ${agent} ${searchMole(cia, kgb, agent) ? "es" : "no es"} un agente doble.` + "<br>";
 

@@ -113,20 +113,32 @@ export default class Agencia {
 
     //_formateaInfo()
     #_giveFormatToInfo(agent) {
-        return `| ${agent.name.padEnd(21)} | ${agent.country.padEnd(11)} | ${agent.age.toString().padEnd(4)} | ${agent.type.padEnd(16)} |\n`;
+        //return `| ${agent.name.padEnd(21)} | ${agent.country.padEnd(11)} | ${agent.age.toString().padEnd(4)} | ${agent.type.padEnd(16)} |\n`;
+        return `<tr><td>${agent.name}</td><td>${agent.country}</td><td>${agent.age}</td><td>${agent.type}</td></tr>`;
     }
 
     toString() {
-        const agencyTitle = `|         Agencia: ${this.name.padEnd(13)}     País: ${this.country.padEnd(15)}      |`
-        const header = "| Nombre                | País        | Edad | Tipo             |";
-        const separator = "+-----------------------+-------------+------+------------------+";
+        //     const agencyTitle = `|         Agencia: ${this.name.padEnd(13)}     País: ${this.country.padEnd(15)}      |`
+        //     const header = "| Nombre                | País        | Edad | Tipo             |";
+        //     const separator = "+-----------------------+-------------+------+------------------+";
 
-        let result = "";
-        result = `${separator}\n${agencyTitle}\n${separator}\n${header}\n${separator}\n`;
+        //     let result = "";
+        //     result = `${separator}\n${agencyTitle}\n${separator}\n${header}\n${separator}\n`;
+        //     this.#_agents.forEach((agent) => {
+        //         result += this.#_giveFormatToInfo(agent);
+        //     });
+        //     result += `${separator}\n`;
+
+        //     return result;
+        const agencyTitle = `<tr><td colspan="4" style="text-align: center;">Agencia: ${this.name} - País: ${this.country}</td></tr>`;
+        const header = "<tr><th>Nombre</th><th>País</th><th>Edad</th><th>Tipo</th></tr>";
+
+        let result = "<table border='1'>";
+        result += agencyTitle + header;
         this.#_agents.forEach((agent) => {
             result += this.#_giveFormatToInfo(agent);
         });
-        result += `${separator}\n`;
+        result += "</table>";
 
         return result;
     }
