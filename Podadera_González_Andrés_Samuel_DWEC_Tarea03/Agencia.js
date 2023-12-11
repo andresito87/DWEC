@@ -46,26 +46,25 @@ export default class Agencia {
     //reclutarAgente()
     toRecruitAgent(wantedAgent) {
         let initialSize = this.#_agents.length;
-        let finalSize;
         let agentFound = false;
         for (let agent of this.#_agents) {
             if (wantedAgent.name === agent.name) {
                 agentFound = true;
             }
         }
+        let finalSize;
         if (!agentFound) {
             finalSize = this.#_agents.push(wantedAgent);
         }
-        return initialSize !== finalSize;
+        return initialSize < finalSize;
     }
 
     //cesarAgente()
     toFireAgent(name) {
-        initialSize
+        let initialSize = this.#_agents.length;
         for (let agent of this.#_agents) {
             if (name === agent.name) {
-                this.#_agents.slice(name);
-                break;
+                this.#_agents.splice(this.#_agents.indexOf(agent), 1);
             }
         }
         return initialSize !== this.#_agents.length;
@@ -79,33 +78,50 @@ export default class Agencia {
                 agentsOfWantedType.push(agent);
             }
         }
+        let result = "";
         if (agentsOfWantedType.length === 0) {
-            return `No hay agentes ${type} en nuestra agencia.`;
+            result = `No hay agentes de tipo "${type}" en la ${this.name}.`;
+        } else {
+            for (let agent of agentsOfWantedType) {
+                result += agent.toString() + "<br>";
+            }
         }
-        return agentsOfWantedType.toString();
+        return result;
     }
 
     //listadoOrdenado()
-    toOrderedAgentList() {
+    toOrderedAgentList(orderingElement) {
         let orderedList = [...this.#_agents];
 
         // Ordenamiento por nombre y luego por edad
         orderedList.sort((a, b) => {
             // Comparación por nombre
-            if (a.name > b.name) {
-                return 1;
-            } else if (a.name < b.name) {
-                return -1;
+            if (orderingElement === "nombre") {
+                if (a.name < b.name) {
+                    return -1;
+                }
+                if (a.name > b.name) {
+                    return 1;
+                } else {
+                    return 0;
+                }
             }
-            else {
-                // Si los nombres son iguales, ordenar por edad
-                return a.age - b.age;
+            // Comparación por edad
+            if (orderingElement === "edad") {
+                if (a.age < b.age) {
+                    return -1;
+                }
+                if (a.age > b.age) {
+                    return 1;
+                } else {
+                    return 0;
+                }
             }
         });
 
         let orderedListToString = "";
         for (let agent of orderedList) {
-            orderedListToString += agent.toString() + "\n";
+            orderedListToString += agent.toString() + "<br>";
         }
 
         return orderedListToString;
@@ -113,23 +129,11 @@ export default class Agencia {
 
     //_formateaInfo()
     #_giveFormatToInfo(agent) {
-        //return `| ${agent.name.padEnd(21)} | ${agent.country.padEnd(11)} | ${agent.age.toString().padEnd(4)} | ${agent.type.padEnd(16)} |\n`;
         return `<tr><td>${agent.name}</td><td>${agent.country}</td><td>${agent.age}</td><td>${agent.type}</td></tr>`;
     }
 
     toString() {
-        //     const agencyTitle = `|         Agencia: ${this.name.padEnd(13)}     País: ${this.country.padEnd(15)}      |`
-        //     const header = "| Nombre                | País        | Edad | Tipo             |";
-        //     const separator = "+-----------------------+-------------+------+------------------+";
 
-        //     let result = "";
-        //     result = `${separator}\n${agencyTitle}\n${separator}\n${header}\n${separator}\n`;
-        //     this.#_agents.forEach((agent) => {
-        //         result += this.#_giveFormatToInfo(agent);
-        //     });
-        //     result += `${separator}\n`;
-
-        //     return result;
         const agencyTitle = `<tr><td colspan="4" style="text-align: center;">Agencia: ${this.name} - País: ${this.country}</td></tr>`;
         const header = "<tr><th>Nombre</th><th>País</th><th>Edad</th><th>Tipo</th></tr>";
 
