@@ -3,6 +3,7 @@ import Espia from './Espia.js';
 import Agencia from './Agencia.js';
 
 //4 ciudadanos
+let salida = document.getElementById("salida"); //TODO: cambiar por salida
 document.getElementById("salida").innerHTML = "CIUDADANOS:<br>";
 try {
     let ciudadano1 = new Ciudadano("Roger", "USA", 34);
@@ -85,11 +86,11 @@ function searchMole(agency1, agency2, agentName) {
     return isInAgency1 && isInAgency2;
 }
 
-document.getElementById("salida").innerHTML += "AGENTES DOBLES:<br>";
-let agent = "James Bond";
-document.getElementById("salida").innerHTML += `El agente ${agent} ${searchMole(cia, kgb, agent) ? "es" : "no es"} un agente doble.<br>`;
-agent = "Margaretha Geertruida";
-document.getElementById("salida").innerHTML += `La agente ${agent} ${searchMole(cia, kgb, agent) ? "es" : "no es"} una agente doble.` + "<br>";
-agent = "Sidney Reilly";
-document.getElementById("salida").innerHTML += `El agente ${agent} ${searchMole(cia, kgb, agent) ? "es" : "no es"} un agente doble.` + "<br>";
+for (let agent of cia._agents) {
+    document.getElementById("salida").innerHTML += `El agente ${agent.name} ${searchMole(cia, kgb, agent.name) ? "es" : "no es"} un agente doble.<br>`;
+}
 
+
+for (let agent of kgb._agents) {
+    document.getElementById("salida").innerHTML += `El agente ${agent.name} ${searchMole(cia, kgb, agent.name) ? "es" : "no es"} un agente doble.<br>`;
+}
