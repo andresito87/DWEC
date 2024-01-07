@@ -33,7 +33,7 @@ export default class Agencia {
                 this.#country = country;
                 break;
             default:
-                throw new Error("Nombre de agencia no válido")
+                throw new Error("Nombre de agencia no válido");
         }
     }
 
@@ -128,23 +128,22 @@ export default class Agencia {
     }
 
     //_formateaInfo()
-    #_giveFormatToInfo(agent) {
-        return `<tr><td>${agent.name}</td><td>${agent.country}</td><td>${agent.age}</td><td>${agent.type}</td></tr>`;
-    }
-
-    toString() {
-
+    #_giveFormatToInfo() {
         const agencyTitle = `<tr><td colspan="4" style="text-align: center;">Agencia: ${this.name} - País: ${this.country}</td></tr>`;
         const header = "<tr><th>Nombre</th><th>País</th><th>Edad</th><th>Tipo</th></tr>";
 
         let result = "<table border='1'>";
         result += agencyTitle + header;
         this.#_agents.forEach((agent) => {
-            result += this.#_giveFormatToInfo(agent);
+            result += `<tr><td>${agent.name}</td><td>${agent.country}</td><td>${agent.age}</td><td>${agent.type}</td></tr>`;
         });
         result += "</table>";
 
         return result;
+    }
+
+    toString() {
+        return this.#_giveFormatToInfo();
     }
 
 }
