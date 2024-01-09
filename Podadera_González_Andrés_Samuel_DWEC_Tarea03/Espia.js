@@ -47,7 +47,7 @@ export default class Espia extends Ciudadano {
 
     set age(age) {
         if (age < 16 || age > 125) {
-            throw new Error("Edad fuera del rango permitido.")
+            throw new Error("Edad fuera del rango permitido.");
         }
         super.age = age;
     }
@@ -80,29 +80,11 @@ export default class Espia extends Ciudadano {
                 this.#type = type;
                 break;
             default:
-                throw new Error("Tipo de espía no válido")
+                throw new Error("Tipo de espía no válido");
         }
     }
 
     toString() {
         return `${this.name} es un agente ${this.type} de ${this.country} que tiene ${this.age} años.`;
     }
-
 }
-
-// let jamesbond1 = new Espia("James Bond1", "Reino Unido", 39, "desestabilizador");
-// console.log(jamesbond1.toString());
-
-// try {
-//     let jamesbond2 = new Espia("James Bond2", "Reino Unido", 12, "desestabilizador");
-//     console.log(jamesbond2.toString());
-// } catch (error) {
-//     console.log(error.message)
-// }
-
-// try {
-//     let jamesbond3 = new Espia("James Bond3", "Reino Unido", 39, "prueba");
-//     console.log(jamesbond3.toString());
-// } catch (error) {
-//     console.log(error.message)
-// }

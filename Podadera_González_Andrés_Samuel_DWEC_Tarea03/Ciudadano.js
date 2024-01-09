@@ -24,6 +24,8 @@ export default class Ciudadano {
     }
 
     set country(country) {
+        //Se podría mejorar con un array privado de paises válidos
+        //Se podría mejorar con un enum de paises válidos
         switch (country) {
             case "USA":
                 this.#country = "USA";
@@ -48,7 +50,7 @@ export default class Ciudadano {
                 break;
             default:
                 this.#country = "Suiza";
-            //TODO: No dice que lance excepcion
+            //No se dice que lance excepcion
             //throw new Error("Nombre del país no aceptado, asignado Suiza como valor por defecto");
         }
     }
@@ -59,7 +61,7 @@ export default class Ciudadano {
 
     set age(age) {
         if (age < 1 || age > 125) {
-            throw new Error("Edad fuera del rango permitido.")
+            throw new Error("Edad fuera del rango permitido.");
         }
         this.#age = age;
     }
@@ -69,23 +71,3 @@ export default class Ciudadano {
     }
 }
 
-// try {
-//     let ciudadano1 = new Ciudadano("Roger1", "USA", 34);
-//     console.log(ciudadano1.toString());
-// } catch (error) {
-//     console.log(error.message);
-// }
-
-// try {
-//     let ciudadano2 = new Ciudadano("Roger2", "USA", 12);
-//     console.log(ciudadano2.toString());
-// } catch (error) {
-//     console.log(error.message);
-// }
-
-// try {
-//     let ciudadano3 = new Ciudadano("Roger3", "US", 34);
-//     console.log(ciudadano3.toString());
-// } catch (error) {
-//     console.log(error.message);
-// }

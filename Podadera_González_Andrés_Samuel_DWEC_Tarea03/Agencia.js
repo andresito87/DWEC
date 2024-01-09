@@ -1,5 +1,3 @@
-import Espia from "./Espia.js";
-
 export default class Agencia {
     #name;
     #country;
@@ -93,9 +91,9 @@ export default class Agencia {
     toOrderedAgentList(orderingElement) {
         let orderedList = [...this.#_agents];
 
-        // Ordenamiento por nombre y luego por edad
+        // Ordenamiento
         orderedList.sort((a, b) => {
-            // Comparación por nombre
+            // Por nombre
             if (orderingElement === "nombre") {
                 if (a.name < b.name) {
                     return -1;
@@ -106,7 +104,7 @@ export default class Agencia {
                     return 0;
                 }
             }
-            // Comparación por edad
+            // Por edad
             if (orderingElement === "edad") {
                 if (a.age < b.age) {
                     return -1;
@@ -119,6 +117,10 @@ export default class Agencia {
             }
         });
 
+        if (orderingElement !== "nombre" && orderingElement !== "edad") {
+            console.warn(`No se realizado ningún ordenamiento. El elemento "${orderingElement}" no es válido.`);
+        }
+
         let orderedListToString = "";
         for (let agent of orderedList) {
             orderedListToString += agent.toString() + "<br>";
@@ -129,12 +131,25 @@ export default class Agencia {
 
     //_formateaInfo()
     #_giveFormatToInfo() {
-        const agencyTitle = `<tr><td colspan="4" style="text-align: center;">Agencia: ${this.name} - País: ${this.country}</td></tr>`;
+        const agencyTitleTable = `<tr><td id="titleTable" colspan="4" style="text-align: center;">Agencia: ${this.name} - País: ${this.country}</td></tr>`;
         const header = "<tr><th>Nombre</th><th>País</th><th>Edad</th><th>Tipo</th></tr>";
 
         let result = "<table border='1'>";
-        result += agencyTitle + header;
-        this.#_agents.forEach((agent) => {
+        result += agencyTitleTable + header;
+        // Ordenamiento por pais
+        let orderedList = [...this.#_agents];
+        orderedList.sort((a, b) => {
+            if (a.country < b.country) {
+                return -1;
+            }
+            if (a.country > b.country) {
+                return 1;
+            } else {
+                return 0;
+            }
+        });
+        //Agrego filas de agentes
+        orderedList.forEach((agent) => {
             result += `<tr><td>${agent.name}</td><td>${agent.country}</td><td>${agent.age}</td><td>${agent.type}</td></tr>`;
         });
         result += "</table>";
@@ -147,17 +162,3 @@ export default class Agencia {
     }
 
 }
-
-//Creamos el objeto.
-// let cia = new Agencia("CIA", "USA");
-// let jamesbond = new Espia("James Bond1", "Reino Unido", 39, "desestabilizador");
-// jamesbond.toString();
-// let mataHari = new Espia("Margaret", "URSS", 25, "infiltrado");
-// mataHari.toString();
-
-// cia.toRecruitAgent(mataHari);
-// cia.toRecruitAgent(jamesbond);
-// cia.toString();
-// console.log(cia.toOrderedAgentList());
-// console.log(cia.toListAgents("infiltrado"));
-// console.log(cia.toListAgents("sin tipo"));

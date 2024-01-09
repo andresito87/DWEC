@@ -2,8 +2,10 @@ import Ciudadano from './Ciudadano.js';
 import Espia from './Espia.js';
 import Agencia from './Agencia.js';
 
-//4 ciudadanos
+//Localizo el elemento del DOM donde voy agregar el contenido
 let contenido = document.getElementById("contenido");
+
+//4 ciudadanos
 contenido.innerHTML = "<h2>CIUDADANOS:</h2>";
 try {
     let ciudadano1 = new Ciudadano("Roger", "USA", 34);
@@ -14,10 +16,11 @@ try {
     contenido.innerHTML += ciudadano3.toString() + "<br>";
     let ciudadano4 = new Ciudadano("Alexander", "RFA", 21);
     contenido.innerHTML += ciudadano4.toString() + "<br>";
-    //Hago que falle crear un ciudadano con edad fuera de rango. Se muestra el mensaje de error en la consola.
+    //Hago que falle crear un ciudadano con edad fuera de rango.
+    //Se muestra el mensaje de error en la consola.
     new Ciudadano("Alexander", "RFA", -21);
 } catch (error) {
-    console.warn(error.message);
+    console.error(error.message);
 }
 
 //10 espías
@@ -46,18 +49,30 @@ try {
     contenido.innerHTML += günterGuillaume.toString() + "<br>";
     //Hago que falle crear un espía con edad fuera de rango. Se muestra el mensaje de error en la consola.
     new Espia("Günter Guillaume", "KDA", 6, "operativo");
+    //Hago que falle crear un espía con un nombre de longitud menor a 5. Se muestra el mensaje de error en la consola.
+    //Comentar la línea anterior para que se muestre el mensaje de error en la consola.
+    new Espia("Alan", "KDA", 18, "operativo");
 } catch (error) {
-    console.warn(error.message);
+    console.error(error.message);
 }
 
 //2 agencias
 contenido.innerHTML += "<h2>AGENCIAS:</h2>";
-let cia = new Agencia("CIA", "USA");
-let kgb = new Agencia("KGB", "URSS");
+let cia;
+let kgb;
+try {
+    cia = new Agencia("CIA", "USA");
+    kgb = new Agencia("KGB", "URSS");
+    //Hago que falle al crear una agencia de un país no válido.
+    //Se muestra el mensaje de error en la consola.
+    new Agencia("CNI", "España");
+} catch (error) {
+    console.error(error.message);
+}
 
 //Reclutar agentes
-contenido.innerHTML += "<strong>Reclutando agentes...</strong>";
-cia.toRecruitAgent(jamesbond);
+contenido.innerHTML += "<strong>Reclutando agentes...</strong><br>";
+cia.toRecruitAgent(jamesbond); //Agente Doble
 cia.toRecruitAgent(mataHari);
 cia.toRecruitAgent(sidneyReilly);
 kgb.toRecruitAgent(kimPhilby);
@@ -67,16 +82,24 @@ kgb.toRecruitAgent(aldrichAmes);
 kgb.toRecruitAgent(karelKoecher);
 kgb.toRecruitAgent(vitalyYurchenko);
 kgb.toRecruitAgent(günterGuillaume);
-kgb.toRecruitAgent(jamesbond);
+kgb.toRecruitAgent(jamesbond); //Agente Doble
 kgb.toRecruitAgent(mataHari);
+
+//Mostrar información de las agencias
 contenido.innerHTML += cia.toString() + "<br>";
 contenido.innerHTML += kgb.toString() + "<br>";
+contenido.innerHTML += "<strong>CIA: Intentando reclutar a James Bond por segunda vez...</strong><br>";
+cia.toRecruitAgent(jamesbond) ? contenido.innerHTML += "El agente James Bond ha sido reclutado.<br>" : contenido.innerHTML += "El agente James Bond ya está reclutado.<br>";
+
 
 //Cesar agentes
-contenido.innerHTML += "<strong>Cesando agentes Juan(no existe), Margaretha Geertruida(CIA) y Vitaly Yurchenko(KGB)...</strong>";
-cia.toFireAgent("Juan"); //No existe
-cia.toFireAgent("Margaretha Geertruida");
-kgb.toFireAgent("Vitaly Yurchenko");
+contenido.innerHTML += "<br><strong>Cesando agentes...</strong><br>";
+contenido.innerHTML += "Cesando a Juan: ";
+cia.toFireAgent("Juan") ? contenido.innerHTML += "El agente Juan ha sido cesado.<br>" : contenido.innerHTML += "No existe ningún agente con ese nombre.<br>";
+contenido.innerHTML += "Cesando a Margaretha Geertruida: ";
+cia.toFireAgent("Margaretha Geertruida") ? contenido.innerHTML += "El agente Margaretha Geertruida ha sido cesado.<br>" : contenido.innerHTML += "No existe ningún agente con ese nombre.<br>";
+contenido.innerHTML += "Cesando a Vitaly Yurchenko: ";
+kgb.toFireAgent("Vitaly Yurchenko") ? contenido.innerHTML += "El agente Vitaly Yurchenko ha sido cesado.<br>" : contenido.innerHTML += "No existe ningún agente con ese nombre.<br>";
 contenido.innerHTML += cia.toString() + "<br>";
 contenido.innerHTML += kgb.toString() + "<br>";
 
@@ -99,7 +122,8 @@ contenido.innerHTML += cia.toOrderedAgentList("edad");
 contenido.innerHTML += "<h3>Kgb</h3>";
 contenido.innerHTML += kgb.toOrderedAgentList("edad");
 
-
+//Ordenar por parametro no válido. Se muestra el mensaje de warning en la consola.
+contenido.innerHTML += kgb.toOrderedAgentList("altura");
 
 //buscaTopos()
 function searchMole(agency1, agency2, agentName) {
@@ -109,9 +133,19 @@ function searchMole(agency1, agency2, agentName) {
     return isInAgency1 && isInAgency2;
 }
 
+//Mostrar listado de agentes dobles
 contenido.innerHTML += "<h2>Agentes Dobles:</h2>";
+let gotMoles = false;
+let moleList = "";
 for (let agent of cia._agents) {
     if (searchMole(cia, kgb, agent.name)) {
-        contenido.innerHTML += `El agente ${agent.name} es un agente doble.<br>`;
+        gotMoles = true;
+        moleList += `El agente ${agent.name} es un agente doble.<br>`;
     }
 }
+if (!gotMoles) {
+    moleList = "No hay agentes dobles.";
+}
+
+contenido.innerHTML += moleList;
+

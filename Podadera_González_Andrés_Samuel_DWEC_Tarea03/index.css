@@ -52,7 +52,13 @@ table {
     font-family: monospace;
     font-size: 25px;
     text-align: center;
-    margin: 0 auto;
+    margin: 20px auto;
+}
+
+#titleTable {
+    background-color: #ebfc34;
+    color: rgb(0, 0, 0);
+    border: 5px solid #0d0d0d;
 }
 
 th {
