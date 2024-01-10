@@ -1,7 +1,9 @@
-export default class Agencia {
+export default class Agency {
+    //Private properties
     #name;
     #country;
     #_agents = [];
+
     constructor(name, country) {
         this.name = name;
         this.country = country;
@@ -36,12 +38,11 @@ export default class Agencia {
     }
 
     get _agents() {
-        // proteccion del array enviando una copia del mismo
+        // protection for the array sending a copy
         let mutableAgents = [...this.#_agents];
         return mutableAgents;
     }
 
-    //reclutarAgente()
     toRecruitAgent(wantedAgent) {
         let initialSize = this.#_agents.length;
         let agentFound = false;
@@ -57,7 +58,6 @@ export default class Agencia {
         return initialSize < finalSize;
     }
 
-    //cesarAgente()
     toFireAgent(name) {
         let initialSize = this.#_agents.length;
         for (let agent of this.#_agents) {
@@ -68,7 +68,6 @@ export default class Agencia {
         return initialSize !== this.#_agents.length;
     }
 
-    //listadoAgentes()
     toListAgents(type) {
         let agentsOfWantedType = [];
         for (let agent of this.#_agents) {
@@ -87,13 +86,12 @@ export default class Agencia {
         return result;
     }
 
-    //listadoOrdenado()
     toOrderedAgentList(orderingElement) {
         let orderedList = [...this.#_agents];
 
-        // Ordenamiento
+        // Ordering
         orderedList.sort((a, b) => {
-            // Por nombre
+            // By name
             if (orderingElement === "nombre") {
                 if (a.name < b.name) {
                     return -1;
@@ -104,7 +102,7 @@ export default class Agencia {
                     return 0;
                 }
             }
-            // Por edad
+            // By age
             if (orderingElement === "edad") {
                 if (a.age < b.age) {
                     return -1;
@@ -129,14 +127,13 @@ export default class Agencia {
         return orderedListToString;
     }
 
-    //_formateaInfo()
     #_giveFormatToInfo() {
         const agencyTitleTable = `<tr><td id="titleTable" colspan="4" style="text-align: center;">Agencia: ${this.name} - País: ${this.country}</td></tr>`;
         const header = "<tr><th>Nombre</th><th>País</th><th>Edad</th><th>Tipo</th></tr>";
 
         let result = "<table border='1'>";
         result += agencyTitleTable + header;
-        // Ordenamiento por pais
+        // Ordering by country
         let orderedList = [...this.#_agents];
         orderedList.sort((a, b) => {
             if (a.country < b.country) {
@@ -148,7 +145,7 @@ export default class Agencia {
                 return 0;
             }
         });
-        //Agrego filas de agentes
+        // Adding agents to the table
         orderedList.forEach((agent) => {
             result += `<tr><td>${agent.name}</td><td>${agent.country}</td><td>${agent.age}</td><td>${agent.type}</td></tr>`;
         });

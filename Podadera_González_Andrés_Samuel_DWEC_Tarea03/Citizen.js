@@ -1,7 +1,14 @@
-export default class Ciudadano {
+export default class Citizen {
+    //Static Properties
+    static #MIN_LENGTH_NAME = 5;
+    static #MAX_AGE = 125;
+    static #MIN_AGE = 1;
+
+    //Private Properties
     #name;
     #country;
     #age;
+
     constructor(name, country, age) {
         this.name = name;
         this.country = country;
@@ -13,7 +20,7 @@ export default class Ciudadano {
     }
 
     set name(name) {
-        if (name.length < 5) {
+        if (name.length < Citizen.#MIN_LENGTH_NAME) {
             throw new Error("Longitud de nombre inferior a 5 caracteres");
         }
         this.#name = name;
@@ -24,8 +31,7 @@ export default class Ciudadano {
     }
 
     set country(country) {
-        //Se podría mejorar con un array privado de paises válidos
-        //Se podría mejorar con un enum de paises válidos
+        //We can improve it using a enum of valid countries
         switch (country) {
             case "USA":
                 this.#country = "USA";
@@ -50,7 +56,7 @@ export default class Ciudadano {
                 break;
             default:
                 this.#country = "Suiza";
-            //No se dice que lance excepcion
+            //exercise's statement doesn't say anything about throwing an error
             //throw new Error("Nombre del país no aceptado, asignado Suiza como valor por defecto");
         }
     }
@@ -60,14 +66,14 @@ export default class Ciudadano {
     }
 
     set age(age) {
-        if (age < 1 || age > 125) {
+        if (age < Citizen.#MIN_AGE || Citizen.#MAX_AGE < age) {
             throw new Error("Edad fuera del rango permitido.");
         }
         this.#age = age;
     }
 
     toString() {
-        return `${this.name} es un ciudadano de ${this.country} que tiene ${this.age} años.`;
+        return `Ciudadano: ${this.name} procedente de ${this.country}, tiene ${this.age} años`;
     }
 }
 

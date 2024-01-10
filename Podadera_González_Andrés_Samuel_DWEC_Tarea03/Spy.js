@@ -1,21 +1,25 @@
-import Ciudadano from './Ciudadano.js';
+import Citizen from './Citizen.js';
 
-export default class Espia extends Ciudadano {
+export default class Spy extends Citizen {
+    //Static Properties
+    static #MAX_AGE = 125;
+    static #MIN_AGE = 16;
+    //Private Properties
     #type;
+
     constructor(name, country, age, type) {
         super(name, country, age);
         this.type = type;
     }
 
-    //Destacar que si se sobreescribe un getter o un setter, obligatoriamente
-    // tengo que sobreescribir el getter o setter correspondiente a ese dato,
-    // van en parejas.
+    //Note: if you redefine a getter or setter, you must redefine both
 
     get country() {
         return super.country;
     }
 
     set country(country) {
+        //We can improve it using a enum of valid countries
         switch (country) {
             case "USA":
                 super.country = "USA";
@@ -46,7 +50,7 @@ export default class Espia extends Ciudadano {
     }
 
     set age(age) {
-        if (age < 16 || age > 125) {
+        if (age < Spy.#MIN_AGE || Spy.#MAX_AGE < age) {
             throw new Error("Edad fuera del rango permitido.");
         }
         super.age = age;
@@ -85,6 +89,6 @@ export default class Espia extends Ciudadano {
     }
 
     toString() {
-        return `${this.name} es un agente ${this.type} de ${this.country} que tiene ${this.age} años.`;
+        return super.toString() + " y es un espía de tipo " + this.#type + ".";
     }
 }

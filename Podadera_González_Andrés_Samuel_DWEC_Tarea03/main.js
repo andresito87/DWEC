@@ -1,78 +1,79 @@
-import Ciudadano from './Ciudadano.js';
-import Espia from './Espia.js';
-import Agencia from './Agencia.js';
+import Citizen from './Citizen.js';
+import Spy from './Spy.js';
+import Agency from './Agency.js';
 
-//Localizo el elemento del DOM donde voy agregar el contenido
-let contenido = document.getElementById("contenido");
+//Find the element with id="contenido"
+let contentHtml = document.getElementById("contenido");
 
-//4 ciudadanos
-contenido.innerHTML = "<h2>CIUDADANOS:</h2>";
+//Creating 4 citizens
+contentHtml.innerHTML = "<h2>CIUDADANOS:</h2>";
 try {
-    let ciudadano1 = new Ciudadano("Roger", "USA", 34);
-    contenido.innerHTML += ciudadano1.toString() + "<br>";
-    let ciudadano2 = new Ciudadano("Benard", "Francia", 55);
-    contenido.innerHTML += ciudadano2.toString() + "<br>";
-    let ciudadano3 = new Ciudadano("Sigmund", "Suiza", 64);
-    contenido.innerHTML += ciudadano3.toString() + "<br>";
-    let ciudadano4 = new Ciudadano("Alexander", "RFA", 21);
-    contenido.innerHTML += ciudadano4.toString() + "<br>";
+    let citizen1 = new Citizen("Roger", "USA", 34);
+    contentHtml.innerHTML += citizen1.toString() + "<br>";
+    let citizen2 = new Citizen("Benard", "Francia", 55);
+    contentHtml.innerHTML += citizen2.toString() + "<br>";
+    let citizen3 = new Citizen("Sigmund", "Suiza", 64);
+    contentHtml.innerHTML += citizen3.toString() + "<br>";
+    let citizen4 = new Citizen("Alexander", "RFA", 21);
+    contentHtml.innerHTML += citizen4.toString() + "<br>";
     //Hago que falle crear un ciudadano con edad fuera de rango.
     //Se muestra el mensaje de error en la consola.
-    new Ciudadano("Alexander", "RFA", -21);
+    new Citizen("Alexander", "RFA", -21);
 } catch (error) {
     console.error(error.message);
 }
 
-//10 espías
-contenido.innerHTML += "<h2>ESPÍAS:</h2>";
+//Creating 10 spies
+contentHtml.innerHTML += "<h2>ESPÍAS:</h2>";
 let jamesbond, mataHari, sidneyReilly, kimPhilby, johnAnthonyWalker, olegGordievski, aldrichAmes, karelKoecher, vitalyYurchenko, günterGuillaume;
 try {
-    jamesbond = new Espia("James Bond", "Reino Unido", 39, "desestabilizador");
-    contenido.innerHTML += jamesbond.toString() + "<br>";
-    mataHari = new Espia("Margaretha Geertruida", "KFA", 25, "infiltrado");
-    contenido.innerHTML += mataHari.toString() + "<br>";
-    sidneyReilly = new Espia("Sidney Reilly", "Reino Unido", 44, "ilegal");
-    + "<br>"; sidneyReilly.toString() + "<br>";
-    kimPhilby = new Espia("Kim Philby", "URSS", 39, "operativo");
-    contenido.innerHTML += kimPhilby.toString() + "<br>";
-    johnAnthonyWalker = new Espia("John Anthony Walker", "USA", 30, "provocador");
-    contenido.innerHTML += johnAnthonyWalker.toString() + "<br>";
-    olegGordievski = new Espia("Oleg Gordievski", "Reino Unido", 65, "infiltrado");
-    contenido.innerHTML += olegGordievski.toString() + "<br>";
-    aldrichAmes = new Espia("Aldrich Ames", "URSS", 42, "durmiente");
-    contenido.innerHTML += aldrichAmes.toString() + "<br>";
-    karelKoecher = new Espia("Karel Koecher", "URSS", 40, "diplomático");
-    contenido.innerHTML += karelKoecher.toString() + "<br>";
-    vitalyYurchenko = new Espia("Vitaly Yurchenko", "URSS", 29, "infiltrado");
-    contenido.innerHTML += vitalyYurchenko.toString() + "<br>";
-    günterGuillaume = new Espia("Günter Guillaume", "KDA", 26, "operativo");
-    contenido.innerHTML += günterGuillaume.toString() + "<br>";
-    //Hago que falle crear un espía con edad fuera de rango. Se muestra el mensaje de error en la consola.
-    new Espia("Günter Guillaume", "KDA", 6, "operativo");
-    //Hago que falle crear un espía con un nombre de longitud menor a 5. Se muestra el mensaje de error en la consola.
-    //Comentar la línea anterior para que se muestre el mensaje de error en la consola.
-    new Espia("Alan", "KDA", 18, "operativo");
+    jamesbond = new Spy("James Bond", "Reino Unido", 39, "desestabilizador");
+    contentHtml.innerHTML += jamesbond.toString() + "<br>";
+    mataHari = new Spy("Margaretha Geertruida", "KFA", 25, "infiltrado");
+    contentHtml.innerHTML += mataHari.toString() + "<br>";
+    sidneyReilly = new Spy("Sidney Reilly", "Reino Unido", 44, "ilegal");
+    contentHtml.innerHTML += sidneyReilly.toString() + "<br>";
+    kimPhilby = new Spy("Kim Philby", "URSS", 39, "operativo");
+    contentHtml.innerHTML += kimPhilby.toString() + "<br>";
+    johnAnthonyWalker = new Spy("John Anthony Walker", "USA", 30, "provocador");
+    contentHtml.innerHTML += johnAnthonyWalker.toString() + "<br>";
+    olegGordievski = new Spy("Oleg Gordievski", "Reino Unido", 65, "infiltrado");
+    contentHtml.innerHTML += olegGordievski.toString() + "<br>";
+    aldrichAmes = new Spy("Aldrich Ames", "URSS", 42, "durmiente");
+    contentHtml.innerHTML += aldrichAmes.toString() + "<br>";
+    karelKoecher = new Spy("Karel Koecher", "URSS", 40, "diplomático");
+    contentHtml.innerHTML += karelKoecher.toString() + "<br>";
+    vitalyYurchenko = new Spy("Vitaly Yurchenko", "URSS", 29, "infiltrado");
+    contentHtml.innerHTML += vitalyYurchenko.toString() + "<br>";
+    günterGuillaume = new Spy("Günter Guillaume", "KDA", 26, "operativo");
+    contentHtml.innerHTML += günterGuillaume.toString() + "<br>";
+    //Make it fail creating a spy with a age out of range. The error message is shown in the console.
+    new Spy("Günter Guillaume", "KDA", 6, "operativo");
+    //Make it fail creating a spy with a name length out of range. The error message is shown in the console.
+    //Comment the previous line to show the error message in the console.
+    new Spy("Alan", "KDA", 18, "operativo");
+    //Make it fail creating a spy with a type not valid. The error message is shown in the console.
+    //Comment the previous line to show the error message in the console.
+    new Spy("Alan", "KDA", 18, "tipoNoValido");
 } catch (error) {
     console.error(error.message);
 }
 
-//2 agencias
-contenido.innerHTML += "<h2>AGENCIAS:</h2>";
-let cia;
-let kgb;
+//Creating 2 agencies
+contentHtml.innerHTML += "<h2>AGENCIAS:</h2>";
+let cia, kgb;
 try {
-    cia = new Agencia("CIA", "USA");
-    kgb = new Agencia("KGB", "URSS");
-    //Hago que falle al crear una agencia de un país no válido.
-    //Se muestra el mensaje de error en la consola.
-    new Agencia("CNI", "España");
+    cia = new Agency("CIA", "USA");
+    kgb = new Agency("KGB", "URSS");
+    //Make it fail creating an agency with a country not valid. The error message is shown in the console.
+    new Agency("CNI", "España");
 } catch (error) {
     console.error(error.message);
 }
 
-//Reclutar agentes
-contenido.innerHTML += "<strong>Reclutando agentes...</strong><br>";
-cia.toRecruitAgent(jamesbond); //Agente Doble
+//To recruit spies
+contentHtml.innerHTML += "<strong>Reclutando agentes...</strong><br>";
+cia.toRecruitAgent(jamesbond); //Mole or Double Agent
 cia.toRecruitAgent(mataHari);
 cia.toRecruitAgent(sidneyReilly);
 kgb.toRecruitAgent(kimPhilby);
@@ -82,50 +83,52 @@ kgb.toRecruitAgent(aldrichAmes);
 kgb.toRecruitAgent(karelKoecher);
 kgb.toRecruitAgent(vitalyYurchenko);
 kgb.toRecruitAgent(günterGuillaume);
-kgb.toRecruitAgent(jamesbond); //Agente Doble
+kgb.toRecruitAgent(jamesbond); //Mole or Double Agent
 kgb.toRecruitAgent(mataHari);
 
-//Mostrar información de las agencias
-contenido.innerHTML += cia.toString() + "<br>";
-contenido.innerHTML += kgb.toString() + "<br>";
-contenido.innerHTML += "<strong>CIA: Intentando reclutar a James Bond por segunda vez...</strong><br>";
-cia.toRecruitAgent(jamesbond) ? contenido.innerHTML += "El agente James Bond ha sido reclutado.<br>" : contenido.innerHTML += "El agente James Bond ya está reclutado.<br>";
+//To show info about agencies
+contentHtml.innerHTML += cia.toString() + "<br>";
+contentHtml.innerHTML += kgb.toString() + "<br>";
+contentHtml.innerHTML += "<strong>CIA: Intentando reclutar a James Bond por segunda vez...</strong><br>";
+cia.toRecruitAgent(jamesbond) ? contentHtml.innerHTML += "El agente James Bond ha sido reclutado.<br>" : contentHtml.innerHTML += "El agente James Bond ya está reclutado.<br>";
 
 
-//Cesar agentes
-contenido.innerHTML += "<br><strong>Cesando agentes...</strong><br>";
-contenido.innerHTML += "Cesando a Juan: ";
-cia.toFireAgent("Juan") ? contenido.innerHTML += "El agente Juan ha sido cesado.<br>" : contenido.innerHTML += "No existe ningún agente con ese nombre.<br>";
-contenido.innerHTML += "Cesando a Margaretha Geertruida: ";
-cia.toFireAgent("Margaretha Geertruida") ? contenido.innerHTML += "El agente Margaretha Geertruida ha sido cesado.<br>" : contenido.innerHTML += "No existe ningún agente con ese nombre.<br>";
-contenido.innerHTML += "Cesando a Vitaly Yurchenko: ";
-kgb.toFireAgent("Vitaly Yurchenko") ? contenido.innerHTML += "El agente Vitaly Yurchenko ha sido cesado.<br>" : contenido.innerHTML += "No existe ningún agente con ese nombre.<br>";
-contenido.innerHTML += cia.toString() + "<br>";
-contenido.innerHTML += kgb.toString() + "<br>";
+//To fire spies
+contentHtml.innerHTML += "<br><strong>Cesando agentes...</strong><br>";
+contentHtml.innerHTML += "Cesando a Juan: ";
+cia.toFireAgent("Juan") ? contentHtml.innerHTML += "El agente Juan ha sido cesado.<br>" : contentHtml.innerHTML += "No existe ningún agente con ese nombre.<br>";
+contentHtml.innerHTML += "Cesando a Margaretha Geertruida: ";
+cia.toFireAgent("Margaretha Geertruida") ? contentHtml.innerHTML += "El agente Margaretha Geertruida ha sido cesado.<br>" : contentHtml.innerHTML += "No existe ningún agente con ese nombre.<br>";
+contentHtml.innerHTML += "Cesando a Vitaly Yurchenko: ";
+kgb.toFireAgent("Vitaly Yurchenko") ? contentHtml.innerHTML += "El agente Vitaly Yurchenko ha sido cesado.<br>" : contentHtml.innerHTML += "No existe ningún agente con ese nombre.<br>";
+contentHtml.innerHTML += cia.toString() + "<br>";
+contentHtml.innerHTML += kgb.toString() + "<br>";
 
-contenido.innerHTML += "<h2>Listar Agentes de tipo:</h2>";
-contenido.innerHTML += "<h3 id=\"colorSecundario\">Operativo</h3>";
-contenido.innerHTML += "<h3>Cia</h3>";
-contenido.innerHTML += cia.toListAgents("operativo");
-contenido.innerHTML += "<h3>Kgb</h3>";
-contenido.innerHTML += kgb.toListAgents("operativo");
+//To list agents of every agency
+contentHtml.innerHTML += "<h2>Listar Agentes de tipo:</h2>";
+contentHtml.innerHTML += "<h3 id=\"colorSecundario\">Operativo</h3>";
+contentHtml.innerHTML += "<h3>Cia</h3>";
+contentHtml.innerHTML += cia.toListAgents("operativo");
+contentHtml.innerHTML += "<h3>Kgb</h3>";
+contentHtml.innerHTML += kgb.toListAgents("operativo");
 
-contenido.innerHTML += "<h2>Ordenar Agentes:</h2>";
-contenido.innerHTML += "<h3 id=\"colorSecundario\">Por nombre:</h3>";
-contenido.innerHTML += "<h3>Cia</h3>";
-contenido.innerHTML += cia.toOrderedAgentList("nombre");
-contenido.innerHTML += "<h3>Kgb</h3>";
-contenido.innerHTML += kgb.toOrderedAgentList("nombre");
-contenido.innerHTML += "<h3 id=\"colorSecundario\">Por edad:</h3>";
-contenido.innerHTML += "<h3>Cia</h3>";
-contenido.innerHTML += cia.toOrderedAgentList("edad");
-contenido.innerHTML += "<h3>Kgb</h3>";
-contenido.innerHTML += kgb.toOrderedAgentList("edad");
+//To list ordered agents
+contentHtml.innerHTML += "<h2>Ordenar Agentes:</h2>";
+contentHtml.innerHTML += "<h3 id=\"colorSecundario\">Por nombre:</h3>";
+contentHtml.innerHTML += "<h3>Cia</h3>";
+contentHtml.innerHTML += cia.toOrderedAgentList("nombre");
+contentHtml.innerHTML += "<h3>Kgb</h3>";
+contentHtml.innerHTML += kgb.toOrderedAgentList("nombre");
+contentHtml.innerHTML += "<h3 id=\"colorSecundario\">Por edad:</h3>";
+contentHtml.innerHTML += "<h3>Cia</h3>";
+contentHtml.innerHTML += cia.toOrderedAgentList("edad");
+contentHtml.innerHTML += "<h3>Kgb</h3>";
+contentHtml.innerHTML += kgb.toOrderedAgentList("edad");
 
-//Ordenar por parametro no válido. Se muestra el mensaje de warning en la consola.
-contenido.innerHTML += kgb.toOrderedAgentList("altura");
+//Ordering by a not valid parameter. The error message is shown in the console.
+contentHtml.innerHTML += kgb.toOrderedAgentList("altura");
 
-//buscaTopos()
+//Looking for moles or double agents
 function searchMole(agency1, agency2, agentName) {
     const isInAgency1 = agency1._agents.some(agent => agent.name === agentName);
     const isInAgency2 = agency2._agents.some(agent => agent.name === agentName);
@@ -133,8 +136,8 @@ function searchMole(agency1, agency2, agentName) {
     return isInAgency1 && isInAgency2;
 }
 
-//Mostrar listado de agentes dobles
-contenido.innerHTML += "<h2>Agentes Dobles:</h2>";
+//To show agents who are moles or double agents
+contentHtml.innerHTML += "<h2>Agentes Dobles:</h2>";
 let gotMoles = false;
 let moleList = "";
 for (let agent of cia._agents) {
@@ -143,9 +146,10 @@ for (let agent of cia._agents) {
         moleList += `El agente ${agent.name} es un agente doble.<br>`;
     }
 }
+//If there are no moles or double agents
 if (!gotMoles) {
     moleList = "No hay agentes dobles.";
 }
 
-contenido.innerHTML += moleList;
+contentHtml.innerHTML += moleList;
 
