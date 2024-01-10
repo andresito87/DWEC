@@ -38,9 +38,9 @@ export default class Agency {
     }
 
     get _agents() {
-        // protection for the array sending a copy
-        let mutableAgents = [...this.#_agents];
-        return mutableAgents;
+        //To protect the array sending a copy
+        let copyAgents = [...this.#_agents];
+        return copyAgents;
     }
 
     toRecruitAgent(wantedAgent) {
@@ -129,10 +129,11 @@ export default class Agency {
 
     #_giveFormatToInfo() {
         const agencyTitleTable = `<tr><td id="titleTable" colspan="4" style="text-align: center;">Agencia: ${this.name} - País: ${this.country}</td></tr>`;
-        const header = "<tr><th>Nombre</th><th>País</th><th>Edad</th><th>Tipo</th></tr>";
+        //const header = "<tr><th>Nombre</th><th>País</th><th>Edad</th><th>Tipo</th></tr>";
 
         let result = "<table border='1'>";
-        result += agencyTitleTable + header;
+        result += agencyTitleTable;
+        //result += header;
         // Ordering by country
         let orderedList = [...this.#_agents];
         orderedList.sort((a, b) => {
@@ -147,7 +148,8 @@ export default class Agency {
         });
         // Adding agents to the table
         orderedList.forEach((agent) => {
-            result += `<tr><td>${agent.name}</td><td>${agent.country}</td><td>${agent.age}</td><td>${agent.type}</td></tr>`;
+            //result += `<tr><td>${agent.name}</td><td>${agent.country}</td><td>${agent.age}</td><td>${agent.type}</td></tr>`;
+            result += `<tr><td>${agent.toString()}</td></tr>`;
         });
         result += "</table>";
 

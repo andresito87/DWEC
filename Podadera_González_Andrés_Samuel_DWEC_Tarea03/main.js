@@ -16,8 +16,7 @@ try {
     contentHtml.innerHTML += citizen3.toString() + "<br>";
     let citizen4 = new Citizen("Alexander", "RFA", 21);
     contentHtml.innerHTML += citizen4.toString() + "<br>";
-    //Hago que falle crear un ciudadano con edad fuera de rango.
-    //Se muestra el mensaje de error en la consola.
+    //Make it fail creating a citizen with a age out of range. The error message is shown in the console.
     new Citizen("Alexander", "RFA", -21);
 } catch (error) {
     console.error(error.message);
@@ -54,7 +53,7 @@ try {
     new Spy("Alan", "KDA", 18, "operativo");
     //Make it fail creating a spy with a type not valid. The error message is shown in the console.
     //Comment the previous line to show the error message in the console.
-    new Spy("Alan", "KDA", 18, "tipoNoValido");
+    new Spy("John Deere", "KDA", 18, "tipoNoValido");
 } catch (error) {
     console.error(error.message);
 }
@@ -125,8 +124,8 @@ contentHtml.innerHTML += cia.toOrderedAgentList("edad");
 contentHtml.innerHTML += "<h3>Kgb</h3>";
 contentHtml.innerHTML += kgb.toOrderedAgentList("edad");
 
-//Ordering by a not valid parameter. The error message is shown in the console.
-contentHtml.innerHTML += kgb.toOrderedAgentList("altura");
+//Ordering by a not valid parameter. The warning message is shown in the console.
+kgb.toOrderedAgentList("altura");
 
 //Looking for moles or double agents
 function searchMole(agency1, agency2, agentName) {

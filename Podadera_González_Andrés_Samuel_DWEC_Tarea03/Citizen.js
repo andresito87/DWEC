@@ -73,7 +73,8 @@ export default class Citizen {
     }
 
     toString() {
-        return `Ciudadano: ${this.name} procedente de ${this.country}, tiene ${this.age} años`;
+        //return `${this.name} procedente de ${this.country}, tiene ${this.age} años`;
+        return `Nombre: ${this.name} | País: ${this.country} | Edad: ${this.age} años`;
     }
 }
 

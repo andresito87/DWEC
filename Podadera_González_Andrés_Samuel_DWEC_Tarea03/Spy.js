@@ -89,6 +89,7 @@ export default class Spy extends Citizen {
     }
 
     toString() {
-        return super.toString() + " y es un espía de tipo " + this.#type + ".";
+        return super.toString() + " | Tipo: " + this.#type;
+        //return super.toString() + " y es un espía de tipo " + this.#type + ".";
     }
 }
