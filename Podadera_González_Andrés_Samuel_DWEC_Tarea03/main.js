@@ -2,6 +2,8 @@ import Citizen from './Citizen.js';
 import Spy from './Spy.js';
 import Agency from './Agency.js';
 
+//TODO: VALIDAR QUE EL NOMBRE DE LA AGENCIA SEA UN STRING, ETC.
+
 //Find the element with id="contenido"
 let contentHtml = document.getElementById("contenido");
 
@@ -47,10 +49,10 @@ try {
     günterGuillaume = new Spy("Günter Guillaume", "KDA", 26, "operativo");
     contentHtml.innerHTML += günterGuillaume.toString() + "<br>";
     //Make it fail creating a spy with a age out of range. The error message is shown in the console.
-    new Spy("Günter Guillaume", "KDA", 6, "operativo");
+    new Spy("Alan", "KDA", 18, "operativo");
     //Make it fail creating a spy with a name length out of range. The error message is shown in the console.
     //Comment the previous line to show the error message in the console.
-    new Spy("Alan", "KDA", 18, "operativo");
+    new Spy("Günter Guillaume", "KDA", 6, "operativo");
     //Make it fail creating a spy with a type not valid. The error message is shown in the console.
     //Comment the previous line to show the error message in the console.
     new Spy("John Deere", "KDA", 18, "tipoNoValido");
@@ -73,8 +75,8 @@ try {
 //To recruit spies
 contentHtml.innerHTML += "<strong>Reclutando agentes...</strong><br>";
 cia.toRecruitAgent(jamesbond); //Mole or Double Agent
-cia.toRecruitAgent(mataHari);
 cia.toRecruitAgent(sidneyReilly);
+cia.toRecruitAgent(mataHari);
 kgb.toRecruitAgent(kimPhilby);
 cia.toRecruitAgent(johnAnthonyWalker);
 cia.toRecruitAgent(olegGordievski);

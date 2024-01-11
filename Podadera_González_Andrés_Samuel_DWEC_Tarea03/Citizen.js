@@ -1,6 +1,6 @@
 export default class Citizen {
     //Static Properties
-    static #MIN_LENGTH_NAME = 5;
+    static #MIN_NAME_LENGTH = 5;
     static #MAX_AGE = 125;
     static #MIN_AGE = 1;
 
@@ -20,8 +20,8 @@ export default class Citizen {
     }
 
     set name(name) {
-        if (name.length < Citizen.#MIN_LENGTH_NAME) {
-            throw new Error("Longitud de nombre inferior a 5 caracteres");
+        if (name.length < Citizen.#MIN_NAME_LENGTH) {
+            throw new Error("Longitud de nombre inferior a 5 caracteres.");
         }
         this.#name = name;
     }
@@ -66,7 +66,7 @@ export default class Citizen {
     }
 
     set age(age) {
-        if (age < Citizen.#MIN_AGE || Citizen.#MAX_AGE < age) {
+        if (!Number.isInteger(age) || age < Citizen.#MIN_AGE || Citizen.#MAX_AGE < age) {
             throw new Error("Edad fuera del rango permitido.");
         }
         this.#age = age;

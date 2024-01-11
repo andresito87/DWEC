@@ -50,7 +50,7 @@ export default class Spy extends Citizen {
     }
 
     set age(age) {
-        if (age < Spy.#MIN_AGE || Spy.#MAX_AGE < age) {
+        if (!Number.isInteger(age) || age < Spy.#MIN_AGE || Spy.#MAX_AGE < age) {
             throw new Error("Edad fuera del rango permitido.");
         }
         super.age = age;
@@ -90,6 +90,5 @@ export default class Spy extends Citizen {
 
     toString() {
         return super.toString() + " | Tipo: " + this.#type;
-        //return super.toString() + " y es un espía de tipo " + this.#type + ".";
     }
 }

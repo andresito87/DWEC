@@ -33,7 +33,7 @@ export default class Agency {
                 this.#country = country;
                 break;
             default:
-                throw new Error("Nombre de agencia no válido.");
+                throw new Error("Nombre de agencia no válido");
         }
     }
 
@@ -128,6 +128,12 @@ export default class Agency {
     }
 
     #_giveFormatToInfo() {
+        const agencyTitleTable = `<tr><td id="titleTable" colspan="4" style="text-align: center;">Agencia: ${this.name} - País: ${this.country}</td></tr>`;
+        //const header = "<tr><th>Nombre</th><th>País</th><th>Edad</th><th>Tipo</th></tr>";
+
+        let result = "<table border='1'>";
+        result += agencyTitleTable;
+        //result += header;
         // Ordering by country
         let orderedList = [...this.#_agents];
         orderedList.sort((a, b) => {
@@ -140,33 +146,18 @@ export default class Agency {
                 return 0;
             }
         });
-
-        // Adding agents(rows) to the table
-        let contentTable = "";
-        orderedList.forEach(element => {
-            // Splitting the string to get the info of the agent
-            contentTable += element.toString().split(" | ")
-                .reduce((acc, curr) => acc + "<td>" + curr
-                    .replace(/Nombre: |País: |Edad: |Tipo: /g, "") + "</td>", "<tr>") + "</tr>";
+        // Adding agents to the table
+        orderedList.forEach((agent) => {
+            //result += `<tr><td>${agent.name}</td><td>${agent.country}</td><td>${agent.age}</td><td>${agent.type}</td></tr>`;
+            result += `<tr><td>${agent.toString()}</td></tr>`;
         });
+        result += "</table>";
 
-        return contentTable;
+        return result;
     }
 
     toString() {
-        const agencyTitleTable = `<tr><td id="titleTable" colspan="4" style="text-align: center;">Agencia: ${this.name} - País: ${this.country}</td></tr>`;
-        const header = "<tr><th>Nombre</th><th>País</th><th>Edad</th><th>Tipo</th></tr>";
-        let result = "<table border='1'>";
-
-        //adding the title and the header
-        result += agencyTitleTable;
-        result += header;
-
-        //adding the content of the table
-        result += this.#_giveFormatToInfo();
-
-        result += "</table>";
-        return result;
+        return this.#_giveFormatToInfo();
     }
 
 }
