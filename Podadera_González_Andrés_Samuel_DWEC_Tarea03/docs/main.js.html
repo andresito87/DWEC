@@ -1,4 +1,32 @@
-//Important: Documentation of the project is available in "docs/index.html" and it is generated with JSDoc.
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: main.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: main.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>//Important: Documentation of the project is available in "docs/index.html" and it is generated with JSDoc.
 import Citizen from './Citizen.js';
 import Spy from './Spy.js';
 import Agency from './Agency.js';
@@ -7,16 +35,16 @@ import Agency from './Agency.js';
 let contentHtml = document.getElementById("contenido");
 
 //Creating 4 citizens
-contentHtml.innerHTML = "<h2>CIUDADANOS:</h2>";
+contentHtml.innerHTML = "&lt;h2>CIUDADANOS:&lt;/h2>";
 try {
     let citizen1 = new Citizen("Roger", "USA", 34);
-    contentHtml.innerHTML += citizen1.toString() + "<br>";
+    contentHtml.innerHTML += citizen1.toString() + "&lt;br>";
     let citizen2 = new Citizen("Benard", "Francia", 55);
-    contentHtml.innerHTML += citizen2.toString() + "<br>";
+    contentHtml.innerHTML += citizen2.toString() + "&lt;br>";
     let citizen3 = new Citizen("Sigmund", "Suiza", 64);
-    contentHtml.innerHTML += citizen3.toString() + "<br>";
+    contentHtml.innerHTML += citizen3.toString() + "&lt;br>";
     let citizen4 = new Citizen("Alexander", "RFA", 21);
-    contentHtml.innerHTML += citizen4.toString() + "<br>";
+    contentHtml.innerHTML += citizen4.toString() + "&lt;br>";
 
     //Make it fail creating a citizen with a age out of range. The error message is shown in the console.
     new Citizen("Alexander", "RFA", -21);
@@ -34,29 +62,29 @@ try {
 }
 
 //Creating 10 spies
-contentHtml.innerHTML += "<h2>ESPÍAS:</h2>";
+contentHtml.innerHTML += "&lt;h2>ESPÍAS:&lt;/h2>";
 let jamesbond, mataHari, sidneyReilly, kimPhilby, johnAnthonyWalker, olegGordievski, aldrichAmes, karelKoecher, vitalyYurchenko, günterGuillaume;
 try {
     jamesbond = new Spy("James Bond", "Reino Unido", 39, "desestabilizador");
-    contentHtml.innerHTML += jamesbond.toString() + "<br>";
+    contentHtml.innerHTML += jamesbond.toString() + "&lt;br>";
     mataHari = new Spy("Margaretha Geertruida", "KFA", 25, "infiltrado");
-    contentHtml.innerHTML += mataHari.toString() + "<br>";
+    contentHtml.innerHTML += mataHari.toString() + "&lt;br>";
     sidneyReilly = new Spy("Sidney Reilly", "Reino Unido", 44, "ilegal");
-    contentHtml.innerHTML += sidneyReilly.toString() + "<br>";
+    contentHtml.innerHTML += sidneyReilly.toString() + "&lt;br>";
     kimPhilby = new Spy("Kim Philby", "URSS", 39, "operativo");
-    contentHtml.innerHTML += kimPhilby.toString() + "<br>";
+    contentHtml.innerHTML += kimPhilby.toString() + "&lt;br>";
     johnAnthonyWalker = new Spy("John Anthony Walker", "USA", 30, "provocador");
-    contentHtml.innerHTML += johnAnthonyWalker.toString() + "<br>";
+    contentHtml.innerHTML += johnAnthonyWalker.toString() + "&lt;br>";
     olegGordievski = new Spy("Oleg Gordievski", "Reino Unido", 65, "infiltrado");
-    contentHtml.innerHTML += olegGordievski.toString() + "<br>";
+    contentHtml.innerHTML += olegGordievski.toString() + "&lt;br>";
     aldrichAmes = new Spy("Aldrich Ames", "URSS", 42, "durmiente");
-    contentHtml.innerHTML += aldrichAmes.toString() + "<br>";
+    contentHtml.innerHTML += aldrichAmes.toString() + "&lt;br>";
     karelKoecher = new Spy("Karel Koecher", "URSS", 40, "diplomático");
-    contentHtml.innerHTML += karelKoecher.toString() + "<br>";
+    contentHtml.innerHTML += karelKoecher.toString() + "&lt;br>";
     vitalyYurchenko = new Spy("Vitaly Yurchenko", "URSS", 29, "infiltrado");
-    contentHtml.innerHTML += vitalyYurchenko.toString() + "<br>";
+    contentHtml.innerHTML += vitalyYurchenko.toString() + "&lt;br>";
     günterGuillaume = new Spy("Günter Guillaume", "KDA", 26, "operativo");
-    contentHtml.innerHTML += günterGuillaume.toString() + "<br>";
+    contentHtml.innerHTML += günterGuillaume.toString() + "&lt;br>";
     //Make it fail creating a spy with a age out of range. The error message is shown in the console.
     new Spy("Alan", "KDA", 18, "operativo");
     //Make it fail creating a spy with a name length out of range. The error message is shown in the console.
@@ -70,7 +98,7 @@ try {
 }
 
 //Creating 2 agencies
-contentHtml.innerHTML += "<h2>AGENCIAS:</h2>";
+contentHtml.innerHTML += "&lt;h2>AGENCIAS:&lt;/h2>";
 let cia, kgb;
 try {
     cia = new Agency("CIA", "USA");
@@ -82,7 +110,7 @@ try {
 }
 
 //To recruit spies
-contentHtml.innerHTML += "<strong>Reclutando agentes...</strong><br>";
+contentHtml.innerHTML += "&lt;strong>Reclutando agentes...&lt;/strong>&lt;br>";
 cia.toRecruitAgent(jamesbond); //Mole or Double Agent
 cia.toRecruitAgent(sidneyReilly);
 cia.toRecruitAgent(mataHari);
@@ -97,41 +125,41 @@ kgb.toRecruitAgent(jamesbond); //Mole or Double Agent
 kgb.toRecruitAgent(mataHari);
 
 //To show info about agencies
-contentHtml.innerHTML += cia.toString() + "<br>";
-contentHtml.innerHTML += kgb.toString() + "<br>";
-contentHtml.innerHTML += "<strong>CIA: Intentando reclutar a James Bond por segunda vez...</strong><br>";
-cia.toRecruitAgent(jamesbond) ? contentHtml.innerHTML += "El agente James Bond ha sido reclutado.<br>" : contentHtml.innerHTML += "El agente James Bond ya está reclutado.<br>";
+contentHtml.innerHTML += cia.toString() + "&lt;br>";
+contentHtml.innerHTML += kgb.toString() + "&lt;br>";
+contentHtml.innerHTML += "&lt;strong>CIA: Intentando reclutar a James Bond por segunda vez...&lt;/strong>&lt;br>";
+cia.toRecruitAgent(jamesbond) ? contentHtml.innerHTML += "El agente James Bond ha sido reclutado.&lt;br>" : contentHtml.innerHTML += "El agente James Bond ya está reclutado.&lt;br>";
 
 //To fire spies
-contentHtml.innerHTML += "<br><strong>Cesando agentes...</strong><br>";
+contentHtml.innerHTML += "&lt;br>&lt;strong>Cesando agentes...&lt;/strong>&lt;br>";
 contentHtml.innerHTML += "Cesando a Juan: ";
-cia.toFireAgent("Juan") ? contentHtml.innerHTML += "El agente Juan ha sido cesado.<br>" : contentHtml.innerHTML += "No existe ningún agente con ese nombre.<br>";
+cia.toFireAgent("Juan") ? contentHtml.innerHTML += "El agente Juan ha sido cesado.&lt;br>" : contentHtml.innerHTML += "No existe ningún agente con ese nombre.&lt;br>";
 contentHtml.innerHTML += "Cesando a Margaretha Geertruida: ";
-cia.toFireAgent("Margaretha Geertruida") ? contentHtml.innerHTML += "El agente Margaretha Geertruida ha sido cesado.<br>" : contentHtml.innerHTML += "No existe ningún agente con ese nombre.<br>";
+cia.toFireAgent("Margaretha Geertruida") ? contentHtml.innerHTML += "El agente Margaretha Geertruida ha sido cesado.&lt;br>" : contentHtml.innerHTML += "No existe ningún agente con ese nombre.&lt;br>";
 contentHtml.innerHTML += "Cesando a Vitaly Yurchenko: ";
-kgb.toFireAgent("Vitaly Yurchenko") ? contentHtml.innerHTML += "El agente Vitaly Yurchenko ha sido cesado.<br>" : contentHtml.innerHTML += "No existe ningún agente con ese nombre.<br>";
-contentHtml.innerHTML += cia.toString() + "<br>";
-contentHtml.innerHTML += kgb.toString() + "<br>";
+kgb.toFireAgent("Vitaly Yurchenko") ? contentHtml.innerHTML += "El agente Vitaly Yurchenko ha sido cesado.&lt;br>" : contentHtml.innerHTML += "No existe ningún agente con ese nombre.&lt;br>";
+contentHtml.innerHTML += cia.toString() + "&lt;br>";
+contentHtml.innerHTML += kgb.toString() + "&lt;br>";
 
 //To list agents of every agency
-contentHtml.innerHTML += "<h2>Listar Agentes de tipo:</h2>";
-contentHtml.innerHTML += "<h3 id=\"colorSecundario\">Operativo</h3>";
-contentHtml.innerHTML += "<h3>Cia</h3>";
+contentHtml.innerHTML += "&lt;h2>Listar Agentes de tipo:&lt;/h2>";
+contentHtml.innerHTML += "&lt;h3 id=\"colorSecundario\">Operativo&lt;/h3>";
+contentHtml.innerHTML += "&lt;h3>Cia&lt;/h3>";
 contentHtml.innerHTML += cia.toListAgents("operativo");
-contentHtml.innerHTML += "<h3>Kgb</h3>";
+contentHtml.innerHTML += "&lt;h3>Kgb&lt;/h3>";
 contentHtml.innerHTML += kgb.toListAgents("operativo");
 
 //To list ordered agents
-contentHtml.innerHTML += "<h2>Ordenar Agentes:</h2>";
-contentHtml.innerHTML += "<h3 id=\"colorSecundario\">Por nombre:</h3>";
-contentHtml.innerHTML += "<h3>Cia</h3>";
+contentHtml.innerHTML += "&lt;h2>Ordenar Agentes:&lt;/h2>";
+contentHtml.innerHTML += "&lt;h3 id=\"colorSecundario\">Por nombre:&lt;/h3>";
+contentHtml.innerHTML += "&lt;h3>Cia&lt;/h3>";
 contentHtml.innerHTML += cia.toOrderedAgentList("nombre");
-contentHtml.innerHTML += "<h3>Kgb</h3>";
+contentHtml.innerHTML += "&lt;h3>Kgb&lt;/h3>";
 contentHtml.innerHTML += kgb.toOrderedAgentList("nombre");
-contentHtml.innerHTML += "<h3 id=\"colorSecundario\">Por edad:</h3>";
-contentHtml.innerHTML += "<h3>Cia</h3>";
+contentHtml.innerHTML += "&lt;h3 id=\"colorSecundario\">Por edad:&lt;/h3>";
+contentHtml.innerHTML += "&lt;h3>Cia&lt;/h3>";
 contentHtml.innerHTML += cia.toOrderedAgentList("edad");
-contentHtml.innerHTML += "<h3>Kgb</h3>";
+contentHtml.innerHTML += "&lt;h3>Kgb&lt;/h3>";
 contentHtml.innerHTML += kgb.toOrderedAgentList("edad");
 
 //Ordering by a not valid parameter. The warning message is shown in the console.
@@ -149,17 +177,17 @@ function searchMole(agency1, agency2, agentName) {
     let isInAgency1 = agency1.agents.some(agent => agent.name === agentName);
     let isInAgency2 = agency2.agents.some(agent => agent.name === agentName);
 
-    return isInAgency1 && isInAgency2;
+    return isInAgency1 &amp;&amp; isInAgency2;
 }
 
 //To show agents who are moles or double agents
-contentHtml.innerHTML += "<h2>Agentes Dobles:</h2>";
+contentHtml.innerHTML += "&lt;h2>Agentes Dobles:&lt;/h2>";
 let gotMoles = false;
 let moleList = "";
 for (let agent of cia.agents) {
     if (searchMole(cia, kgb, agent.name)) {
         gotMoles = true;
-        moleList += `El agente ${agent.name} es un agente doble.<br>`;
+        moleList += `El agente ${agent.name} es un agente doble.&lt;br>`;
     }
 }
 //If there are no moles or double agents
@@ -169,3 +197,26 @@ if (!gotMoles) {
 
 contentHtml.innerHTML += moleList;
 
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Agency.html">Agency</a></li><li><a href="Citizen.html">Citizen</a></li><li><a href="Spy.html">Spy</a></li></ul><h3>Global</h3><ul><li><a href="global.html#searchMole">searchMole</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Fri Jan 12 2024 21:54:04 GMT+0100 (hora estándar de Europa central)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

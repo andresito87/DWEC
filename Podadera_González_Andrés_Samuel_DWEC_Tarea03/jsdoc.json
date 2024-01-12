@@ -1,0 +1,12 @@
+{
+  "source": {
+    "include": ["Agency.js", "Citizen.js", "Spy.js", "main.js"],
+    "exclude": ["node_modules", "test", "docs", "coverage"],
+    "includePattern": ".+\\.js(doc|x)?$",
+    "excludePattern": "(^|\\/|\\\\)_"
+  },
+  "plugins": ["plugins/markdown"],
+  "opts": {
+    "destination": "docs/"
+  }
+}

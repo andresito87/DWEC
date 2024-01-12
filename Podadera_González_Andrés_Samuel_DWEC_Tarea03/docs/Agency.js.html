@@ -1,4 +1,32 @@
-import Spy from './Spy.js';
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Agency.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Agency.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import Spy from './Spy.js';
 
 /**
  * Class that represents an agency.
@@ -119,7 +147,7 @@ class Agency {
         if (!agentFound) {
             finalSize = this.#_agents.push(wantedAgent);
         }
-        return initialSize < finalSize;
+        return initialSize &lt; finalSize;
     }
 
     /**
@@ -156,7 +184,7 @@ class Agency {
             result = `No hay agentes de tipo "${type}" en la ${this.name}.`;
         } else {
             for (let agent of agentsOfWantedType) {
-                result += agent.toString() + "<br>";
+                result += agent.toString() + "&lt;br>";
             }
         }
         return result;
@@ -175,7 +203,7 @@ class Agency {
         orderedList.sort((a, b) => {
             // By name
             if (orderingElement === "nombre") {
-                if (a.name < b.name) {
+                if (a.name &lt; b.name) {
                     return -1;
                 }
                 if (a.name > b.name) {
@@ -186,7 +214,7 @@ class Agency {
             }
             // By age
             if (orderingElement === "edad") {
-                if (a.age < b.age) {
+                if (a.age &lt; b.age) {
                     return -1;
                 }
                 if (a.age > b.age) {
@@ -197,13 +225,13 @@ class Agency {
             }
         });
 
-        if (orderingElement !== "nombre" && orderingElement !== "edad") {
+        if (orderingElement !== "nombre" &amp;&amp; orderingElement !== "edad") {
             console.warn(`No se realizado ningún ordenamiento. El elemento "${orderingElement}" no es válido.`);
         }
 
         let orderedListToString = "";
         for (let agent of orderedList) {
-            orderedListToString += agent.toString() + "<br>";
+            orderedListToString += agent.toString() + "&lt;br>";
         }
 
         return orderedListToString;
@@ -217,7 +245,7 @@ class Agency {
         // Ordering by country
         let orderedList = [...this.#_agents];
         orderedList.sort((a, b) => {
-            if (a.country < b.country) {
+            if (a.country &lt; b.country) {
                 return -1;
             }
             if (a.country > b.country) {
@@ -232,8 +260,8 @@ class Agency {
         orderedList.forEach(element => {
             // Splitting the string to get the info of the agent
             contentTable += element.toString().split(" | ")
-                .reduce((acc, curr) => acc + "<td>" + curr
-                    .replace(/Nombre: |País: |Edad: |Tipo: /g, "") + "</td>", "<tr>") + "</tr>";
+                .reduce((acc, curr) => acc + "&lt;td>" + curr
+                    .replace(/Nombre: |País: |Edad: |Tipo: /g, "") + "&lt;/td>", "&lt;tr>") + "&lt;/tr>";
         });
 
         return contentTable;
@@ -245,9 +273,9 @@ class Agency {
      * @info Info displayed in a table with standard format HTML5.
      */
     toString() {
-        const agencyTitleTable = `<tr><td id="titleTable" colspan="4" style="text-align: center;">Agencia: ${this.name} - País: ${this.country}</td></tr>`;
-        const header = "<tr><th>Nombre</th><th>País</th><th>Edad</th><th>Tipo</th></tr>";
-        let result = "<table border='1'>";
+        const agencyTitleTable = `&lt;tr>&lt;td id="titleTable" colspan="4" style="text-align: center;">Agencia: ${this.name} - País: ${this.country}&lt;/td>&lt;/tr>`;
+        const header = "&lt;tr>&lt;th>Nombre&lt;/th>&lt;th>País&lt;/th>&lt;th>Edad&lt;/th>&lt;th>Tipo&lt;/th>&lt;/tr>";
+        let result = "&lt;table border='1'>";
 
         //adding the title and the header
         result += agencyTitleTable;
@@ -256,10 +284,32 @@ class Agency {
         //adding the content of the table
         result += this.#_giveFormatToInfo();
 
-        result += "</table>";
+        result += "&lt;/table>";
         return result;
     }
 
 }
 
-export default Agency;
+export default Agency;</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Agency.html">Agency</a></li><li><a href="Citizen.html">Citizen</a></li><li><a href="Spy.html">Spy</a></li></ul><h3>Global</h3><ul><li><a href="global.html#searchMole">searchMole</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Fri Jan 12 2024 21:54:04 GMT+0100 (hora estándar de Europa central)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
