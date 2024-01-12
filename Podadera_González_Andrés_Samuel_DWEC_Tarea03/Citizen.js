@@ -1,13 +1,14 @@
 export default class Citizen {
+
     //Static Properties
-    static #MIN_NAME_LENGTH = 5;
-    static #MAX_AGE = 125;
-    static #MIN_AGE = 1;
+    static #_MIN_NAME_LENGTH = 5;
+    static #_MAX_AGE = 125;
+    static #_MIN_AGE = 1;
 
     //Private Properties
-    #name;
-    #country;
-    #age;
+    #_name;
+    #_country;
+    #_age;
 
     constructor(name, country, age) {
         this.name = name;
@@ -16,64 +17,70 @@ export default class Citizen {
     }
 
     get name() {
-        return this.#name;
+        return this.#_name;
     }
 
     set name(name) {
-        if (name.length < Citizen.#MIN_NAME_LENGTH) {
+        if (typeof name.trim() !== "string") {
+            throw new Error("Nombre no válido. Debe ser una cadena de caracteres.");
+        }
+        if (name.trim().length < Citizen.#_MIN_NAME_LENGTH) {
             throw new Error("Longitud de nombre inferior a 5 caracteres.");
         }
-        this.#name = name;
+        this.#_name = name.trim();
     }
 
     get country() {
-        return this.#country;
+        return this.#_country;
     }
 
     set country(country) {
-        //We can improve it using a enum of valid countries
-        switch (country) {
+        let validatedCountry = country.trim().toUpperCase();
+        //We can improve it using a enum of valid countries or a array of valid countries
+        switch (validatedCountry) {
             case "USA":
-                this.#country = "USA";
+                this.#_country = "USA";
                 break;
             case "URSS":
-                this.#country = "URSS";
+                this.#_country = "URSS";
                 break;
-            case "Reino Unido":
-                this.#country = "Reino Unido";
+            case "REINO UNIDO":
+                this.#_country = "Reino Unido";
                 break;
             case "RDA":
-                this.#country = "RDA";
+                this.#_country = "RDA";
                 break;
             case "RFA":
-                this.#country = "RFA";
+                this.#_country = "RFA";
                 break;
-            case "Francia":
-                this.#country = "Francia";
+            case "FRANCIA":
+                this.#_country = "Francia";
                 break;
-            case "Suiza":
-                this.#country = "Suiza";
+            case "SUIZA":
+                this.#_country = "Suiza";
                 break;
             default:
-                this.#country = "Suiza";
-            //exercise's statement doesn't say anything about throwing an error
-            //throw new Error("Nombre del país no aceptado, asignado Suiza como valor por defecto");
+                //Country value not valid, we assign a default value
+                console.warn("Nombre del país no aceptado, asignado Suiza como valor por defecto");
+                this.#_country = "Suiza";
         }
     }
 
     get age() {
-        return this.#age;
+        return this.#_age;
     }
 
     set age(age) {
-        if (!Number.isInteger(age) || age < Citizen.#MIN_AGE || Citizen.#MAX_AGE < age) {
+        if (typeof age !== "number" || !Number.isInteger(age)) {
+            throw new Error("Edad no válida. Debe ser un número entero.");
+        }
+        if (age < Citizen.#_MIN_AGE || Citizen.#_MAX_AGE < age) {
             throw new Error("Edad fuera del rango permitido.");
         }
-        this.#age = age;
+        this.#_age = age;
     }
 
     toString() {
-        //return `${this.name} procedente de ${this.country}, tiene ${this.age} años`;
         return `Nombre: ${this.name} | País: ${this.country} | Edad: ${this.age} años`;
     }
 }

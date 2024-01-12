@@ -1,44 +1,46 @@
 export default class Agency {
+
     //Private properties
-    #name;
-    #country;
-    #_agents = [];
+    #_name;
+    #_country;
+    #_agents;
 
     constructor(name, country) {
         this.name = name;
         this.country = country;
+        this.#_agents = [];
     }
 
     get nameAgency() {
-        return this.#name;
+        return this.#_name;
     }
 
     set nameAgency(name) {
-        this.#name = name;
+        this.#_name = name;
     }
 
     get country() {
-        return this.#country;
+        return this.#_country;
     }
 
     set country(country) {
         switch (country) {
             case "USA":
-                this.#country = country;
+                this.#_country = country;
                 break;
             case "Reino Unido":
-                this.#country = country;
+                this.#_country = country;
                 break;
             case "URSS":
-                this.#country = country;
+                this.#_country = country;
                 break;
             default:
                 throw new Error("Nombre de agencia no válido.");
         }
     }
 
-    get _agents() {
-        //To protect the array sending a copy
+    get agents() {
+        //To protect the array, sending a copy
         let copyAgents = [...this.#_agents];
         return copyAgents;
     }

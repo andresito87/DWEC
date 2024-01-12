@@ -2,9 +2,7 @@ import Citizen from './Citizen.js';
 import Spy from './Spy.js';
 import Agency from './Agency.js';
 
-//TODO: VALIDAR QUE EL NOMBRE DE LA AGENCIA SEA UN STRING, ETC.
-
-//Find the element with id="contenido"
+//Select the DOM element with id="contenido"
 let contentHtml = document.getElementById("contenido");
 
 //Creating 4 citizens
@@ -18,8 +16,18 @@ try {
     contentHtml.innerHTML += citizen3.toString() + "<br>";
     let citizen4 = new Citizen("Alexander", "RFA", 21);
     contentHtml.innerHTML += citizen4.toString() + "<br>";
+
     //Make it fail creating a citizen with a age out of range. The error message is shown in the console.
     new Citizen("Alexander", "RFA", -21);
+
+    //Make it fail creating a citizen with a age is not a number. The error message is shown in the console.
+    // new Citizen("Alexander", "RFA", "asad");
+
+    //Make it show a warning message in the console because the country is not valid
+    //new Citizen("Alexander", "España", 21);
+
+    //Introducing a name with spaces at the beginning and at the end
+    //console.log(new Citizen("         Jacob Sneider         ", "RFA", 21).name);
 } catch (error) {
     console.error(error.message);
 }
@@ -131,8 +139,8 @@ kgb.toOrderedAgentList("altura");
 
 //Looking for moles or double agents
 function searchMole(agency1, agency2, agentName) {
-    const isInAgency1 = agency1._agents.some(agent => agent.name === agentName);
-    const isInAgency2 = agency2._agents.some(agent => agent.name === agentName);
+    let isInAgency1 = agency1.agents.some(agent => agent.name === agentName);
+    let isInAgency2 = agency2.agents.some(agent => agent.name === agentName);
 
     return isInAgency1 && isInAgency2;
 }
@@ -141,7 +149,7 @@ function searchMole(agency1, agency2, agentName) {
 contentHtml.innerHTML += "<h2>Agentes Dobles:</h2>";
 let gotMoles = false;
 let moleList = "";
-for (let agent of cia._agents) {
+for (let agent of cia.agents) {
     if (searchMole(cia, kgb, agent.name)) {
         gotMoles = true;
         moleList += `El agente ${agent.name} es un agente doble.<br>`;
