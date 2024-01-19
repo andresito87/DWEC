@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicios Examen DWEC - Parte 1</title>
+</head>
+
+<body>
+
+    <p id="contenido">Este contenido va a ser modificado</p>
+
+    <script>
+
+        let contenidoHTML = document.getElementById("contenido");
+
+        contenidoHTML.innerHTML = "<h1>Ejercicio 1: MAP</h1>";
+        /*1) Ejercicios con MAP.
+        
+        a) Duplicar cada elemento en un array
+        
+        Por ejemplo con  const ARRAYNUMEROS = [1, 2, 3, 4, 5];*/
+
+        const ARRAY_NUMEROS = [1, 2, 3, 4, 5];
+        contenidoHTML.innerHTML += "A) Duplicar cada elemento en un array: " + ARRAY_NUMEROS.map(numero => numero * 2) + "<br>";
+
+        /*b)  Convertir cadenas de un a mayúsculas
+        Por ejemplo const MINUS = [ "hola,"adios","después" ];*/
+
+        const MINUS = ["hola", "adiós", "después"];
+        contenidoHTML.innerHTML += "B) Convertir cadenas de un array a mayúsculas: " + MINUS.map(palabra => palabra.toUpperCase()) + "<br>";
+
+        /*c) sobre el anterior cálcule las diferente longitudes.*/
+
+        const MINUS2 = ["hola", "adios", "después"];
+        contenidoHTML.innerHTML += "C) Calcular la longitud de las cadenas de un array: " + MINUS2.map(palabra => palabra.length);
+
+
+        /*--------------------------------------------*/
+
+        contenidoHTML.innerHTML += "<h1>Ejercicio 2: FILTER</h1>";
+        /*2) Ejercicios con FILTER.
+
+        a) de un array de números muestre los números impares.*/
+        const ARRAY_NUMEROS_EXTENDIDO = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+        contenidoHTML.innerHTML += "A) Mostrar los números impares de un array: " + ARRAY_NUMEROS_EXTENDIDO.filter(numero => numero % 2 !== 0) + "<br>";
+
+        /*b) cree una función que muestre,  de un array con cadenas,  las que contengan la letra que se le pase como argumento (no te olvides de comprobar que solo sea un a letra).*/
+
+        const ARRAY_PALABRAS = ["hola", "adios", "después", "pronto", "tarde", "nunca", "siempre"];
+        contenidoHTML.innerHTML += "B) Mostrar las palabras que contengan la letra que se le pase como argumento: <br>";
+        function comprobarIncluyeLetraEn(array, letra) {
+            let resultado = "";
+            if (!(letra >= "a" && letra <= "z" || letra >= "A" && letra <= "Z") || typeof letra !== "string" || letra.length !== 1) {
+                resultado = "No has introducido una letra.";
+            } else {
+                resultado = array.filter(palabra => palabra.split('').includes(letra));
+            }
+            return resultado.length === 0 ? `No hay palabras con la letra ${letra}.` : resultado;
+        }
+
+        contenidoHTML.innerHTML += "<strong>Letra u: </strong>" + comprobarIncluyeLetraEn(ARRAY_PALABRAS, "u") + "<br>";
+        contenidoHTML.innerHTML += "<strong>Letra a: </strong>" + comprobarIncluyeLetraEn(ARRAY_PALABRAS, "a") + "<br>";
+        contenidoHTML.innerHTML += "<strong>Letra c: </strong>" + comprobarIncluyeLetraEn(ARRAY_PALABRAS, "c") + "<br>";
+        contenidoHTML.innerHTML += "<strong>Letra y: </strong>" + comprobarIncluyeLetraEn(ARRAY_PALABRAS, "y") + "<br>";
+        contenidoHTML.innerHTML += "<strong>Letra 11: </strong>" + comprobarIncluyeLetraEn(ARRAY_PALABRAS, "11") + "<br>";
+
+        /*c)  Filtrar elementos de un array y modificarlos. Para ello vamos a usar un filter. Primero vamos a hacer que se seleccione los números pares y luego los vamos a dividir por dos.*/
+
+        const ARRAY_NUMEROS_EXTENDIDO_2 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+        contenidoHTML.innerHTML += "C) Mostrar los números pares de un array y dividirlos por dos: " + ARRAY_NUMEROS_EXTENDIDO_2.filter(numero => numero % 2 == 0).map(numero => numero / 2) + "<br>";
+
+        /*--------------------------------------------*/
+
+        contenidoHTML.innerHTML += "<h1>Ejercicio 3: REDUCE</h1>";
+        /*3) Con REDUCE
+
+        a) Sumar todos los elementos de un array numérico.*/
+        const ARRAY_NUMEROS_EXTENDIDO_3 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+        contenidoHTML.innerHTML += "A) Sumar todos los elementos de un array numérico: " + ARRAY_NUMEROS_EXTENDIDO_3.reduce((acc, numero) => acc + numero) + "<br>";
+
+        /*b) Concatenar todos los elementos de un array.*/
+        const ARRAY_PALABRAS_2 = ["Desarrollo", "Web", "en", "Entorno", "Cliente"];
+        contenidoHTML.innerHTML += "B) Concatenar todos los elementos de un array: " + ARRAY_PALABRAS_2.reduce((acc, palabra) => acc + " " + palabra) + "<br>";
+
+
+        /*c) Multiplica todos los elmentos de un array.*/
+        const ARRAY_NUMEROS_EXTENDIDO_4 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+        contenidoHTML.innerHTML += "C) Multiplica todos los elementos de un array: " + ARRAY_NUMEROS_EXTENDIDO_4.reduce((acc, numero) => acc * numero) + "<br>";
+
+
+        /*--------------------------------------------*/
+
+        contenidoHTML.innerHTML += "<h1>Ejercicio 4: SPLICE</h1>";
+        /*4) Con SPLICE.
+
+        a) Haga la función elimina ( array , posición, longitud) que devuelve un array con la posición eliminada.*/
+
+        const ARRAY_NUMEROS_EXTENDIDO_5 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+        contenidoHTML.innerHTML += "A) Eliminar un elemento (o varios) del array [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] <br>";
+        function elimina(array, posicion, longitud) {
+            let resultado = [...array]; //Hago una copia del array, no quiero modificar el original
+            //Comprobaciones
+            let mensaje = "";
+            if (typeof posicion !== "number" || typeof longitud !== "number") {
+                mensaje = "No has introducido un número.";
+            } else if (posicion < 1) {
+                mensaje = "No has introducido una posición válida.";
+            } else if (longitud < 1) {
+                mensaje = "No has introducido una longitud válida.";
+            } else if (posicion + longitud > array.length) {
+                mensaje = "No puedes eliminar más elementos de los que hay.";
+            }
+            return mensaje === "" ? resultado.splice(posicion - 1, longitud) : mensaje;
+        }
+
+        contenidoHTML.innerHTML += "<strong>Posición 2, longitud 1: </strong>" + elimina(ARRAY_NUMEROS_EXTENDIDO_5, 2, 1) + "<br>";
+        contenidoHTML.innerHTML += "<strong>Posición 5, longitud 4: </strong>" + elimina(ARRAY_NUMEROS_EXTENDIDO_5, 5, 2) + "<br>";
+        contenidoHTML.innerHTML += "<strong>Posición 8, longitud 100: </strong>" + elimina(ARRAY_NUMEROS_EXTENDIDO_5, 8, 100) + "<br>";
+        contenidoHTML.innerHTML += "<strong>Posición 8, longitud 'No es un numero': </strong>" + elimina(ARRAY_NUMEROS_EXTENDIDO_5, 8, "No es un Numero") + "<br>";
+
+        /*b)  Haga la función anada ( array , posición, caracter) que devuelve un array con la adición.*/
+
+        const ARRAY_LETRAS = [];
+        contenidoHTML.innerHTML += "<br>B) Añadir un caracter al array vacío [ ] <br>";
+
+        function anada(array, posicion, caracter) {
+            let resultado = "";
+            //Comprobaciones
+            if (!(caracter >= "a" && caracter <= "z" || caracter >= "A" && caracter <= "Z") || typeof caracter !== "string" || caracter.length !== 1) {
+                resultado = "<strong>No has introducido una letra.</strong>";
+            } else if (posicion < 1) {
+                resultado = "<strong>No has introducido una posición válida.</strong>";
+            } else {
+                let contenidoDesplazado = array.splice(posicion - 1, array.length);
+                array.push(caracter);
+                contenidoDesplazado.map((elemento) => array.push(elemento));
+            }
+            return resultado === "" ? array : resultado;
+        }
+
+        contenidoHTML.innerHTML += anada(ARRAY_LETRAS, 1, "a") + "<br>";
+        contenidoHTML.innerHTML += anada(ARRAY_LETRAS, 2, "b") + "<br>";
+        contenidoHTML.innerHTML += anada(ARRAY_LETRAS, 3, "c") + "<br>";
+        contenidoHTML.innerHTML += anada(ARRAY_LETRAS, 1, "d") + "<br>";
+        contenidoHTML.innerHTML += anada(ARRAY_LETRAS, 1, "e") + "<br>";
+        contenidoHTML.innerHTML += anada(ARRAY_LETRAS, 5, "f") + "<br>";
+        contenidoHTML.innerHTML += anada(ARRAY_LETRAS, 6, "12") + "<br>";
+        contenidoHTML.innerHTML += anada(ARRAY_LETRAS, 1, "a") + "<br>";
+        contenidoHTML.innerHTML += anada(ARRAY_LETRAS, 100, "x") + "<br>";
+        contenidoHTML.innerHTML += anada(ARRAY_LETRAS, -1, "y") + "<br>";
+        contenidoHTML.innerHTML += `<h3>Resultado Array Final: ${ARRAY_LETRAS} <br>`;
+
+    </script>
+
+</body>
+
+</html>
