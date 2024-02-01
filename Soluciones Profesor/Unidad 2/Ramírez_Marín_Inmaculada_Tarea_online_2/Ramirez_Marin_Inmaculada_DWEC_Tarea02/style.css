@@ -1,0 +1,35 @@
+iframe{
+    width: 100%;
+    min-height: 600px;
+    height: 100%;
+    
+}
+main{
+    margin:0 auto;
+}
+a{
+    background-color:rgb(32, 167, 118);
+    text-decoration: none;
+    margin: 10px 20px;
+    color: white;
+    display: inline-block;
+    padding: 10px 20px;
+    border: 1px solid rgb(21, 113, 79); 
+    border-radius: 5px; 
+    cursor: pointer; 
+    transition: background-color 0.3s; 
+}
+a:hover {
+    background-color: rgb(21, 113, 79); 
+}
+header{
+    text-align: center;
+}
+div.funcion{
+    border: 3px solid pink;
+    margin:20px auto;
+    padding: 10px;
+}
+p{
+    margin:5px 0px;
+}

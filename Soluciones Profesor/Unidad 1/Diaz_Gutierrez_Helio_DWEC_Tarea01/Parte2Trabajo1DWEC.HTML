@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trabajo 1 DWEC</title>
+    
+</head>
+<body>
+    <h4>Ejercicio 1. Cadenas ordenadas</h4>
+    <script>
+
+        let primeraCadena;
+        let segundaCadena;
+        let entrada1 = 0;
+
+/**
+ * Dentro de un do while se recogen los datos que introduce el usuario por prompt y se repite mientras sean números (!isNaN), 
+ * así se hace la comprobación con el mismo bucle y además controlándolo con la variable entrada1 añado un mensaje de error 
+ * si los datos no son cadenas.
+ * (\n es sustituto en JavaScript de la etiqueta <br> de HTML, con <br> se muestra en el prompt y no hace el salto de línea)
+ * */
+        do {
+            if(entrada1 == 0){
+                primeraCadena = prompt('Introduce la primera cadena:');
+                segundaCadena = prompt('Introduce la segunda cadena:');
+            }else{
+                primeraCadena = prompt('Error: los números no son válidos. \n\nIntroduce la primera cadena:');
+                segundaCadena = prompt('Introduce la segunda cadena:');
+            }
+            entrada1++;
+        } while (!isNaN(primeraCadena) && !isNaN(segundaCadena));
+
+//Se muestran los datos introducidos por el usuario en una lista con <ul><li>.    
+        document.write('<ul><li>Cadena 1: "' + primeraCadena + '"</li><li>Cadena 2: "' + segundaCadena + '"</li></ul>');
+
+//Se comprueba cuál es mayor, menor o igual y se muestran por pantalla formateado y concatenado.
+        if(primeraCadena > segundaCadena){
+            document.write('La cadena mayor es: "' + primeraCadena + '"<br>' + 'La cadena menor es: "' + segundaCadena + '"');
+        }else if(primeraCadena < segundaCadena){
+            document.write('La cadena mayor es: "' + segundaCadena + '"<br>' + 'La cadena menor es: "' + primeraCadena + '"');
+        }else{
+            document.write('La cadena "' + primeraCadena + '" y ' + 'la cadena "' + segundaCadena + '" son iguales.');
+        }
+            
+    </script>
+    <br>
+    <hr>
+    <h4>Ejercicio 2. Realice un programa en JavaScript que te pregunte por tres números que se introducen desde teclado usando prompt y muestre números sucesivos dependiendo del incremento.</h4>
+   
+    <script>
+
+        let numeroInicial;
+        let numeroFinal;
+        let incremento;
+        let entrada2 = 0;
+/**
+ * Se recogen los datos dentro del do while y se repiten mientras los datos sean números negativos, no sean números (isNaN) o 
+ * numeroInicial sea mayor que numeroFinal, comprobando la validez de los datos y controlando la variable entrada2 se muesta 
+ * un mensaje de error.
+ * */
+        do {
+            if(entrada2 == 0){
+                numeroInicial = parseInt(prompt('Introduce el número inicial'));
+                numeroFinal = parseInt(prompt('Introduce el número final'));
+                incremento = parseInt(prompt('Introduce el incremento')); 
+            }else{
+                numeroInicial = parseInt(prompt('Error: Los números no pueden ser negativos ni el número inicial mayor que el final.\n\nIntroduce el número inicial'));
+                numeroFinal = parseInt(prompt('Introduce el número final'));
+                incremento = parseInt(prompt('Introduce el incremento'));
+            }
+            entrada2++;
+
+        } while (isNaN(numeroInicial) || numeroInicial <=0 || isNaN(numeroFinal) 
+            || numeroFinal <=0 || isNaN(incremento) || incremento <=0 || numeroInicial > numeroFinal);
+
+//Se muestran los datos introducidos por el usuario en una lista con <ul><li>.
+        document.write('<ul><li>Número inicial: ' + numeroInicial + '</li><br>' + '<li>Número final: ' + numeroFinal + '</li><br>' + '<li>Incremento: ' + incremento + '</li></ul>');
+
+//Se iguala el valor de la variable numeroInicial a las variables que se van a usar en los bucles while y do while.
+        let numeroInicialW = numeroInicial;
+        let numeroInicialDW = numeroInicial;
+
+/**
+ * En los tres bucles se utilizan las variables introducidas por el usuario para controlarlos y se le añade una coma detrás 
+ * de cada dato y un punto al final.
+ * Utilizo la etiqueta de HTML <u> para subrayar los títulos para cada bucle, aunque en HTML5 es obsoleto.
+ * */
+        document.write('<u>Bucle for</u> <br>');
+
+        for(numeroInicial; numeroInicial <= numeroFinal; numeroInicial += incremento){
+            if(numeroInicial < numeroFinal){
+                document.write(numeroInicial + ', ');
+            }else{
+                document.write(numeroInicial + '.');
+            }
+            
+        }
+
+        document.write('<br><br> <u>Bucle while</u> <br>');
+
+        while(numeroInicialW <= numeroFinal){
+            if(numeroInicialW < numeroFinal){
+                document.write(numeroInicialW + ', ');
+            }else{
+                document.write(numeroInicialW + '.');
+            }
+            numeroInicialW += incremento;
+        }
+
+        document.write('<br><br> <u>Bucle do while</u> <br>');
+
+        do {
+
+            if(numeroInicialDW < numeroFinal){
+                document.write(numeroInicialDW + ', ');
+            }else{
+                document.write(numeroInicialDW + '.');
+            }
+            numeroInicialDW += incremento;
+
+        }while(numeroInicialDW <= numeroFinal)
+    </script>
+    <br>
+    <hr>
+    <h4>Ejercicio 3. División por restas sucesivas.  Sin decimales.</h4>
+
+    <script>
+
+        let dividendo;
+        let divisor ;
+        let entrada3 = 0;
+
+/**
+ * Se recogen los datos dentro del do while y se repite mientras los datos sean números negativos, no sean números (isNaN) o 
+ * dividendo sea menor que divisor, controlando la entrada de datos y se controla con entrada3 para mostrar un error si hace falta.
+ * */
+        do {
+            if(entrada3 == 0){
+                dividendo = parseInt(prompt('Introduce el dividendo'));
+                divisor = parseInt(prompt('Introduce el divisor'));
+            }else{
+                dividendo = parseInt(prompt('Error: el dividendo no puede ser menor que el divisor y solo se admiten números.\n\nIntroduce el dividendo'));
+                divisor = parseInt(prompt('Introduce el divisor'));
+            }
+            entrada3++;
+        }while(dividendo < divisor || isNaN(dividendo) || isNaN(divisor) || dividendo <= 0 || divisor <= 0);
+
+        let resultado;
+        let contador = 0;
+
+        document.write('<ul><li>División por restas sucesivas de: '+ dividendo + '/' + divisor + '</li></ul>');
+
+/**
+ * Se guarda en la variable resultado la resta de dividendo - divisor y después se iguala dividendo al valor de resultado, 
+ * para que en cada vuelta del bucle se reste para obtener el resto y con el contador que se va incrementando en uno en cada iteración 
+ * se obtiene cociente.
+ * */
+        do {
+            
+            resultado = dividendo - divisor;
+            dividendo = resultado;
+           
+            contador++;
+        }while(resultado >= divisor);
+
+        document.write('Cociente = ' + contador + '<br>');
+        document.write('Resto = ' + resultado);
+
+    </script>
+</body>
+</html>

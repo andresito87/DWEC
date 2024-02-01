@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>//PRIMER EJERCICIO
+        document.write("Ejercicio 1. Cadenas ordenadas" + "</br>" + "</br>");
+        let entradas = []//Creamos un array donde almacenaremos las variables c1 y c2, que contienen las cadenas que ha introducido el usuario. Las almacenaremos utilizando el método .push().
+        var c1 = prompt("Introduzca la primera cadena");
+        var c2 = prompt("Introduzca la segunda cadena");
+        entradas.push(c1, c2);
+
+        document.write("La primera cadena es " + c1 + "</br>La segunda cadena es " + c2 + "</br>");
+
+
+        document.write("</br> Entradas ordenadas: " + entradas.sort() + "</br>");//Ordenamos los elementos del array utilizando el método .sort() y lo mostramos.
+
+        if (c1 < c2) {//Una forma más clara de imprimir el resultado de la ordenación.
+            document.write(c1 + " es menor que " + c2);//Si es mayor.
+        } else if (c1 > c2) {
+            document.write(c1 + " es mayor que " + c2);//Si es menor.
+        } else if (c1 == c2) {
+            document.write(c1 + " es igual que " + c2);//Si es igual.
+        } else {
+            document.write("Error de datos");//Si los datos introducidos no son válidos.
+        } 
+    </script>
+
+    <script>//SEGUNDO EJERCICIO
+        document.write("</br>" + "</br>" + "Ejercicio 2. Uso de bucles" + "</br>" + "</br>");
+        var numeros = [];//Creamos un array para almacenar las entradas del usuario.
+
+        //Entrada de datos
+        for (var i = 0; i < 3; i++) {//utilizamos un bucle for para solicitar 3 entradas.
+            var entrada = prompt("Por favor, introduce el número " + (i + 1) + ":");
+            var numero = parseInt(entrada);// Convertimos la entrada a un número entero.
+            if (!isNaN(numero) && numero >= 0) { // Comprobamos si se trata de un número y si es mayor que 0. Si es así lo tratamos.
+                if (i == 1) {//Si i=1, estamos en la segunda iteración. Por lo que tenemos que comparar este dato con el recibido en primer lugar, para asegurarnos de que sea mayor que el.
+                    if (numero > numeros[0]) {//Lo comparamos y, si validamos la condicion, lo incluimos con .push().
+                        numeros.push(numero);
+                    } else {//Si el valor no es válido
+                        alert("Entrada no válida. El segundo número debe ser mayor que el primero.");
+                        i--; // Repetir la iteración para obtener un número válido
+                    }//Si se trata de la primera o de la tercera iteración, añadimos directamente el número anteriormente validado con .push().
+                } else { numeros.push(numero) }
+            } else {//Si el dato introducido no es válido.
+                alert("Entrada no válida. Por favor, introduzca un número mayor o igual a 0.");
+                i--; // Repetir la iteración para obtener una nueva entrada.
+            }
+        }
+
+        document.write("Los números introducidos son: " + numeros[0] + ", ", numeros[1] + " y ", numeros[2] + "</br>" + "</br>");
+
+        //Impresion de datos usando un bucle for.
+        document.write("Bucle for:" + "</br>")
+        for (var i = numeros[0]; i <= numeros[1]; i += numeros[2]) {//Mientras i sea menor que el segundo valor ingresado, imprimiremos por pantalla i + el tercer número recibido por el usuario, actualizando tambien su valor.
+            document.write(i + " ");
+        }
+
+        //Impresion de datos usando un bucle do-while.
+        var j = numeros[0];//Inicializamos la variable desde la que partirá el bucle.
+        document.write("</br>" + "Bucle do-while:" + "</br>")
+        do {
+            document.write(j + " ")//Imprimimos en primer lugar j para que se muestre el primer valor.
+            j = j += numeros[2];//Seguidamente le sumamos el tercer parámetro recibido por el usuario y actualizamos su valor.
+        } while (j <= numeros[1]);//Se repetirá mientras j sea menor que el segundo valor ingresado.
+
+        //Impresion de datos usando un bucle while
+        document.write("</br>" + "Bucle while:" + "</br>")
+        var k = numeros[0];//Inicializamos la variable desde la que partirá el bucle
+        while (k <= numeros[1]) {//Se repetirá mientras k sea menor que el segundo valor ingresado
+            document.write(k + " ");//Imprimimos en primer lugar j para que se muestre el primer valor.
+            k = k += numeros[2];//Se repetirá mientras j sea menor que el segundo valor ingresado.
+        }
+    </script>
+
+    <script>//Tercer ejercicio
+        document.write("</br>" + "</br>" + "Ejercicio 2. División por restas sucesivas" + "</br>" + "</br>");
+        var dividendo, divisor;//Declaramos dos variables, donde vamos a guardar las entradas.
+        var cociente = 0;//Inicializamos el cociente.
+
+        //Entrada de datos
+        do {//Mediante un cicle do-while nos aseguramos de que los valores de entrada sean correctos.
+            var entradaDividendo = prompt("Introduce el dividendo (debe ser mayor que 0):");
+            dividendo = parseInt(entradaDividendo);//Lo convertimo en entero.
+        } while (isNaN(dividendo) || dividendo <= 0);//Para que pueda ser validado, tendrá que ser un número y mayor o igual a 0.
+
+        do {//Realizamos lo mismo con el segundo valor.
+            var divisor = prompt("Introduce el divisor (debe ser mayor que 0):");
+            divisor = parseInt(divisor);
+        } while (isNaN(divisor) || divisor <= 0);
+
+        document.write("Dividendo=" + dividendo + "</br>" + " Divisor=" + divisor + "</br>" + "</br>");
+
+        document.write("Lista de operaciones" + "</br>" + "-------------------------" + "</br>");
+
+        //Impresión de las restas.
+        if (dividendo < divisor) {//Como estamos utilizando números enteros y positivos, si el dividendo es menor que el divisor el cociente será 0.
+            document.write("El dividendo es menor que el divisor" + "</br>");
+        } else {
+            do {//Si el dividendo no es mayor que el divisor, se iniciará el bucle de restas sucesivas hasta que esta condición se cumpla.
+                dividendo = dividendo - divisor;//Por cada iteración, restamos el divisor al dividendo.
+                cociente++;//Cada ciclo supone una unidad más para el cociente
+                document.write("Operación " + cociente + ": cociente=" + cociente + " dividendo= " + dividendo + "</br>");//Mostramos el estado de cada iteración.
+            } while (dividendo >= divisor);//Lo repetiremos mientras que el dividendo sea mayor o igual al divisor.  
+        }
+
+
+        document.write("</br>" + "Resultado" + "</br>" + "------------" + "</br>");
+        document.write("Resto: " + dividendo + "<br>");
+        document.write("Divisor: " + divisor + "<br>");
+        document.write("Cociente: " + cociente + "<br>");
+    </script>
+
+</body>
+
+</html>

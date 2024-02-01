@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calcular Valor ASCII</title>
+</head>
+
+<body>
+
+    <!--1) Vamos a preguntar una frase. Esa frase se va a dividir por los espacios. 
+        Haremos una función que sume el valor ASCII de cada una de cadenas del array y devuelva un array , 
+        con el mismo número de componentes, pero que sean-->
+
+    <h2>Sumar valores ASCII de los caracteres de cada una de las palabras de una frase introducida </h2>
+    <div id="contenido"></div>
+
+    <script>
+        let contenidoHTML = document.getElementById("contenido");
+        let frase = prompt("EScribe una frase");
+        if (frase == null || frase.trim() == "") {
+            contenidoHTML.innerHTML = "No has introducido una frase válida. Vuelve a intentarlo."
+            let botonRecarga = document.createElement("button");
+            botonRecarga.innerText = "Recargar Script";
+            botonRecarga.onclick = () => location.reload();
+            contenidoHTML.appendChild(botonRecarga);
+        } else {
+            //Division de la frase usando " " y filtrado de posiciones vacias
+            let arrayPalabrasFiltrado = frase.split(" ").filter(palabra => palabra != "");
+            function sumaValoresASCII(palabra) {
+                return palabra.split("").reduce((acc, letra) =>
+                    acc + letra.codePointAt(0), 0);
+            }
+            let arrayValoresASCII =
+                arrayPalabrasFiltrado.map(palabra => sumaValoresASCII(palabra));
+            contenidoHTML.innerHTML = "Tras procesar su frase, la sucesion de palabras son: " + arrayPalabrasFiltrado + "<br>";
+            contenidoHTML.innerHTML += "La suma de los valores ASCII de los caracteres de cada una de las palabras anteriores es: " + arrayValoresASCII.toString();
+        }
+    </script>
+
+</body>
+
+</html>

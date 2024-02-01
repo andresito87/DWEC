@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>DWEC</title>
+</head>
+<body>
+	<p id="salida">Ejemplos</p>
+	<script type="module">
+		//importo las clases de los modulos
+		import Ciudadano from './ciudadano.js';
+		import Espia from './espia.js';
+		import Agencia from './agencia.js';
+		try
+		{
+			//creo las variables var para que puedan ser usadas fuera del try.
+			var jorge = new Ciudadano("Jorge", "Suiza", 18);
+			var paco = new Ciudadano("Paquillo", "Reino Unido", 3);
+			var teresa = new Ciudadano("Teresa", "RDA", 5);
+			var manuel = new Ciudadano("Manuel", "URSS", 44);
+			var cia = new Agencia("CIA", "USA");
+			var kgb = new Agencia("KGB", "URSS");
+			var espia_miguel = new Espia("Miguel", "URSS", 17, "desestabilizador");
+			var espia_paca = new Espia("Paquilla", "URSS", 29, "desestabilizador");
+			var espia_josefa = new Espia("Josefa", "URSS", 29, "desestabilizador");
+			var espia_eduardo = new Espia("Eduardo", "Francia", 17, "diplomático");
+			var espia_pedro = new Espia("Pedro", "Francia", 29, "infiltrado");
+			var espia_paulina = new Espia("Paulina", "USA", 29, "ilegal");
+			var espia_lucrecia = new Espia("Lucrecia", "RDA", 29, "provocador");
+			var espia_raimunda = new Espia("Raimunda", "Suiza", 29, "operativo");
+			var espia_avelino = new Espia("Avelino", "RFA", 29, "operativo");
+			var espia_epifania = new Espia("Epifania", "Suiza", 29, "durmiente");
+			//el siguiente array no se pide pero permite imprimir y recorrer por orden los distintos objetos
+			var objetos = [jorge, paco, teresa, manuel, cia, kgb, espia_miguel, espia_paca, espia_josefa, espia_eduardo, espia_pedro, espia_paulina, espia_lucrecia, espia_raimunda, espia_avelino, espia_epifania];
+		}
+		catch (e)
+		{
+			console.error("Error" + e);
+		}
+		//funcion buscaTopos
+		function buscaTopos(agencia1, agencia2, nombre_agente)
+		{
+			let resultado = false;
+			/*el funcionamiento de este if es pedir un string de los espias de cada agencia y con include comprobar si el agente esta en ese string
+			es necesario que este en ambos para que el if entre TRUE && TRUE*/
+			if ((agencia1.listadoOrdenado("nombre")).includes(nombre_agente) && (agencia2.listadoOrdenado("nombre")).includes(nombre_agente))
+				resultado = true;
+			else
+				resultado = false;
+			return (resultado);
+		}
+		//debugger;
+		/* Aqui dejo las salidas que no tengo claro si se pide que se muestren o es el profesor
+		el encargado de comprobar el código y realizar él las salidas*/
+		salida.innerHTML += "</br>";
+		for (const objeto of objetos)
+		{
+			salida.innerHTML += objeto.toString();
+			salida.innerHTML += "</br>";
+		}
+	</script>
+</body>
+</html>
