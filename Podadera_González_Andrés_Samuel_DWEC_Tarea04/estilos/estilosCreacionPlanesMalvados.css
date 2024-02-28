@@ -1,0 +1,196 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-image: url("../assets/fondoFormularioAdmision.gif");
+    background-size: cover;
+    /* La imagen de fondo cubrirá completamente el área visible */
+    background-position: center;
+    /* Para centrar la imagen de fondo */
+    background-repeat: no-repeat;
+    /* Para que la imagen no se repita */
+    background-attachment: fixed;
+    /* Para que la imagen de fondo permanezca fija */
+    font-family: sans-serif, serif;
+    font-size: 1.2em;
+}
+
+form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}
+
+form h2 {
+    color: rgb(1, 72, 249);
+    /*cambiar el degradado*/
+    color: linear-gradient(90deg, rgba(236, 13, 13, 0.5), rgba(232, 131, 6, 0.5));
+    /*borde de las letras*/
+    -webkit-text-stroke: 1px rgb(0, 234, 255);
+    /*sombreado de las letras*/
+    text-shadow: 1px 1px 1px rgb(236, 255, 152);
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+form h2 .linea {
+    background-color: rgb(255, 255, 255);
+    height: 5px;
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    filter: brightness(0.5);
+}
+
+form legend {
+    color: rgb(255, 255, 255);
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    margin: 0 auto;
+    padding: 0 10px;
+}
+
+form fieldset#fieldsetPrincipal {
+    background-color: rgba(0, 0, 0, 0.5);
+    border: 2px solid rgb(255, 255, 255);
+    border-radius: 10px;
+    margin: 0 auto;
+    padding: 20px;
+    width: 80%;
+}
+
+form fieldset {
+    background-color: rgba(0, 0, 0, 0.5);
+    border: 2px solid rgb(255, 255, 255);
+    border-radius: 10px;
+    padding: 20px;
+    width: 80%;
+    margin-bottom: 20px;
+    border-style: dashed;
+}
+
+form label {
+    color: rgb(255, 255, 255);
+    font-size: 20px;
+    font-weight: bold;
+    display: inline-block;
+}
+
+form label span {
+    font-size: 0.7em;
+    font-weight: bold;
+}
+
+#nombrePlan,
+#codigoPlan,
+#pais,
+.botones button[type="submit"],
+.botones button[type="reset"] {
+    background-color: rgb(255, 255, 255);
+    border: none;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    padding: 10px;
+    width: 40%;
+}
+
+form #radioTipoPlan {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+}
+
+form #radioTipoPlan label:nth-child(1) {
+    margin-bottom: 20px;
+}
+
+form #radioTipoPlan div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+form #radioTipoPlan div label {
+    margin-left: 10px;
+}
+
+form #radioTipoPlan div input {
+    margin-right: 10px;
+}
+
+form .botones {
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 20px;
+}
+
+form .botones button {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+form .botones button.enviar:hover {
+    background-color: rgb(35, 114, 4);
+    color: rgb(255, 255, 255);
+    filter: drop-shadow(0 0 0.75em rgb(255, 255, 255));
+}
+
+form .botones button.reiniciar:hover {
+    background-color: rgb(154, 3, 3);
+    color: rgb(255, 255, 255);
+    filter: drop-shadow(0 0 0.75em rgb(255, 255, 255));
+}
+
+#vecesVisitada {
+    color: rgb(255, 255, 255);
+    font-size: 1.2em;
+    font-weight: bold;
+    margin: 20px;
+    text-align: center;
+}
+
+#resultado {
+    color: #ffffff;
+    font-size: 1.2em;
+    font-weight: bold;
+    margin: 10px;
+    text-align: center;
+}
+
+#resultado>span {
+    color: rgb(0, 255, 0);
+    font-size: 1.2em;
+    font-weight: bold;
+    margin: 10px;
+    text-align: center;
+}
+
+.valido {
+    background-color: rgb(35, 114, 4) !important;
+}
+
+.invalido {
+    background-color: rgb(154, 3, 3);
+}
+
+.focus {
+    background-color: rgb(239, 248, 68) !important;
+}
+
+.bordeValido {
+    border: 2px solid rgb(35, 114, 4);
+    border-radius: 5px;
+    padding: 10px;
+    /*poner sombra*/
+    box-shadow: 0 0 10px rgb(35, 114, 4);
+}

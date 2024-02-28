@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../estilos/estilosFormularioAdmision.css">
+    <title>Formulario de Solicitud de Admisión</title>
+</head>
+
+<body>
+    <!--EJERCICIO 1: Sección de solicitud de admisión en el congreso.-->
+    <form id="formulario" action="./formularioSolicitudAdmision.html" method="post">
+        <h2>
+            <div class="linea"></div> &#x1f9d1;&#x200d;&#x1f4bb; Los 39 escalones &#x1f9d1;&#x200d;&#x1f4bb;<div
+                class="linea"></div>
+        </h2>
+        <fieldset>
+            <legend> ✍️ Solicitud de Admisión ✍️ </legend>
+            <div>
+                <label for="nombre">Nombre:<span>(Obligatorio)</span></label>
+                <input type="text" id="nombre" name="nombre" placeholder="Inserta nombre" required>
+            </div>
+            <div>
+                <label for="contrasena">Contraseña:<span>(Obligatorio)</span></label>
+                <input type="password" id="contrasena" name="contraseña" placeholder="Inserta contraseña" required>
+            </div>
+            <div class="repetirContrasena">
+                <label for="repetirContrasena">Repetir Contraseña:<span>(Obligatorio)</span></label>
+                <input type="password" id="repetirContrasena" name="repetirContrasena" placeholder="Repite contraseña"
+                    required>
+                <button id="mostrarContrasena"><img id="imagenBotonMostrarContrasena" src="../assets/iconoMostrar.png"
+                        alt="icono de un ojo(mostrar u ocultar)"></button>
+            </div>
+            <div class="nacionalidad">
+                <label for="nacionalidad">Nacionalidad:<span>(Opcional)</span></label>
+                <select name="nacionalidad" id="nacionalidad">
+                    <option value="No seleccionada" disabled selected>Seleccione nacionalidad</option>
+                    <option value="España">España</option>
+                    <option value="Noruega">Noruega</option>
+                    <option value="Islandia">Islandia</option>
+                    <option value="Suecia">Suecia</option>
+                    <option value="Luxemburgo">Luxemburgo</option>
+                </select>
+            </div>
+            <div class="botones">
+                <input class="enviar" type="submit" value="Enviar">
+                <input id="borrar" class="reiniciar" type="reset" value="Reiniciar">
+            </div>
+        </fieldset>
+    </form>
+    <div id="resultado"></div>
+    <div id="errores"></div>
+    <div id="vecesVisitada"></div>
+    <script src="solicitudAdmision.js"></script>
+</body>
+
+</html>

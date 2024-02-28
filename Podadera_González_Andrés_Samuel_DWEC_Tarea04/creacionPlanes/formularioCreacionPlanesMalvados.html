@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../estilos/estilosCreacionPlanesMalvados.css">
+    <title>Creación de Planes Malvados a Ofertar</title>
+</head>
+
+<body>
+    <!--EJERCICIO 2: Creación de planes malvados a ofertar.-->
+    <form id="formulario" action="./formularioCreacionPlanesMalvados.html" method="post">
+        <h2>
+            <div class="linea"></div> &#x1f9d1;&#x200d;&#x1f4bb; Los 39 escalones &#x1f9d1;&#x200d;&#x1f4bb;<div
+                class="linea"></div>
+        </h2>
+        <fieldset id="fieldsetPrincipal">
+            <legend>🕵🏻 Creación de planes malvados 🕵🏻</legend>
+            <div>
+                <label for="nombrePlan">Nombre del Plan:<span>(Obligatorio)</span></label>
+                <input type="text" id="nombrePlan" name="nombrePlan" placeholder="Inserta nombre del plan" required>
+            </div>
+            <div>
+                <label for="codigoPlan">Código del Plan:<span>(Obligatorio)</span></label>
+                <input type="text" id="codigoPlan" name="codigoPlan" placeholder="X1234567"
+                    pattern="^[A-Za-zñÑáéíóúÁÉÍÓÚ]\d{3,7}$" required>
+            </div>
+            <fieldset>
+                <div id="radioTipoPlan">
+                    <label for="operacionesCampo">Tipo del Plan:<span>(Obligatorio)</span></label>
+                    <br>
+                    <div>
+                        <input type="radio" id="operacionesCampo" name="tipoPlan" value="Operaciones en campo"
+                            required />
+                        <label for="operacionesCampo">Operaciones en campo</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="manejoRecursos" name="tipoPlan"
+                            value="Manejo de recursos financieros" />
+                        <label for="manejoRecursos">Manejo de recursos financieros</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="desarrolloTecnologia" name="tipoPlan"
+                            value="Desarrollo de tecnología" />
+                        <label for="desarrolloTecnologia">Desarrollo de tecnología</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="luchaPoder" name="tipoPlan" value="Luchas de poder interno" />
+                        <label for="luchaPoder">Luchas de poder interno</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="operacionesRescate" name="tipoPlan" value="Operaciones de rescate" />
+                        <label for="operacionesRescate">Operaciones de rescate</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="cifradoDescrifrado" name="tipoPlan"
+                            value="Cifrado y descifrado de rescate" />
+                        <label for="cifradoDescrifrado">Cifrado y descifrado</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="operacionesEncubiertas" name="tipoPlan"
+                            value="Operaciones encubiertas" />
+                        <label for="operacionesEncubiertas">Operaciones encubiertas</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="contrainteligencia" name="tipoPlan" value="Contrainteligencia" />
+                        <label for="contrainteligencia">Contrainteligencia</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="desinformacion" name="tipoPlan" value="Desinformación Estratégica" />
+                        <label for="desinformacion">Desinformación Estratégica</label>
+                    </div>
+                </div>
+            </fieldset>
+            <div>
+                <label for="pais">País:<span>(Opcional)</span></label>
+                <input list="listaPaises" id="pais" name="pais" />
+                <datalist id="listaPaises">
+                    <option value="España"></option>
+                    <option value="Noruega"></option>
+                    <option value="Islandia"></option>
+                    <option value="Suecia"></option>
+                    <option value="Luxemburgo"></option>
+                </datalist>
+            </div>
+            <div class="botones">
+                <button class="enviar" type="submit" value="Enviar">Enviar</button>
+                <button id="borrar" class="reiniciar" type="reset" value="Reiniciar">Reiniciar</button>
+            </div>
+        </fieldset>
+    </form>
+    <div id="resultado"></div>
+    <div id="errores"></div>
+    <div id="vecesVisitada"></div>
+    <script src="./creacionPlanesMalvados.js"></script>
+
+</body>
+
+</html>
