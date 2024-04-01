@@ -36,11 +36,15 @@ botonInicio.addEventListener('mousedown', () => {
 });
 let tablero = document.createElement('div');
 let botonReproducir = document.createElement('button');
+let botonParar = document.createElement('button');
+let botonPararPulsado = false;
 let botonBorrar = document.createElement('button');
 let botonBorrarPulsado = false;
 let contenedorCanvas = document.createElement('div');
 contenedorCanvas.classList.add('contenedorCanvas');
 let canvas = document.createElement('canvas');
+let ctx = canvas.getContext('2d');
+let sonido = document.createElement('audio');
 
 function crearTablero() {
   tablero.classList.add('tablero');
@@ -104,7 +108,6 @@ function crearZonaInformativa() {
   canvas.height = 400;
   contenedorCanvas.appendChild(canvas);
   zonaInformativa.appendChild(contenedorCanvas);
-  let ctx = canvas.getContext('2d');
   ctx.fillStyle = 'black';
   ctx.fillRect(0, 0, 600, 400);
   ctx.fillStyle = 'white';
@@ -120,23 +123,34 @@ function crearBotonesControl() {
   botonReproducir.classList.add('boton');
   botonReproducir.textContent = 'Reproducir';
   botonReproducir.addEventListener('mousedown', () => {
+    botonPararPulsado = false;
     // lista de sonidos a reproducir
     let sonidos = sonidosAReproducir.map(sonido => sonido);
     // Reproduce la lista de sonidos recursivamente
     const reproduceSiguienteSonido = () => {
-      if (sonidos.length > 0 && !botonBorrarPulsado) {
-        let sonido = sonidos.shift();
+      if (sonidos.length > 0 && !botonBorrarPulsado && !botonPararPulsado) {
+        sonido.src = sonidos.shift().src;
         sonido.play();
-        actualizarCanvas(sonido.src);
-        // Schedule the next sound to play after the current one ends
-        sonido.addEventListener('ended', reproduceSiguienteSonido);
+        actualizarCanvas(sonido);
+        // Reproducir el siguiente sonido cuando termine el actual
+        sonido.addEventListener('ended', () => {
+          reproduceSiguienteSonido();
+        });
       }
     };
     reproduceSiguienteSonido();
     botonBorrarPulsado = false;
   });
-
   botonesControl.appendChild(botonReproducir);
+
+  //agregar estilos y eventos al botonParar
+  botonParar.classList.add('boton');
+  botonParar.textContent = 'Parar';
+  botonParar.addEventListener('mousedown', () => {
+    sonido.pause();
+    console.log('Parar');
+  });
+  botonesControl.appendChild(botonParar);
 
   //agregar estilos y eventos al botonBorrar
   botonBorrar.classList.add('boton');
@@ -146,14 +160,17 @@ function crearBotonesControl() {
     let casillas = document.querySelectorAll('.casilla');
     casillas.forEach(casilla => {
       sonidosAReproducir = [];
+      sonido = new Audio();
       casilla.classList.remove('casillaPulsada');
+      // limpiar el canvas
+      ctx.fillStyle = 'black';
+      ctx.fillRect(0, 0, 600, 400);
     });
   });
   botonesControl.appendChild(botonBorrar);
 }
 
 async function actualizarCanvas(sonido) {
-  let ctx = canvas.getContext('2d');
   // 1. Definir los elementos y los eventos
   ctx.fillRect(0, 0, canvas.width, canvas.height);
   const drawAudio = analyser => {
@@ -188,7 +205,7 @@ async function actualizarCanvas(sonido) {
       x += barWidth + 1;
     });
     // Verificar si hay más canciones
-    if (sonidosAReproducir.length > 0) {
+    if (sonidosAReproducir.length > 0 && !botonPararPulsado) {
       // Solicitar el próximo cuadro de animación
       requestAnimationFrame(() => drawAudio(analyser));
     }
@@ -206,10 +223,9 @@ async function actualizarCanvas(sonido) {
   };
 
   // 3. Llamar a las funciones
-  const audio = document.createElement('audio');
-  audio.src = sonido;
-  const analyser = await initAnalyser(audio);
-  audio.play();
+  let analyser;
+  analyser = await initAnalyser(sonido);
+  sonido.play();
   // dibujar
   drawAudio(analyser);
 }
