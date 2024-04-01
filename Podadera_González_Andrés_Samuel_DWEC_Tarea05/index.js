@@ -45,6 +45,8 @@ contenedorCanvas.classList.add('contenedorCanvas');
 let canvas = document.createElement('canvas');
 let ctx = canvas.getContext('2d');
 let sonido = document.createElement('audio');
+let context;
+let analyser;
 
 function crearTablero() {
   tablero.classList.add('tablero');
@@ -130,7 +132,10 @@ function crearBotonesControl() {
     const reproduceSiguienteSonido = () => {
       if (sonidos.length > 0 && !botonBorrarPulsado && !botonPararPulsado) {
         sonido.src = sonidos.shift().src;
-        sonido.play();
+        sonidos.map(sonido => sonido.pause());
+        setTimeout(() => {
+          sonido.play();
+        }, 1);
         actualizarCanvas(sonido);
         // Reproducir el siguiente sonido cuando termine el actual
         sonido.addEventListener('ended', () => {
@@ -211,23 +216,41 @@ async function actualizarCanvas(sonido) {
     }
   };
 
-  // 2. Crear el analyser y la data necesaria
-  const initAnalyser = async audio => {
-    const context = new AudioContext();
-    const src = context.createMediaElementSource(audio);
-    const analyser = context.createAnalyser();
-    src.connect(analyser);
-    analyser.connect(context.destination);
-    analyser.fftSize = 256;
-    return analyser;
-  };
-
-  // 3. Llamar a las funciones
-  let analyser;
-  analyser = await initAnalyser(sonido);
-  sonido.play();
+  // Verificar si el analizador ya está inicializado
+  if (!analyser) {
+    await initAnalyser(sonido);
+  }
   // dibujar
   drawAudio(analyser);
+}
+// Función para inicializar el analizador
+async function initAnalyser(audio) {
+  if (!context) {
+    await initAudioContext();
+  }
+
+  const src = context.createMediaElementSource(audio);
+  analyser = context.createAnalyser();
+  src.connect(analyser);
+  analyser.connect(context.destination);
+  analyser.fftSize = 256;
+}
+
+// Función para inicializar el contexto de audio y el analizador
+async function initAudioContext() {
+  // Verificar si el contexto de audio ya está creado
+  if (!context) {
+    // Crear el contexto de audio después de un gesto de usuario
+    context = new AudioContext();
+  }
+
+  // Inicializar el analizador
+  if (!analyser) {
+    // Crear un audio temporal para iniciar el analizador
+    const tempAudio = new Audio();
+    tempAudio.src = './audio/1.wav'; // Puedes poner cualquier archivo de audio aquí
+    await initAnalyser(tempAudio);
+  }
 }
 
 /*añadir a todos los botones un evento mouseover que cambie el color por una sombra y un evento mouseout que lo devuelva a su color original.*/
