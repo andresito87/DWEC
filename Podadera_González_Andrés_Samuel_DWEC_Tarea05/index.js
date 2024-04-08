@@ -30,11 +30,13 @@ botonInicio.addEventListener('mousedown', () => {
   body.removeChild(menu);
   crearTablero();
   crearZonaInformativa();
+  crearCanvas();
   crearBotonesControl();
   body.appendChild(divContenedor);
   body.appendChild(botonesControl);
 });
 let tablero = document.createElement('div');
+let zonaInformativa = document.createElement('div');
 let botonReproducir = document.createElement('button');
 let botonParar = document.createElement('button');
 let botonPararPulsado = false;
@@ -69,7 +71,6 @@ function crearTablero() {
             sonido => sonido !== audio
           );
         }
-        console.log(sonidosAReproducir.length);
       });
       casilla.addEventListener('mouseover', () => {
         casilla.classList.add('casillaHover');
@@ -83,8 +84,23 @@ function crearTablero() {
   divContenedor.appendChild(tablero);
 }
 
+//crear un canvas con un mensaje de bienvenida
+function crearCanvas() {
+  canvas.width = 600;
+  canvas.height = 400;
+  contenedorCanvas.appendChild(canvas);
+  zonaInformativa.appendChild(contenedorCanvas);
+  ctx.fillStyle = 'black';
+  ctx.fillRect(0, 0, 600, 400);
+  ctx.fillStyle = 'white';
+  ctx.font = '30px Arial';
+  ctx.fillText('¡Bienvenido a DAW Syntetizer!', 50, 50);
+  ctx.font = '20px Helvetica';
+  ctx.fillText('Marca los sonidos que desees escuchar', 50, 100);
+  ctx.fillText('y pulsa el botón de reproducir', 50, 150);
+}
+
 function crearZonaInformativa() {
-  let zonaInformativa = document.createElement('div');
   zonaInformativa.classList.add('zonaInformativa');
   zonaInformativa.style.backgroundImage = 'url(./img/corazones.gif)';
   let texto = document.createElement('h1');
@@ -105,19 +121,6 @@ function crearZonaInformativa() {
   divImagenes.appendChild(imagen2);
   zonaInformativa.appendChild(divImagenes);
   divContenedor.appendChild(zonaInformativa);
-  //crear un canvas con un mensaje de bienvenida
-  canvas.width = 600;
-  canvas.height = 400;
-  contenedorCanvas.appendChild(canvas);
-  zonaInformativa.appendChild(contenedorCanvas);
-  ctx.fillStyle = 'black';
-  ctx.fillRect(0, 0, 600, 400);
-  ctx.fillStyle = 'white';
-  ctx.font = '30px Arial';
-  ctx.fillText('¡Bienvenido a DAW Syntetizer!', 50, 50);
-  ctx.font = '20px Helvetica';
-  ctx.fillText('Marca los sonidos que desees escuchar', 50, 100);
-  ctx.fillText('y pulsa el botón de reproducir', 50, 150);
 }
 
 function crearBotonesControl() {
@@ -130,13 +133,14 @@ function crearBotonesControl() {
     let sonidos = sonidosAReproducir.map(sonido => sonido);
     // Reproduce la lista de sonidos recursivamente
     const reproduceSiguienteSonido = () => {
-      if (sonidos.length > 0 && !botonBorrarPulsado && !botonPararPulsado) {
+      if (sonidos.length > 0 && !botonPararPulsado) {
         sonido.src = sonidos.shift().src;
         sonidos.map(sonido => sonido.pause());
+        actualizarCanvas(sonido);
         setTimeout(() => {
           sonido.play();
         }, 1);
-        actualizarCanvas(sonido);
+
         // Reproducir el siguiente sonido cuando termine el actual
         sonido.addEventListener('ended', () => {
           reproduceSiguienteSonido();
@@ -153,7 +157,6 @@ function crearBotonesControl() {
   botonParar.textContent = 'Parar';
   botonParar.addEventListener('mousedown', () => {
     sonido.pause();
-    console.log('Parar');
   });
   botonesControl.appendChild(botonParar);
 
