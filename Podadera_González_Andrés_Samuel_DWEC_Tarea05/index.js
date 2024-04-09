@@ -46,9 +46,10 @@ let contenedorCanvas = document.createElement('div');
 contenedorCanvas.classList.add('contenedorCanvas');
 let canvas = document.createElement('canvas');
 let ctx = canvas.getContext('2d');
-let sonido = document.createElement('audio');
 let context;
 let analyser;
+let sonido = document.createElement('audio');
+let arrayTimeout = [];
 
 function crearTablero() {
   tablero.classList.add('tablero');
@@ -97,7 +98,23 @@ function crearCanvas() {
   ctx.fillText('¡Bienvenido a DAW Syntetizer!', 50, 50);
   ctx.font = '20px Helvetica';
   ctx.fillText('Marca los sonidos que desees escuchar', 50, 100);
-  ctx.fillText('y pulsa el botón de reproducir', 50, 150);
+  ctx.fillText('y pulsa el botón de reproducir', 50, 120);
+  ctx.fillText(
+    'Esta version no dibuja el sintetizador aquí en canvas',
+    50,
+    180
+  );
+  ctx.fillText(
+    'debido a problemas con setTimeout y funciones asíncronas',
+    50,
+    200
+  );
+  ctx.fillText(
+    'Se añade otra version llamada DAW Syntetizer 2.0 que sí',
+    50,
+    220
+  );
+  ctx.fillText('dibuja en canvas. Todo basado en eventos.', 50, 240);
 }
 
 function crearZonaInformativa() {
@@ -123,44 +140,50 @@ function crearZonaInformativa() {
   divContenedor.appendChild(zonaInformativa);
 }
 
+function cargarSonidosConCasillaMarcada() {
+  let casillas = document.querySelectorAll('.casilla');
+  casillas.forEach(casilla => {
+    if (casilla.classList.contains('casillaPulsada')) {
+      sonidosAReproducir.push(casilla.querySelector('audio'));
+    }
+  });
+}
+
 function crearBotonesControl() {
-  //agregar estilos y eventos al botonReproducir
+  // agregar estilos y eventos al botonReproducir
   botonReproducir.classList.add('boton');
   botonReproducir.textContent = 'Reproducir';
   botonReproducir.addEventListener('mousedown', () => {
-    botonPararPulsado = false;
-    // lista de sonidos a reproducir
-    let sonidos = sonidosAReproducir.map(sonido => sonido);
-    // Reproduce la lista de sonidos recursivamente
-    const reproduceSiguienteSonido = () => {
-      if (sonidos.length > 0 && !botonPararPulsado) {
-        sonido.src = sonidos.shift().src;
-        sonidos.map(sonido => sonido.pause());
-        actualizarCanvas(sonido);
-        setTimeout(() => {
-          sonido.play();
-        }, 1);
+    if (botonPararPulsado) botonPararPulsado = false;
 
-        // Reproducir el siguiente sonido cuando termine el actual
-        sonido.addEventListener('ended', () => {
-          reproduceSiguienteSonido();
-        });
-      }
-    };
-    reproduceSiguienteSonido();
-    botonBorrarPulsado = false;
+    let retraso = 0; // Variable para mantener el retraso acumulado
+
+    for (let i = 0; i < sonidosAReproducir.length; i++) {
+      // Para los sonidos subsiguientes, espera hasta que el sonido anterior haya terminado antes de reproducir el siguiente
+      let timeoutID = setTimeout(
+        sonido => {
+          sonido.play();
+        },
+        retraso * 1000,
+        sonidosAReproducir[i]
+      ); // Espera la duración del sonido anterior antes de reproducir el siguiente
+      arrayTimeout.push(timeoutID);
+      // Aumenta el retraso acumulado con la duración del sonido actual
+      retraso += sonidosAReproducir[i].duration;
+    }
   });
   botonesControl.appendChild(botonReproducir);
 
-  //agregar estilos y eventos al botonParar
+  // agregar estilos y eventos al botonParar
   botonParar.classList.add('boton');
   botonParar.textContent = 'Parar';
   botonParar.addEventListener('mousedown', () => {
-    sonido.pause();
+    arrayTimeout.map(timeoutID => clearTimeout(timeoutID));
+    botonPararPulsado = true;
   });
   botonesControl.appendChild(botonParar);
 
-  //agregar estilos y eventos al botonBorrar
+  // agregar estilos y eventos al botonBorrar
   botonBorrar.classList.add('boton');
   botonBorrar.textContent = 'Borrar';
   botonBorrar.addEventListener('mousedown', () => {
@@ -168,11 +191,7 @@ function crearBotonesControl() {
     let casillas = document.querySelectorAll('.casilla');
     casillas.forEach(casilla => {
       sonidosAReproducir = [];
-      sonido = new Audio();
       casilla.classList.remove('casillaPulsada');
-      // limpiar el canvas
-      ctx.fillStyle = 'black';
-      ctx.fillRect(0, 0, 600, 400);
     });
   });
   botonesControl.appendChild(botonBorrar);
