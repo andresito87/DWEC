@@ -4,7 +4,8 @@ for (let i = 1; i <= 25; i++) {
   sonidos.push(`./audio/${i}.wav`);
 }
 let sonidosAReproducir = [];
-//creación del menú y botón inicio
+
+//creación del menú
 let body = document.querySelector('body');
 body.style.backgroundColor = 'grey';
 let menu = document.createElement('div');
@@ -16,25 +17,31 @@ let autor = document.createElement('h2');
 autor.textContent = 'Autor: Andrés Samuel Podadera González';
 menu.appendChild(autor);
 body.appendChild(menu);
+
+//creación del botón de inicio
 let botonInicio = document.createElement('button');
 botonInicio.classList.add('boton');
 botonInicio.textContent = 'Inicio';
 body.appendChild(botonInicio);
+
 //creación del contenedor y los botones de control
 let divContenedor = document.createElement('div');
 divContenedor.classList.add('contenedor');
 let botonesControl = document.createElement('div');
 botonesControl.classList.add('botonesControl');
+
+//evento mousedown para el botón de inicio
 botonInicio.addEventListener('mousedown', () => {
   body.removeChild(botonInicio);
   body.removeChild(menu);
   crearTablero();
   crearZonaInformativa();
-  crearCanvas();
   crearBotonesControl();
   body.appendChild(divContenedor);
   body.appendChild(botonesControl);
 });
+
+//creación del tablero, la zona informativa y los botones de control
 let tablero = document.createElement('div');
 let zonaInformativa = document.createElement('div');
 let botonReproducir = document.createElement('button');
@@ -42,15 +49,10 @@ let botonParar = document.createElement('button');
 let botonPararPulsado = false;
 let botonBorrar = document.createElement('button');
 let botonBorrarPulsado = false;
-let contenedorCanvas = document.createElement('div');
-contenedorCanvas.classList.add('contenedorCanvas');
-let canvas = document.createElement('canvas');
-let ctx = canvas.getContext('2d');
-let context;
-let analyser;
 let sonido = document.createElement('audio');
 let arrayTimeout = [];
 
+// función para crear el tablero y añadir los eventos a las casillas
 function crearTablero() {
   tablero.classList.add('tablero');
   for (let i = 0; i < 5; i++) {
@@ -85,46 +87,30 @@ function crearTablero() {
   divContenedor.appendChild(tablero);
 }
 
-//crear un canvas con un mensaje de bienvenida
-function crearCanvas() {
-  canvas.width = 600;
-  canvas.height = 400;
-  contenedorCanvas.appendChild(canvas);
-  zonaInformativa.appendChild(contenedorCanvas);
-  ctx.fillStyle = 'black';
-  ctx.fillRect(0, 0, 600, 400);
-  ctx.fillStyle = 'white';
-  ctx.font = '30px Arial';
-  ctx.fillText('¡Bienvenido a DAW Syntetizer!', 50, 50);
-  ctx.font = '20px Helvetica';
-  ctx.fillText('Marca los sonidos que desees escuchar', 50, 100);
-  ctx.fillText('y pulsa el botón de reproducir', 50, 120);
-  ctx.fillText(
-    'Esta version no dibuja el sintetizador aquí en canvas',
-    50,
-    180
-  );
-  ctx.fillText(
-    'debido a problemas con setTimeout y funciones asíncronas',
-    50,
-    200
-  );
-  ctx.fillText(
-    'Se añade otra version llamada DAW Syntetizer 2.0 que sí',
-    50,
-    220
-  );
-  ctx.fillText('dibuja en canvas. Todo basado en eventos.', 50, 240);
-}
-
+// función para crear la zona informativa lateral al tablero
 function crearZonaInformativa() {
   zonaInformativa.classList.add('zonaInformativa');
   zonaInformativa.style.backgroundImage = 'url(./img/corazones.gif)';
-  let texto = document.createElement('h1');
-  texto.classList.add('textoInformativo');
-  texto.textContent = 'DAW - Syntetizer';
-  texto.style.color = 'white';
-  zonaInformativa.appendChild(texto);
+  let titulo = document.createElement('h1');
+  titulo.classList.add('textoInformativo');
+  titulo.textContent = 'DAW - Syntetizer';
+  titulo.style.color = 'white';
+  titulo.style.backgroundColor = 'rgba(0, 0, 0)';
+  titulo.style.fontFamily = 'Arial, sans-serif';
+  titulo.style.textAlign = 'center';
+  zonaInformativa.appendChild(titulo);
+  let parrafoSobreMusica = document.createElement('p');
+  parrafoSobreMusica.style.color = 'white';
+  parrafoSobreMusica.style.textAlign = 'left';
+  parrafoSobreMusica.style.padding = '10px';
+  parrafoSobreMusica.style.margin = '10px';
+  parrafoSobreMusica.style.backgroundColor = 'rgba(0, 0, 0)';
+  parrafoSobreMusica.style.fontSize = '1.5em';
+  parrafoSobreMusica.style.fontFamily = 'Arial, sans-serif';
+  parrafoSobreMusica.textContent =
+    'La música y los ritmos han sido esenciales en todas las culturas a lo largo de la historia. Desde tambores antiguos hasta la música electrónica moderna, los ritmos han evolucionado y se han fusionado con diferentes estilos musicales, reflejando la diversidad cultural. Han sido utilizados para comunicar, celebrar y expresar emociones. Tanto en la música clásica como en la popular, los ritmos siguen siendo la base de la creatividad musical.';
+  zonaInformativa.appendChild(parrafoSobreMusica);
+
   //añadir dos imagenes a la zona informativa
   let divImagenes = document.createElement('div');
   divImagenes.classList.add('divImagenes');
@@ -140,6 +126,7 @@ function crearZonaInformativa() {
   divContenedor.appendChild(zonaInformativa);
 }
 
+// función para cargar los sonidos con las casillas marcadas
 function cargarSonidosConCasillaMarcada() {
   let casillas = document.querySelectorAll('.casilla');
   casillas.forEach(casilla => {
@@ -149,6 +136,7 @@ function cargarSonidosConCasillaMarcada() {
   });
 }
 
+// función para crear los botones de control
 function crearBotonesControl() {
   // agregar estilos y eventos al botonReproducir
   botonReproducir.classList.add('boton');
@@ -195,84 +183,6 @@ function crearBotonesControl() {
     });
   });
   botonesControl.appendChild(botonBorrar);
-}
-
-async function actualizarCanvas(sonido) {
-  // 1. Definir los elementos y los eventos
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
-  const drawAudio = analyser => {
-    let ctx = canvas.getContext('2d');
-    const WIDTH = canvas.width;
-    const HEIGHT = canvas.height;
-
-    // Limpiar el canvas
-    ctx.clearRect(0, 0, WIDTH, HEIGHT);
-
-    // Dibujar el fondo
-    ctx.fillStyle = '#111111';
-    ctx.fillRect(0, 0, WIDTH, HEIGHT);
-
-    // Obtener datos de frecuencia
-    const bufferLength = analyser.frequencyBinCount;
-    const dataArray = new Uint8Array(bufferLength);
-    analyser.getByteFrequencyData(dataArray);
-
-    // Calcular el ancho de las barras
-    const barWidth = (WIDTH / bufferLength) * 3;
-    let x = 0;
-
-    // Dibujar las barras
-    dataArray.forEach((decibel, index) => {
-      const c = index / bufferLength;
-      const r = decibel + 25 * c;
-      const g = 250 * c;
-      const b = 250;
-      ctx.fillStyle = `rgb(${r},${g},${b})`;
-      ctx.fillRect(x, HEIGHT - decibel, barWidth, decibel);
-      x += barWidth + 1;
-    });
-    // Verificar si hay más canciones
-    if (sonidosAReproducir.length > 0 && !botonPararPulsado) {
-      // Solicitar el próximo cuadro de animación
-      requestAnimationFrame(() => drawAudio(analyser));
-    }
-  };
-
-  // Verificar si el analizador ya está inicializado
-  if (!analyser) {
-    await initAnalyser(sonido);
-  }
-  // dibujar
-  drawAudio(analyser);
-}
-// Función para inicializar el analizador
-async function initAnalyser(audio) {
-  if (!context) {
-    await initAudioContext();
-  }
-
-  const src = context.createMediaElementSource(audio);
-  analyser = context.createAnalyser();
-  src.connect(analyser);
-  analyser.connect(context.destination);
-  analyser.fftSize = 256;
-}
-
-// Función para inicializar el contexto de audio y el analizador
-async function initAudioContext() {
-  // Verificar si el contexto de audio ya está creado
-  if (!context) {
-    // Crear el contexto de audio después de un gesto de usuario
-    context = new AudioContext();
-  }
-
-  // Inicializar el analizador
-  if (!analyser) {
-    // Crear un audio temporal para iniciar el analizador
-    const tempAudio = new Audio();
-    tempAudio.src = './audio/1.wav'; // Puedes poner cualquier archivo de audio aquí
-    await initAnalyser(tempAudio);
-  }
 }
 
 /*añadir a todos los botones un evento mouseover que cambie el color por una sombra y un evento mouseout que lo devuelva a su color original.*/

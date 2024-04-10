@@ -55,7 +55,7 @@
 
 .textoInformativo {
     width: 400px;
-    height: 200px;
+    height: 50px;
 }
 
 .zonaInformativa {
@@ -72,7 +72,6 @@
     justify-content: center;
     margin: auto;
 }
-
 
 .botonesControl {
     width: 660px;
