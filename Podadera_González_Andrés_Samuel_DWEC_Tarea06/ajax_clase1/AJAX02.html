@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Ajax 02. Uso de XML.</title>
+    <script>
+
+        function cargaXML() {
+            var peticionXML;
+            if (window.XMLHttpRequest) { // A partir del IE7 todos los navegadores funcionan ASI.
+                peticionXML = new XMLHttpRequest();
+            } else { // código para IE6 e IE7
+                peticionXML = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            // La función siguiente se va a llamar cada vez
+            // que readystate cambie.
+            peticionXML.onreadystatechange = function() {
+                var texto="";
+                var precio, preciomedio=0;
+                // Los posibles status son 
+                // 200: Comunicación correcta.
+                // 404: Pues que no hay comunicación.
+                // Los posibles readyState son:
+                // 0: Solicitud no inicializada
+                // 1: Conexión establecida con el servidor.
+                // 2: Solicitud recibida.
+                // 3: Procesando solicitud
+                // 4: Solicitud ya terminada y la respuesta está disponible.
+                if (peticionXML.readyState == 4 && peticionXML.status == 200) {
+                    elementoXML=peticionXML.responseXML; // Carga un objeto XML
+                    artistas=elementoXML.getElementsByTagName("ARTIST");
+                    //console.log(elementoXML);
+                    //console.log(artistas);
+                    for (var i=0; i<artistas.length; i++)
+                    {
+                        texto=texto + artistas[i].childNodes[0].nodeValue  +"<br>";
+                    }
+                    precio=elementoXML.getElementsByTagName("PRICE");
+                    // Ahora calculo el precio medio
+                    for (var i=0; i<precio.length; i++)
+                    {
+                        preciomedio=preciomedio + parseFloat(precio[i].childNodes[0].nodeValue);
+                        console.log(precio[i].firstChild.nodeValue);
+                    }
+                    
+                    preciomedio=preciomedio/precio.length;
+                    document.getElementById("cambia").innerHTML=texto+"<br />"+preciomedio;
+                    console.log(peticionXML.responseXML);
+
+                }
+            }
+            // parámetros de open
+            // 1º GET o POST.
+            // URL del archivo.
+            // async. true o false para comunicación asíncrona
+            // usuario
+            // contraseña 
+
+            peticionXML.open("GET", "catalogo.xml", true);
+            // Send envia una petición al servidor. Si se utiliza
+            // El método post en open, en send se puede enviar información
+            // Al servidor.
+
+            peticionXML.send();
+            // Además se pueden utilizar
+            // -> setRequestHeader() es el otro método que sirve para 
+            // añadir el par etiqueta/valor a la cabecera de datos
+            // que se encuentra en el servidor.
+            // -> abort() 
+            // que cancela la petición actual.
+            // -> getAllResponseHeaders() que devuelve toda la información 
+            // de la cabecera.
+            // -> getResponseHeader() que devuelve la información específica 
+            // de la cabecera. 
+
+        }
+        window.addEventListener("load", function() {
+            document.getElementsByTagName("button")[0].addEventListener("click", cargaXML);
+        });
+    </script>
+</head>
+
+<body>
+
+    <button type="button">Muestra contenido AJAX</button>
+   <div id="cambia">
+        <h2>Cambia el contenido</h2>
+    </div>
+</body>
+
+</html>

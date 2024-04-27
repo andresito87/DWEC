@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Ajax 03. JSON.</title>
+    <script>
+
+        var textoJSON = 
+            '[' +
+            '{ "titulo":"Terminator","genero":"Ciencia Ficción"},' +
+            '{ "titulo":"Alien","genero":"Terror"},' +
+            '{ "titulo":"La Salchica Peleona","genero":"Comedia"} ]';
+        console.log(textoJSON);
+        function cargaJSON() {
+            var texto="";
+            var arrayPeliculas = JSON.parse(textoJSON);
+            console.log(arrayPeliculas);
+            for (var i=0; i<arrayPeliculas.length;i++)
+            {
+                texto=texto+arrayPeliculas[i].titulo+" ,  "
+                +arrayPeliculas[i].genero+"<br />";
+            }
+            document.getElementById("cambia").innerHTML=texto;
+        }
+        window.addEventListener("load", function() {
+            document.getElementsByTagName("button")[0].addEventListener("click", cargaJSON);
+        });
+    </script>
+</head>
+
+<body>
+
+    <button type="button">Muestra contenido AJAX</button>
+   <div id="cambia">
+        <h2>Cambia el contenido</h2>
+    </div>
+</body>
+
+</html>

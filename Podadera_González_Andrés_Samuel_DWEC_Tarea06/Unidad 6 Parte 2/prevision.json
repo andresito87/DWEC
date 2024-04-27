@@ -1,0 +1,276 @@
+{
+    "Headline": {
+        "EffectiveDate": "2023-02-07T08:00:00+01:00",
+        "EffectiveEpochDate": 1675753200,
+        "Severity": 3,
+        "Text": "Previsión de tiempo lluvioso desde el martes por la mañana hasta el martes a última hora de la noche",
+        "Category": "rain",
+        "EndDate": "2023-02-08T08:00:00+01:00",
+        "EndEpochDate": 1675839600,
+        "MobileLink": "http://www.accuweather.com/es/es/roquetas-de-mar/1453257/daily-weather-forecast/1453257?unit=c",
+        "Link": "http://www.accuweather.com/es/es/roquetas-de-mar/1453257/daily-weather-forecast/1453257?unit=c"
+    },
+    "DailyForecasts": [
+        {
+            "Date": "2023-02-07T07:00:00+01:00",
+            "EpochDate": 1675749600,
+            "Sun": {
+                "Rise": "2023-02-07T08:08:00+01:00",
+                "EpochRise": 1675753680,
+                "Set": "2023-02-07T18:42:00+01:00",
+                "EpochSet": 1675791720
+            },
+            "Moon": {
+                "Rise": "2023-02-07T20:23:00+01:00",
+                "EpochRise": 1675797780,
+                "Set": "2023-02-08T09:43:00+01:00",
+                "EpochSet": 1675845780,
+                "Phase": "WaningGibbous",
+                "Age": 17
+            },
+            "Temperature": {
+                "Minimum": {
+                    "Value": 8.4,
+                    "Unit": "C",
+                    "UnitType": 17
+                },
+                "Maximum": {
+                    "Value": 15.2,
+                    "Unit": "C",
+                    "UnitType": 17
+                }
+            },
+            "RealFeelTemperature": {
+                "Minimum": {
+                    "Value": 5.5,
+                    "Unit": "C",
+                    "UnitType": 17,
+                    "Phrase": "Frío"
+                },
+                "Maximum": {
+                    "Value": 14.3,
+                    "Unit": "C",
+                    "UnitType": 17,
+                    "Phrase": "Fresco"
+                }
+            },
+            "RealFeelTemperatureShade": {
+                "Minimum": {
+                    "Value": 5.5,
+                    "Unit": "C",
+                    "UnitType": 17,
+                    "Phrase": "Frío"
+                },
+                "Maximum": {
+                    "Value": 12.6,
+                    "Unit": "C",
+                    "UnitType": 17,
+                    "Phrase": "Fresco"
+                }
+            },
+            "HoursOfSun": 4.6,
+            "DegreeDaySummary": {
+                "Heating": {
+                    "Value": 6.0,
+                    "Unit": "C",
+                    "UnitType": 17
+                },
+                "Cooling": {
+                    "Value": 0.0,
+                    "Unit": "C",
+                    "UnitType": 17
+                }
+            },
+            "AirAndPollen": [
+                {
+                    "Name": "AirQuality",
+                    "Value": 0,
+                    "Category": "Bueno",
+                    "CategoryValue": 1,
+                    "Type": "Ozono"
+                },
+                {
+                    "Name": "Grass",
+                    "Value": 0,
+                    "Category": "Bueno",
+                    "CategoryValue": 1
+                },
+                {
+                    "Name": "Mold",
+                    "Value": 32767,
+                    "Category": "Poco saludable (sensible)",
+                    "CategoryValue": 3
+                },
+                {
+                    "Name": "Ragweed",
+                    "Value": 0,
+                    "Category": "Bueno",
+                    "CategoryValue": 1
+                },
+                {
+                    "Name": "Tree",
+                    "Value": 0,
+                    "Category": "Bueno",
+                    "CategoryValue": 1
+                },
+                {
+                    "Name": "UVIndex",
+                    "Value": 2,
+                    "Category": "Bueno",
+                    "CategoryValue": 1
+                }
+            ],
+            "Day": {
+                "Icon": 13,
+                "IconPhrase": "Mayormente nublado con chubascos",
+                "HasPrecipitation": true,
+                "PrecipitationType": "Rain",
+                "PrecipitationIntensity": "Light",
+                "ShortPhrase": "Unos pocos chubascos",
+                "LongPhrase": "Nubosidad variable y algunos chubascos",
+                "PrecipitationProbability": 85,
+                "ThunderstormProbability": 17,
+                "RainProbability": 85,
+                "SnowProbability": 0,
+                "IceProbability": 0,
+                "Wind": {
+                    "Speed": {
+                        "Value": 18.5,
+                        "Unit": "km/h",
+                        "UnitType": 7
+                    },
+                    "Direction": {
+                        "Degrees": 41,
+                        "Localized": "NE",
+                        "English": "NE"
+                    }
+                },
+                "WindGust": {
+                    "Speed": {
+                        "Value": 48.2,
+                        "Unit": "km/h",
+                        "UnitType": 7
+                    },
+                    "Direction": {
+                        "Degrees": 61,
+                        "Localized": "ENE",
+                        "English": "ENE"
+                    }
+                },
+                "TotalLiquid": {
+                    "Value": 2.9,
+                    "Unit": "mm",
+                    "UnitType": 3
+                },
+                "Rain": {
+                    "Value": 2.9,
+                    "Unit": "mm",
+                    "UnitType": 3
+                },
+                "Snow": {
+                    "Value": 0.0,
+                    "Unit": "cm",
+                    "UnitType": 4
+                },
+                "Ice": {
+                    "Value": 0.0,
+                    "Unit": "mm",
+                    "UnitType": 3
+                },
+                "HoursOfPrecipitation": 1.5,
+                "HoursOfRain": 1.5,
+                "HoursOfSnow": 0.0,
+                "HoursOfIce": 0.0,
+                "CloudCover": 71,
+                "Evapotranspiration": {
+                    "Value": 1.8,
+                    "Unit": "mm",
+                    "UnitType": 3
+                },
+                "SolarIrradiance": {
+                    "Value": 2926.8,
+                    "Unit": "W/m²",
+                    "UnitType": 33
+                }
+            },
+            "Night": {
+                "Icon": 12,
+                "IconPhrase": "Chubascos",
+                "HasPrecipitation": true,
+                "PrecipitationType": "Rain",
+                "PrecipitationIntensity": "Light",
+                "ShortPhrase": "Algún chubasco pasajero",
+                "LongPhrase": "Principalmente nublado, con algún chubasco pasajero",
+                "PrecipitationProbability": 80,
+                "ThunderstormProbability": 16,
+                "RainProbability": 80,
+                "SnowProbability": 0,
+                "IceProbability": 0,
+                "Wind": {
+                    "Speed": {
+                        "Value": 13.0,
+                        "Unit": "km/h",
+                        "UnitType": 7
+                    },
+                    "Direction": {
+                        "Degrees": 36,
+                        "Localized": "NE",
+                        "English": "NE"
+                    }
+                },
+                "WindGust": {
+                    "Speed": {
+                        "Value": 35.2,
+                        "Unit": "km/h",
+                        "UnitType": 7
+                    },
+                    "Direction": {
+                        "Degrees": 27,
+                        "Localized": "NNE",
+                        "English": "NNE"
+                    }
+                },
+                "TotalLiquid": {
+                    "Value": 1.0,
+                    "Unit": "mm",
+                    "UnitType": 3
+                },
+                "Rain": {
+                    "Value": 1.0,
+                    "Unit": "mm",
+                    "UnitType": 3
+                },
+                "Snow": {
+                    "Value": 0.0,
+                    "Unit": "cm",
+                    "UnitType": 4
+                },
+                "Ice": {
+                    "Value": 0.0,
+                    "Unit": "mm",
+                    "UnitType": 3
+                },
+                "HoursOfPrecipitation": 1.0,
+                "HoursOfRain": 1.0,
+                "HoursOfSnow": 0.0,
+                "HoursOfIce": 0.0,
+                "CloudCover": 78,
+                "Evapotranspiration": {
+                    "Value": 0.3,
+                    "Unit": "mm",
+                    "UnitType": 3
+                },
+                "SolarIrradiance": {
+                    "Value": 0.0,
+                    "Unit": "W/m²",
+                    "UnitType": 33
+                }
+            },
+            "Sources": [
+                "AccuWeather"
+            ],
+            "MobileLink": "http://www.accuweather.com/es/es/roquetas-de-mar/1453257/daily-weather-forecast/1453257?day=1&unit=c",
+            "Link": "http://www.accuweather.com/es/es/roquetas-de-mar/1453257/daily-weather-forecast/1453257?day=1&unit=c"
+        }
+    ]
+}

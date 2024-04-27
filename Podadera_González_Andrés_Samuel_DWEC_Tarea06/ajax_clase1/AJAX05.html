@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Ajax 05. Jquery método load.</title>
+    <script src="./jquery-3.2.1.min.js"></script>
+    <script>
+        $(function () { // Si se ha cargado la página se sigue por aquí. Sólo se ejecuta cuando se ha cargado completamente la página. 
+            $("button").click(function () { // Se se pulsa el boton
+                $("#cambia").html("<img src='ajax-loader.gif'>"); // Mientras se carga
+                $("#cambia").load("ajax.txt");
+
+
+            });
+            /* Versión completa */
+            /*$("button").click(function () { // Se se pulsa el boton
+                
+              $("#cambia").html("<img src='ajax-loader.gif'>"); // Mientras se carga
+
+                // el  método load tiene tres parámetros
+                // url (obligatorio)
+                // datos: los datos que se envian al servidor.
+                // funcion(respuesta (contiene los datos pedidos, estado (el estado de la petición), xhrrespuesta (objeto respuesta)
+
+      
+                $("#cambia").load("ajax.txt", function (respuesta, estado, xhr) {
+                    if (estado == "success") {
+                        // Los posibles estados son "success", "notmodified", "error", "timeout" y "parsererror"                            
+                        $("#cambia").text(respuesta);
+                    }
+                    console.log(xhr);
+                });
+
+            });
+*/
+        });
+    </script>
+</head>
+
+<body>
+
+    <button type="button">JQuery Ajax Texto.</button>
+    <div id="cambia">
+        <h2>Cambia el contenido</h2>
+    </div>
+</body>
+
+</html>

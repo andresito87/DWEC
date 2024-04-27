@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Ajax 06. Jquery método get.</title>
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+    <script>
+        $(function () { // La página está cargada. 
+            $("button").click(function () { // Se se pulsa el boton
+                $("#cambia").html("<img src='ajax-loader.gif'>"); // Mientras se carga
+                // $.get es el método que realiza el get de 
+                // ajax. Tiene dos parámetros
+                // solicitud
+                // funcion (datos_devueltos,estado)
+                // tipo es el tipo de datos:
+                // xml, html, text
+                // script -> devuelve un texto plano, pero ejecuta un script // Tengo que probarlo
+                // json, jsonp (es un formato que no vemos en clase)
+                $.get("ajax.txt", function (datos_devueltos, estado) {
+                    if (estado == "success") {
+                        $("#cambia").text(datos_devueltos);
+                    }
+                    console.log(datos_devueltos);
+
+                }, "text"); // Parte final de la llamada a get. 
+            });
+        });
+    </script>
+</head>
+
+<body>
+
+    <button type="button">JQuery Ajax Texto.</button>
+    <div id="cambia">
+        <h2>Cambia el contenido</h2>
+    </div>
+</body>
+
+</html>

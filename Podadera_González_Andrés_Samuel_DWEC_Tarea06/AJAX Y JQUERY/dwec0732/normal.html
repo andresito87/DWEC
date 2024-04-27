@@ -1,0 +1,70 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Ejemplo sin jQuery</title>
+<style type="text/css">
+	.colorido{
+		background-color:#99FF33;
+	}
+</style>
+
+<script type="text/javascript" src="funciones.js"></script>
+<script type="text/javascript">
+////////////////////////////////////////////////////////////////////
+// Cuando el documento esté cargado completamente llamamos a la función iniciar().
+////////////////////////////////////////////////////////////////////
+crearEvento(window,"load",iniciar);
+/////////////////////////////////////////////////////////
+
+function iniciar()
+{
+	var tabla=document.getElementById("mitabla"); // Seleccionamos la tabla.
+	var filas= tabla.getElementsByTagName("tr");  // Seleccionamos las filas de la tabla.
+	
+	for (var i=0; i<filas.length; i++)
+	{
+		if (i%2==1)	// Es una fila impar
+		{
+			// Aplicamos la clase .colorido a esas filas.
+			filas[i].setAttribute('class','colorido');
+		}
+	}
+}
+</script>
+</head>
+<body>
+<table width="200" border="1" align="center" id="mitabla">
+  <tr>
+    <td><div align="center"><strong>pais</strong></div></td>
+    <td><div align="center"><strong>habitantes</strong></div></td>
+    <td><div align="center"><strong>renta</strong></div></td>
+  </tr>
+  <tr>
+    <td>España</td>
+    <td>15600000</td>
+    <td>25000</td>
+  </tr>
+  <tr>
+    <td>Italia</td>
+    <td>45105500</td>
+    <td>45000</td>
+  </tr>
+  <tr>
+    <td>Francia</td>
+    <td>58454545</td>
+    <td>45645</td>
+  </tr>
+  <tr>
+    <td>Uk</td>
+    <td>78799788</td>
+    <td>88547</td>
+  </tr>
+  <tr>
+    <td>USA</td>
+    <td>98878787</td>
+    <td>45124</td>
+  </tr>
+</table>
+</body>
+</html>

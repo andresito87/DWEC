@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Ajax 10. Jquery método ajax.</title>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+
+    <script>
+        $(function() { // Esperamos a que se cargue la página
+                $("button").click(function() { // Se se pulsa el boton
+                    var cadena = "";
+                    $("#cambia").html("<img src='ajax-loader.gif'>"); // Mientras se carga
+                    // El método ajax recibe un objeto literal
+                    $.ajax({
+                        url: "ajaxpelis.json",
+                        //data: { edadacceso: 21}, // El post al servidor
+                        type: "GET",
+                        dataType: "json",
+                        async : true,
+                        // Si se produce correctamente
+                        success: function(datos_devueltos) {
+                            $("#cambia").html("<br />"); // Acabos de quitar el gif animado
+                            console.log(datos_devueltos);
+                            for (var i = 0; i < datos_devueltos.length; i++) {
+                            
+                                $("#cambia").append("Título:" + datos_devueltos[i].titulo + "<br />" + "Genero:" + datos_devueltos[i].genero + "<br />");
+
+                            }
+
+                        },
+                        // Si la petición falla
+                        error: function(xhr, estado, error_producido) {
+                            console.warn("Error producido: " + error_producido);
+                            console.warn("Estado: " + estado);
+
+                        },
+                        //Tanto si falla como si funciona
+                        complete: function(xhr, estado) {
+                            console.log("Petición completa");
+                        }
+
+                    });
+
+                });
+        });
+    </script>
+</head>
+
+<body>
+
+    <button type="button">JQuery Ajax Texto.</button>
+    <div id="cambia">
+        <h2>Cambia el contenido</h2>
+    </div>
+</body>
+
+</html>

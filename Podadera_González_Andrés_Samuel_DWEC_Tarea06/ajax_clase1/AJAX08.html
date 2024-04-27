@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Ajax 08. Jquery método getJSON.</title>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+
+    <script>
+        $(function () {
+            $("button").click(function () { // Se se pulsa el boton
+                var cadena = "";
+                $("#cambia").html("<img src='ajax-loader.gif'>"); // 
+                $.getJSON("ajaxpelis.json", function (datos_devueltos, estado) {
+                    if (estado == "success") {
+                        $("#cambia").html("<br />");
+
+                        for (let i = 0; i < datos_devueltos.length; i++) {
+                            $("#cambia").append("Título:" + datos_devueltos[i].titulo + "<br />" + "Genero:" + datos_devueltos[i].genero + "<br />");
+
+                        }
+
+                    }
+                    console.log(datos_devueltos);
+
+                });
+            });
+        });
+    </script>
+</head>
+
+<body>
+
+    <button type="button">JQuery Ajax Texto.</button>
+    <div id="cambia">
+        <h2>Cambia el contenido</h2>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Axios</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  </head>
+  <body>
+    <script>
+      let datos_devueltos;
+      axios({
+        method: "get",
+        url: "prevision.json",
+        params: {
+          foo: true,
+          parados: 12
+        }
+      }).then( function (response) {
+        console.log(response);
+        datos_devueltos = response.data;
+        console.log(datos_devueltos);
+        document.write(
+          "La hora actual es " + datos_devueltos.Headline.EffectiveDate + "<br>"
+        );
+        document.write(
+          "El día es de " + datos_devueltos["Headline"]["Category"] + "<br>"
+
+        );
+        document.write(
+          "La calidad del aire es: " +
+            datos_devueltos.DailyForecasts[0].AirAndPollen[0].Category
+        );
+        document.write(
+          " en el tipo " +
+            datos_devueltos.DailyForecasts[0].AirAndPollen[0].Type +
+            "<br>"
+        );
+      });
+    </script>
+  </body>
+</html>

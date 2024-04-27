@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>OMDB.</title>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+
+    <script>
+        $(function () { // arrancando jquery. 
+            /*$("button").click(function () { // Se se pulsa el boton
+                let cadena = "";
+                $("#cambia").html("<img src='ajax-loader.gif'>"); // Mientras se carga
+                // $.get es el método que realiza el get de 
+                // ajax. Tiene dos parámetros
+                // solicitud
+                // funcion (datos_devueltos,estado)
+                // tipo es el tipo de datos:
+                // xml, html, text
+                // script -> devuelve un texto plano, pero ejecuta un script // Tengo que probarlo
+                // json, jsonp (es un formato que no vemos en clase)
+                $.get("http://www.omdbapi.com/",
+                { 
+                 t: 'Game of Thrones',
+                 Season: '3', 
+                 apikey: '63f01248' 
+                } ,
+                function (datos_devueltos, estado) {
+                    if (estado == "success") {
+                        console.log("funciona");
+                        console.log(datos_devueltos);
+                            cadena = cadena + "Título:" + datos_devueltos.Title + "<br>" + "<br>";
+                            cadena = cadena + "Temporada: " + datos_devueltos.Season + "<br>";
+                        for (let i = 0; i < datos_devueltos.Episodes.length; i++) {
+                            cadena = cadena +"s0" + datos_devueltos.Season + "x" +
+                             datos_devueltos.Episodes[i].Episode + " " +
+                               datos_devueltos.Episodes[i].Title + "<br />";                                                                                                
+                      }
+                        console.log(cadena);
+                        $("#cambia").html(cadena);
+                    }
+                    console.log(datos_devueltos);
+
+                }, "json"); // Pedimos un json
+            });*/
+
+            $("button").click(function () { // Se se pulsa el boton
+                let cadena = "";
+                $("#cambia").html("<img src='ajax-loader.gif'>"); // Mientras se carga
+                // $.get es el método que realiza el get de 
+                // ajax. Tiene dos parámetros
+                // solicitud
+                // funcion (datos_devueltos,estado)
+                // tipo es el tipo de datos:
+                // xml, html, text
+                // script -> devuelve un texto plano, pero ejecuta un script // Tengo que probarlo
+                // json, jsonp (es un formato que no vemos en clase)
+                $.get("http://www.omdbapi.com/?t=alien&apikey=63f01248",
+               /* { 
+                 t: 'Avatar',
+                 apikey: '63f01248' 
+                } ,*/
+                function (datos_devueltos, estado) {
+                    if (estado == "success") {
+                        console.log("funciona");
+                        console.log(datos_devueltos);
+                            cadena = cadena + "Título:" + datos_devueltos.Title + "<br>" + "<br>";
+                            cadena = cadena + "Género: " + datos_devueltos.Genre + "<br>";
+                            cadena = cadena + "Duración: " + datos_devueltos.Runtime + "<br>";
+                            cadena = cadena + "<img src="+ datos_devueltos.Poster+">";
+                        console.log(cadena);
+
+                        $("#cambia").html(cadena);
+                    }
+                    console.log(datos_devueltos);
+
+                }, "json"); // Pedimos un json
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <input type="text" id="busca"></input>
+    <button type="button">JQuery Ajax Texto.</button>
+    <div id="cambia">
+        <h2>Cambia el contenido</h2>
+    </div>
+</body>
+
+</html>

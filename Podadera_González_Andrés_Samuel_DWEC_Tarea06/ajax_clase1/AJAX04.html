@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Ajax 04. JSON.</title>
+    <script>
+        function cargaJSON() {
+            var peticionJSON;
+
+            if (window.XMLHttpRequest) { // A partir del IE7 todos los navegadores funcionan ASI.
+                peticionJSON = new XMLHttpRequest();
+            } else { // código para IE6 e IE7
+                peticionJSON = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            // La función siguiente se va a llamar cada vez
+            // que readystate cambie.
+            peticionJSON.onreadystatechange = function() {
+
+                let texto = "";                
+                
+                if (peticionJSON.readyState == 4 && peticionJSON.status == 200) {
+                    let arrayPeliculas = JSON.parse(peticionJSON.responseText);
+                    for (let i = 0; i < arrayPeliculas.length; i++) {
+                        texto = texto + arrayPeliculas[i]["titulo"]
+                         + " , "
+                         + arrayPeliculas[i].genero + "<br />";
+                    }
+                    document.getElementById("cambia").innerHTML = texto;
+
+                }
+
+            }
+            peticionJSON.open("GET", "ajaxpelis.json", true);
+            peticionJSON.send();
+        }
+
+        window.addEventListener("load", function() {
+            document.getElementsByTagName("button")[0].addEventListener("click", cargaJSON);
+        });
+    </script>
+</head>
+
+<body>
+
+    <button type="button">Muestra contenido AJAX</button>
+    <div id="cambia">
+        <h2>Cambia el contenido</h2>
+    </div>
+</body>
+
+</html>
