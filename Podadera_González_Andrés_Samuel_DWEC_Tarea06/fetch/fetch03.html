@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>promiseall y async await</title>
+  </head>
+
+  <body>
+    <script>
+      // para utilizar async await debemos declarar las funciones como async
+      async function mifuncionawait() {
+        let respuesta = await fetch("ajaxpelis.json");
+        let datos_devueltos = await respuesta.json();
+
+        document.write("<br> " + datos_devueltos[0].titulo + "<br>");
+
+        return true;
+      };
+
+      mifuncionawait();
+      // Promise all. Para obtener varias cosas.
+      //El método Promise.all(iterable) devuelve una promesa que termina correctamente
+      // cuando todas las promesas en el argumento iterable han sido concluídas con éxito,
+      // o bien rechaza la petición con el motivo pasado por la primera promesa que es rechazada.
+
+      let direcciones = new Array("omdb.json", "ajaxpelis.json");
+      let promises = direcciones.map((url) =>
+        fetch(url).then(response => response.json())
+      );
+      // Con Promises.all esperamos a que salgan las respuestas. Si una falla todas fallan.
+      Promise.all(promises)
+        .then((datos_devueltos) => {
+          // Aquí se hacen cosas con el código
+          for (let i = 0; i < datos_devueltos.length; i++) {
+            if (datos_devueltos[i].hasOwnProperty("Title"))
+              document.write(datos_devueltos[i].Title + "<br>");
+            else document.write(datos_devueltos[i][2].titulo + "<br>");
+            console.log(datos_devueltos[i]);
+          }
+        })
+        .catch(console.warn)
+        .finally(console.log("Terminadas las consultas."));
+
+      // Hay muchísimas más opciones que se pueden utilizar.
+      // https://es.javascript.info/promise-api hay mucha información muy interesante.
+
+      
+    </script>
+  </body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Promesas</title>
+  </head>
+
+  <body>
+    <script>
+      // las promesas tratan de solucionar el problema de la Pirámide infernal.
+      // Con un montón de if else if else .... que no pueden solucionarse con switch.
+
+      let mipromisa = new Promise(function (resolve, reject) {});
+      // Ese argumento primero es una función denominada ejecutor.
+      //  function(resolve, reject)
+      // resolve y reject son callbacks que proporciona el propio javascript.
+      // Solo puede haber un único resultado.
+      let mipromesa2 = new Promise(function (resolve, reject) {
+        // Descomenta lo que quieres que de el resultado de la función.
+        resolve(" Correcto, escrito por mi"); // Ya lo posterior se ignora en los thens
+              //    console.log("hola");
+       // reject("error que he escrito yo"); // Este cambio de estado se ignora.
+      });
+
+      // Tanto state como result son propiedades internas y no podemos acceder a ellas.
+      // ¿Cómo consumimos estos datos?
+
+      // Usaremos then catch y finally.
+/*
+      mipromesa2.then(
+        (result) => {
+          // son dos cosas que tienes que controlar
+          document.write("<br>  El resultado" + result);
+          console.log(result);
+        },
+        (error) => {
+          document.write("<br>  El error " + error);
+          console.log(error);
+        }
+      );*/
+      // Si solo queremos lo exitoso podemos eliminar el trozo del error.
+
+      mipromesa2
+        .then((result) => {
+          // son dos cosas que tienes que controlar
+          document.write("<br> El resultado" + result);
+        })
+        .catch(console.warn);
+      // Si solo queremos procesar los errores podemos usar catch en vez de then.
+      mipromesa2.catch(console.warn);
+
+      // Por último finally se ejecuta siempre y no tiene argumentos.
+
+      mipromesa2
+        .then((resultado) => {
+          document.write("<br> El resultado" + resultado + "<br>");
+        })
+        .catch(console.warn)
+        .finally(() => document.write("La promesa se ha ejecutado"));
+    </script>
+  </body>
+</html>
