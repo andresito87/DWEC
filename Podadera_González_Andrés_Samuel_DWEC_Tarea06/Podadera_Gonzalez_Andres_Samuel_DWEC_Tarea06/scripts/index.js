@@ -2,7 +2,11 @@
 // Consulta a la API de GeoDB Cities para obtener datos geográficos - http://geodb-cities-api.wirefreethought.com/
 //-----------------------------------------//
 let city = '';
+let countryCode = '';
 let country = '';
+let population = '';
+let region = '';
+let placeType = '';
 
 const API_KEY = '67GUAUV4UMRXHYN5VKG7VBTLA';
 const API_URL =
@@ -14,9 +18,9 @@ function setCityCountry() {
   let dataInput = document.getElementById('ciudad').value;
   city = dataInput.split(',')[0];
   if (dataInput.split(',')[1] == undefined) {
-    country = 'ES';
+    countryCode = 'ES';
   } else {
-    country = dataInput.split(',')[1].toUpperCase();
+    countryCode = dataInput.split(',')[1].toUpperCase();
   }
 }
 
@@ -27,51 +31,71 @@ function setCityCountry() {
 // Funcion para obtener el tiempo de una ciudad
 async function getWeather(city) {
   const response = await fetch(
-    `${API_URL}${city},${country}?lang=es&key=${API_KEY}`
+    `${API_URL}${city},${countryCode}?lang=es&key=${API_KEY}`
   );
   const data = await response.json();
-  return data;
+  return data.days;
 }
 
 // Funcion para mostrar el tiempo en la pagina
-function showWeather(city, weather) {
-  const weatherDiv = document.getElementById('tarjeta_tiempo');
-  weatherDiv.innerHTML = '';
-  const cityDiv = document.createElement('div');
-  cityDiv.innerHTML = '<h2>' + city + '</h2>';
-  weatherDiv.appendChild(cityDiv);
-  const weatherTable = document.createElement('table');
-  weatherTable.innerHTML = `
-      <tr>
-        <th>Estado</th>
-        <th>Temperatura</th>
-      </tr>
-      <tr>
-        <td>${weather.currentConditions.conditions}</td>
-        <td>${weather.currentConditions.temp}</td>
-      </tr>
-    `;
-  weatherDiv.appendChild(weatherTable);
+async function showWeather(weather) {
+  await getInfoLocalization();
+  const divPopulation = document.getElementById('poblacion');
+  const divCountry = document.getElementById('pais');
+  const divRegion = document.getElementById('region');
+  const divCardWeather = document.getElementById('tarjetaTiempo');
+  divRegion.innerHTML = region;
+  divPopulation.innerHTML = population;
+  divCountry.innerHTML = country;
+  divCardWeather.innerHTML = '';
+  const divWeatherActual = document.createElement('div');
+  // Elijo mostrar el tiempo actual de la primera hora del dia
+  weather = weather[0];
+  divWeatherActual.innerHTML = `
+    <h2 id="titulo">${city}</h2>
+    <p id="temperatura">Temperatura Max/Min: ${(
+      ((weather.tempmax - 32) * 5) /
+      9
+    ).toFixed(1)} ºC / ${(((weather.tempmin - 32) * 5) / 9).toFixed(1)} ºC</p>
+    <img id="imagen" src="./icons/${weather.icon}.svg" alt="icono tiempo">
+    <p id="descripcion">${weather.conditions}</p>
+    <p id="precipitacion">${
+      weather.precip != 0
+        ? `Llueve. Tipo de lluvia: ${weather.preciptype}`
+        : 'No llueve'
+    }</p>
+    <p id="visibilidad">Visibilidad: ${weather.visibility}</p>
+    ${
+      weather.windspeed != 0
+        ? `<p id="viento"><span>Viento:<span> Velocidad => ${weather.windspeed} / Dirección => ${weather.winddir}</p>`
+        : ''
+    }
+    <p id="indiceUltraviloleta">Índice Ultravioleta: ${weather.uvindex}</p>
+  `;
+
+  divCardWeather.appendChild(divWeatherActual);
 }
 
 // Funcion para obtener y mostrar el tiempo de una ciudad
 async function showCityWeather(city) {
   const weather = await getWeather(city);
-  showWeather(city, weather);
+  showWeather(weather);
 }
 
 // Evento para mostrar el tiempo de una ciudad
-document.getElementById('buscar').addEventListener('click', () => {
-  document.getElementById('prevision_tiempo').innerHTML = '';
-  document.getElementById('localizacion').innerHTML = '';
-  setCityCountry();
-  showCityWeather(city);
-});
+document
+  .getElementById('botonPrevisionDiaActual')
+  .addEventListener('click', () => {
+    document.getElementById('prevision10Dias').innerHTML = '';
+    document.getElementById('localizacion').innerHTML = '';
+    setCityCountry();
+    showCityWeather(city);
+  });
 
 // Funcion para obtener el tiempo de los proximos 10 dias de una ciudad
 async function getWeather10(city) {
   const response = await fetch(
-    `${API_URL}${city},${country}?lang=es&key=${API_KEY}`
+    `${API_URL}${city},${countryCode}?lang=es&key=${API_KEY}`
   );
   const data = await response.json();
   return data.days;
@@ -80,7 +104,7 @@ async function getWeather10(city) {
 // Funcion para mostrar el tiempo de los proximos 10 dias de una ciudad
 async function showCityWeather10(city) {
   const weather = await getWeather10(city);
-  const weatherDiv = document.getElementById('prevision_tiempo');
+  const weatherDiv = document.getElementById('prevision10Dias');
   weatherDiv.innerHTML = '';
   const cityDiv = document.createElement('div');
   cityDiv.innerHTML = '<h2>' + city + '</h2>';
@@ -104,12 +128,14 @@ async function showCityWeather10(city) {
 }
 
 // Evento para mostrar el tiempo de los proximos 10 dias de una ciudad
-document.getElementById('prevision').addEventListener('click', () => {
-  document.getElementById('tarjeta_tiempo').innerHTML = '';
-  document.getElementById('localizacion').innerHTML = '';
-  setCityCountry();
-  showCityWeather10(city);
-});
+document
+  .getElementById('botonPrevision10Dias')
+  .addEventListener('click', () => {
+    document.getElementById('tarjetaTiempo').innerHTML = '';
+    document.getElementById('localizacion').innerHTML = '';
+    setCityCountry();
+    showCityWeather10(city);
+  });
 
 //-----------------------------------------//
 // Mapa con la libreria Leaflet
@@ -118,12 +144,12 @@ document.getElementById('prevision').addEventListener('click', () => {
 let map = '';
 let latitud = '';
 let longitud = '';
-document.getElementById('boton_localizacion').addEventListener('click', () => {
-  document.getElementById('prevision_tiempo').innerHTML = '';
-  document.getElementById('tarjeta_tiempo').innerHTML = '';
+document.getElementById('botonLocalizacion').addEventListener('click', () => {
+  document.getElementById('prevision10Dias').innerHTML = '';
+  document.getElementById('tarjetaTiempo').innerHTML = '';
   const localizationDiv = document.getElementById('localizacion');
   setCityCountry();
-  getLatLong().then(() => {
+  getInfoLocalization().then(() => {
     if (latitud === undefined || longitud === undefined) {
       document.getElementById('localizacion').innerHTML = '';
       localizationDiv.innerHTML = '<h2>Localización no encontrada</h2>';
@@ -146,21 +172,29 @@ document.getElementById('boton_localizacion').addEventListener('click', () => {
 });
 
 // Funcion para obtener la latitud y longitud de una ciudad
-async function getLatLong() {
+async function getInfoLocalization() {
   const response = await fetch(
-    `${GEODB_API_URL}?namePrefix=${city}&languageCode=${country}`
+    `${GEODB_API_URL}?namePrefix=${city}&languageCode=${countryCode}`
   );
   const data = await response.json();
   if (data.data.length > 0) {
     for (let localization of data.data) {
-      if (localization.countryCode === country) {
+      if (localization.countryCode === countryCode) {
         latitud = localization.latitude;
         longitud = localization.longitude;
+        population = localization.population;
+        region = localization.region;
+        placeType = localization.placeType;
+        country = localization.country;
+        city = localization.name;
         break;
       }
     }
   } else {
     latitud = undefined;
     longitud = undefined;
+    population = undefined;
+    region = undefined;
+    placeType = undefined;
   }
 }
