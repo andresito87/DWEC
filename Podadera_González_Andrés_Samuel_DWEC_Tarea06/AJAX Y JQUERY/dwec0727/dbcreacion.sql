@@ -1,12 +1,12 @@
-CREATE USER 'ajax'@'localhost' IDENTIFIED BY 'dwec';
+CREATE USER IF NOT EXISTS 'ajax'@'localhost' IDENTIFIED BY 'dwec';
 
 GRANT USAGE ON * . * TO 'ajax'@'localhost' IDENTIFIED BY 'dwec' WITH MAX_QUERIES_PER_HOUR 0 MAX_CONNECTIONS_PER_HOUR 0 MAX_UPDATES_PER_HOUR 0 MAX_USER_CONNECTIONS 0 ;
 
 CREATE DATABASE IF NOT EXISTS `ajax` ;
 
-GRANT ALL PRIVILEGES ON `ajax` . * TO 'ajax'@'localhost';
+GRANT ALL PRIVILEGES ON *.* TO 'ajax'@'localhost' WITH GRANT OPTION;
 
-use  `ajax`;
+use `ajax`;
 
 
 CREATE TABLE IF NOT EXISTS `centros` (
