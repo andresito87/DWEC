@@ -25,8 +25,9 @@
         <h1>Aplicación del tiempo</h1>
     </header>
     <main>
+        <h2>Intoduce la ciudad para la que deseas conocer su previsión:</h2>
         <div id="inputs_botones">
-            <input type="text" id="ciudad" placeholder="Introduce una ciudad">
+            <input type="text" id="ciudad" placeholder="Ciudad,País">
             <button id="botonPrevisionDiaActual">Tiempo actual</button>
             <button id="botonPrevision10Dias">Previsión para 10 días</button>
             <button id="botonLocalizacion">Localizacion</button>
@@ -35,7 +36,8 @@
             <img id="imagenCargando" src="./images/cargando.gif" alt="Cargando">
         </div>
         <div id="tiempoActual">
-            <div id="info_lugar">
+            <div id="infoLugar">
+                <div id="noEncontrada"></div>
                 <div id="divPoblacion">
                     <p class="titulo">Población</p>
                     <p id="poblacion"></p>
@@ -49,13 +51,16 @@
                     <p id="region"></p>
                 </div>
             </div>
-            <div id="tarjetaTiempo"></div>
-            <div id="mapa"></div>
+            <div id="divPrevisionMapa">
+                <div id="tarjetaTiempo"></div>
+                <div id="localizacion"></div>
+            </div>
+        </div>
         </div>
         <div id="prevision10Dias">
         </div>
-        <div id="localizacion">
-            <div id="map"></div>
+        <div id="local">
+            <div id="mapaaaaaaa"></div>
         </div>
     </main>
 
