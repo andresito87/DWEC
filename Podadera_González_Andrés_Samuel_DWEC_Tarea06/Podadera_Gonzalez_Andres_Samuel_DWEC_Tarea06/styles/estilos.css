@@ -143,9 +143,13 @@ img {
 #tiempo10Dias {
     display: flex;
     flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }
 
 .tarjetaTiempo {
+    max-width: 70px;
+    min-width: 70px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -154,6 +158,13 @@ img {
     padding: 10px;
     border: 1px solid black;
     border-radius: 10px;
+    background-color: var(--color-fondo-tarjeta);
+}
+
+#prevision10Dias span {
+    font-size: 1.5em;
+    color: var(--color-texto-destacado);
+
 }
 
 /* Estilos de la zona de localización */
