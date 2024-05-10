@@ -22,7 +22,7 @@
 
 <body>
     <header>
-        <h1>Aplicación del tiempo</h1>
+        <h1>Aplicación del tiempo - Tarea 06 - Andrés Samuel Podadera González</h1>
     </header>
     <main>
         <h2>Intoduce la ciudad para la que deseas conocer su previsión:</h2>
@@ -30,7 +30,7 @@
             <input type="text" id="ciudad" placeholder="Ciudad,País">
             <button id="botonPrevisionDiaActual">Tiempo actual</button>
             <button id="botonPrevisionProximos10Dias">Previsión para 10 días</button>
-            <button id="botonLocalizacion">Localizacion</button>
+            <button id="botonGeolocalizacion">Geo-Localizacion y Mapa Interactivo</button>
         </div>
         <div id="cargando">
             <img id="imagenCargando" src="./images/cargando.gif" alt="Cargando">
@@ -56,11 +56,15 @@
                 <div id="localizacion"></div>
             </div>
         </div>
-        </div>
         <div id="prevision10Dias">
         </div>
         <div id="geolocalizacion">
-            <div id="mapaGeolocalizacion"></div>
+            <h1>Selecciona un punto en el mapa y te muestro su previsión:</h1>
+            <div id="contenedorGeolocalizacion">
+                <div id="geolocalizacionNoSoportada"></div>
+                <div id="previsionGeolocalizacion"></div>
+                <div id="mapaGeolocalizacion"></div>
+            </div>
         </div>
     </main>
 

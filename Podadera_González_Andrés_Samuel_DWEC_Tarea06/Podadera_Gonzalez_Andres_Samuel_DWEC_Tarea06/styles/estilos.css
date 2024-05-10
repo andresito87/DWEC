@@ -49,6 +49,7 @@ button {
     color: white;
     background-color: var(--color-titulos);
     font-weight: bold;
+    cursor: pointer;
 }
 
 /* Estilos a la zona de cargando */
@@ -190,4 +191,46 @@ img {
 .error {
     color: red;
     font-weight: bold;
+}
+
+/* Estilos de la zona de prevision por geolocalizacion */
+
+#contenedorGeolocalizacion {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+#previsionGeolocalizacion {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid var(--color-titulos);
+    border-radius: 10px;
+    width: 500px;
+    margin: 20px auto;
+    background-color: var(--color-fondo-tarjeta);
+    font-weight: bold;
+}
+
+#mapaGeolocalizacion {
+    width: 450px;
+    height: 450px;
+    margin: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: var(--color-fondo-tarjeta);
+    font-weight: bold;
+    border: 1px solid var(--color-titulos);
+    margin: 20px auto;
 }

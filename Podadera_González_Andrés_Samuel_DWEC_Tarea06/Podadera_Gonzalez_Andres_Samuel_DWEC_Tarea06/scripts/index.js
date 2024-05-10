@@ -1,6 +1,3 @@
-//-----------------------------------------//
-// Consulta a la API de GeoDB Cities para obtener datos geográficos - http://geodb-cities-api.wirefreethought.com/
-//-----------------------------------------//
 let city = '';
 let countryCode = '';
 let country = '';
@@ -10,7 +7,6 @@ let placeType = '';
 let latitude = '';
 let longitude = '';
 let localizationFound = false;
-let map = '';
 
 const API_KEY = '67GUAUV4UMRXHYN5VKG7VBTLA';
 const VISUAL_CROSSING_API_URL =
@@ -28,6 +24,9 @@ document.addEventListener('DOMContentLoaded', () => {
     .getElementById('tarjetaTiempo')
     .setAttribute('style', 'display: none');
   document.getElementById('cargando').setAttribute('style', 'display: none');
+  document
+    .getElementById('geolocalizacion')
+    .setAttribute('style', 'display: none');
 
   // Añado evento click en el boton de tiempo actual
   document
@@ -41,12 +40,16 @@ document.addEventListener('DOMContentLoaded', () => {
       document
         .getElementById('prevision10Dias')
         .setAttribute('style', 'display: none');
+      // Oculto la zona de la previsión por geo localizacion
+      document
+        .getElementById('geolocalizacion')
+        .setAttribute('style', 'display: none');
       // Muestro la imagen de cargando
       document
         .getElementById('cargando')
         .setAttribute('style', 'display: block');
       // obtener la ciudad
-      getCity();
+      await getCity();
       // obtener la informacion de la ciudad
       await getInfoLocalization(city);
       // obtener y mostrar el tiempo
@@ -59,10 +62,6 @@ document.addEventListener('DOMContentLoaded', () => {
   document
     .getElementById('botonPrevisionProximos10Dias')
     .addEventListener('click', async () => {
-      // Muestro la imagen de cargando
-      document
-        .getElementById('cargando')
-        .setAttribute('style', 'display: block');
       // Oculto la informacion de la ciudad, la prevision del tiempo y el mapa
       document
         .getElementById('tiempoActual')
@@ -71,8 +70,16 @@ document.addEventListener('DOMContentLoaded', () => {
       document
         .getElementById('prevision10Dias')
         .setAttribute('style', 'display: none');
+      // OCulto la zona de la previsión por geo localizacion
+      document
+        .getElementById('geolocalizacion')
+        .setAttribute('style', 'display: none');
+      // Muestro la imagen de cargando
+      document
+        .getElementById('cargando')
+        .setAttribute('style', 'display: block');
       // obtener la ciudad
-      getCity();
+      await getCity();
       // obtener la informacion de la ciudad
       await getInfoLocalization(city);
       // obtener y mostrar el tiempo para los proximos 10 dias
@@ -80,18 +87,25 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+// Añado evento click en el boton de geolocalizacion
+document
+  .getElementById('botonGeolocalizacion')
+  .addEventListener('click', async () => {
+    // obtener la geolocalizacion del usuario, mostrar la previsión del tiempo y el mapa
+    await getGeolocation();
+  });
+
 // Funcion para obtener la ciudad apartir de los datos introducidos por el usuario
-function getCity() {
+async function getCity() {
   city = document.getElementById('ciudad').value.trim().split(',')[0];
   countryCode = document.getElementById('ciudad').value.trim().split(',')[1];
-  if (city === '') {
+  if (city == undefined || city === '') {
     alert('Introduce una ciudad');
     city = undefined;
   } else if (countryCode === '') {
     countryCode = undefined;
     country = undefined;
-  }
-  if (city.length < 4) {
+  } else if (city != undefined && city.length < 4) {
     alert('No hay información suficiente para buscar la ciudad');
     city = undefined;
     countryCode = undefined;
@@ -165,6 +179,12 @@ async function getWeather() {
     .getElementById('tarjetaTiempo')
     .setAttribute('style', 'display: none');
 
+  // Si no se ha introducido una ciudad
+  if (city === undefined) {
+    // Oculto la imagen de cargando
+    document.getElementById('cargando').setAttribute('style', 'display: none');
+    return;
+  }
   // Consulto la API de Visual Crossing
   const response = await fetch(
     `${VISUAL_CROSSING_API_URL}${city}${
@@ -294,10 +314,9 @@ function getStations(stations) {
 
 // Funcion para mostrar el mapa con la localizacion de la ciudad
 function showMap(latitude, longitude) {
-  // Limpiar el mapa
-  if (map != '') {
-    document.getElementById('localizacion').innerHTML = '';
-    map.remove();
+  // Elimino el mapa si ya existe, al haber buscado la prevision por geolocalizacion
+  if (document.getElementById('map')) {
+    document.getElementById('map').remove();
   }
   // Muestro el mapa
   document
@@ -309,11 +328,13 @@ function showMap(latitude, longitude) {
   divMap.id = 'map';
   localizationDiv.appendChild(divMap);
   document.getElementById('map').innerHTML = '';
-  map = new L.Map('map').setView([latitude, longitude], 12);
+  const map = new L.Map('map').setView([latitude, longitude], 12);
   // Creacion de la capa de OpenStreetMap
-  L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 13,
-  }).addTo(map);
+  L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {}).addTo(
+    map
+  );
+  // Ajusto el zoom
+  map.setZoom(13);
   // Creacion del marcador
   L.marker([latitude, longitude]).addTo(map).bindPopup(city).openPopup();
 }
@@ -322,6 +343,12 @@ function showMap(latitude, longitude) {
 async function getWeatherNext10Days() {
   // Oculto la imagen de cargando
   document.getElementById('cargando').setAttribute('style', 'display: none');
+
+  // Si no se ha introducido una ciudad
+  if (city === undefined) {
+    return;
+  }
+
   // Muestro la zona de previsión del tiempo para los próximos 10 días
   document
     .getElementById('prevision10Dias')
@@ -355,7 +382,7 @@ async function getWeatherNext10Days() {
       divWeatherDay.className = 'tarjetaTiempo';
       const divIcon = document.createElement('div');
       const divTemperatures = document.createElement('div');
-      divIcon.innerHTML = `<img src="../icons/${day.icon}.svg" alt="icono tiempo">`;
+      divIcon.innerHTML = `<img src="./icons/${day.icon}.svg" alt="icono tiempo">`;
       divTemperatures.innerHTML = `<p>${day.tempmax} ºC / ${day.tempmin} ºC</p>`;
       divWeatherDay.appendChild(divIcon);
       divWeatherDay.appendChild(divTemperatures);
@@ -363,4 +390,219 @@ async function getWeatherNext10Days() {
       weatherDiv.appendChild(div10days);
     });
   }
+}
+
+async function getGeolocation() {
+  // Limpio el input de ciudad
+  document.getElementById('ciudad').value = '';
+  // Oculto la informacion de la ciudad, la prevision del tiempo y el mapa
+  document
+    .getElementById('tiempoActual')
+    .setAttribute('style', 'display: none');
+  // Oculto la previsión del tiempo de los próximos 10 días
+  document
+    .getElementById('prevision10Dias')
+    .setAttribute('style', 'display: none');
+  // OCulto la zona de la previsión por geo localizacion
+  document
+    .getElementById('geolocalizacion')
+    .setAttribute('style', 'display: none');
+  // Muestro la imagen de cargando
+  document.getElementById('cargando').setAttribute('style', 'display: block');
+
+  const divCardWeather = document.getElementById('previsionGeolocalizacion');
+  // Compruebo si el navegador soporta la geolocalizacion
+  if ('geolocation' in navigator) {
+    navigator.geolocation.getCurrentPosition(
+      async position => {
+        const myPosition = {
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+        };
+        // Consulto la API de Visual Crossing
+        const response = await fetch(
+          `${VISUAL_CROSSING_API_URL}${myPosition.latitude},${myPosition.longitude}/today?unitGroup=metric&lang=es&key=${API_KEY}`
+        );
+        // Oculto la imagen de cargando
+        document
+          .getElementById('cargando')
+          .setAttribute('style', 'display: none');
+        // Muestro la zona de previsión por geolocalizacion
+        document
+          .getElementById('geolocalizacion')
+          .setAttribute('style', 'display: block');
+        // Si la respuesta es correcta
+        if (response.status === 200) {
+          const data = await response.json();
+
+          // Muestro la previsión del tiempo
+          divCardWeather.innerHTML = '';
+          const divWeatherActual = document.createElement('div');
+          divWeatherActual.innerHTML = `
+        <h2 id="titulo">La previsión para la localización marcada en el mapa es:</h2>
+        <p id="temperatura">Temperatura Max/Min: ${data.days[0].tempmax} ºC / ${
+            data.days[0].tempmin
+          } ºC</p>
+        <img id="imagen" src="./icons/${
+          data.days[0].icon
+        }.svg" alt="icono tiempo">
+        <p id="descripcion">${data.days[0].conditions}</p>
+        <p id="precipitacion">${
+          data.days[0].precip != 0
+            ? `Llueve. Tipo de lluvia: ${data.days[0].preciptype}`
+            : 'No llueve'
+        }</p>
+        <p id="visibilidad">Visibilidad: ${data.days[0].visibility}</p>
+        ${
+          data.days[0].windspeed != 0
+            ? `<p id="viento"><span>Viento:<span> Velocidad => ${data.days[0].windspeed} / Dirección => ${data.days[0].winddir}</p>`
+            : ''
+        }
+        <p id="indiceUltraviloleta">Índice Ultravioleta: ${
+          data.days[0].uvindex
+        }</p>
+        <p id="latitud">Latitud: ${myPosition.latitude}</p>
+        <p id="longitud">Longitud: ${myPosition.longitude}</p>
+      `;
+
+          divCardWeather.appendChild(divWeatherActual);
+        }
+
+        // Primero elimino el mapa si ya existe, al haber buscado la prevision del dia actual
+        if (document.getElementById('map')) {
+          document.getElementById('map').remove();
+        }
+        // Muestro el mapa
+        document
+          .getElementById('mapaGeolocalizacion')
+          .setAttribute('style', 'display: block');
+        const localizationDiv = document.getElementById('mapaGeolocalizacion');
+        // Creo el mapa
+        const divMap = document.createElement('div');
+        divMap.id = 'map';
+        localizationDiv.appendChild(divMap);
+        divMap.innerHTML = '';
+        const map = new L.Map('map').setView(
+          [myPosition.latitude, myPosition.longitude],
+          12
+        );
+        // Creacion de la capa de OpenStreetMap
+        L.tileLayer(
+          'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+          {}
+        ).addTo(map);
+        // Ajusto el zoom
+        map.setZoom(15);
+        // Creacion del marcador
+        L.marker([myPosition.latitude, myPosition.longitude])
+          .addTo(map)
+          .bindPopup('Usted está aquí')
+          .openPopup();
+
+        // Añadir el mapa al div
+        localizationDiv.appendChild(divMap);
+
+        // Añado evento click sobre el mapa
+        addingEventClickMap(map);
+      },
+      function (error) {
+        // Oculto la imagen de cargando
+        document
+          .getElementById('cargando')
+          .setAttribute('style', 'display: none');
+        // Muestro la zona de previsión por geolocalizacion
+        document
+          .getElementById('geolocalizacion')
+          .setAttribute('style', 'display: block');
+        // Muestro mensaje de error de acceso a la geolocalizacion
+        divCardWeather.innerHTML =
+          '<p class="error">El navegador tiene desactivada la opción de geolocalización</p>';
+        // Oculto el div que muestra el mapa
+        document
+          .getElementById('mapaGeolocalizacion')
+          .setAttribute('style', 'display: none');
+      }
+    );
+  } else {
+    // Oculto la imagen de cargando
+    document.getElementById('cargando').setAttribute('style', 'display: none');
+    // Muestro la zona de previsión por geolocalizacion
+    document
+      .getElementById('geolocalizacion')
+      .setAttribute('style', 'display: block');
+    // Muestro mensaje de error de no soportar la geolocalizacion
+    divCardWeather.innerHTML =
+      '<p class="error">El navegador no soporta la geolocalización</p>';
+    // Oculto el div que muestra el mapa
+    document
+      .getElementById('mapaGeolocalizacion')
+      .setAttribute('style', 'display: none');
+  }
+}
+
+// Funcion para añadir evento click en el mapa, permitiendo obtener la previsión del tiempo en la localización marcada
+function addingEventClickMap(map) {
+  map.on('click', async function (e) {
+    // Muestro la zona de previsión por geolocalizacion
+    document
+      .getElementById('geolocalizacion')
+      .setAttribute('style', 'display: block');
+    const divCardWeather = document.getElementById('previsionGeolocalizacion');
+
+    // Consulto la API de Visual Crossing
+    const response = await fetch(
+      `${VISUAL_CROSSING_API_URL}${e.latlng.lat},${e.latlng.lng}/today?unitGroup=metric&lang=es&key=${API_KEY}`
+    );
+    // Si la respuesta es correcta
+    if (response.status === 200) {
+      const data = await response.json();
+
+      // Muestro la previsión del tiempo
+      divCardWeather.innerHTML = '';
+      const divWeatherActual = document.createElement('div');
+      divWeatherActual.innerHTML = `
+      <h2 id="titulo">La previsión para la localización marcada en el mapa es:</h2>
+      <p id="temperatura">Temperatura Max/Min: ${data.days[0].tempmax} ºC / ${
+        data.days[0].tempmin
+      } ºC</p>
+      <img id="imagen" src="./icons/${
+        data.days[0].icon
+      }.svg" alt="icono tiempo">
+      <p id="descripcion">${data.days[0].conditions}</p>
+      <p id="precipitacion">${
+        data.days[0].precip != 0
+          ? `Llueve. Tipo de lluvia: ${data.days[0].preciptype}`
+          : 'No llueve'
+      }</p>
+      <p id="visibilidad">Visibilidad: ${data.days[0].visibility}</p>
+      ${
+        data.days[0].windspeed != 0
+          ? `<p id="viento"><span>Viento:<span> Velocidad => ${data.days[0].windspeed} / Dirección => ${data.days[0].winddir}</p>`
+          : ''
+      }
+      <p id="indiceUltraviloleta">Índice Ultravioleta: ${
+        data.days[0].uvindex
+      }</p>
+      <p id="latitud">Latitud: ${e.latlng.lat}</p>
+      <p id="longitud">Longitud: ${e.latlng.lng}</p>
+    `;
+      cleanMarkersAndAddingNewMarker(map, e.latlng.lat, e.latlng.lng);
+      divCardWeather.appendChild(divWeatherActual);
+    }
+  });
+}
+
+// Funcion para limpiar los marcadores y añadir un nuevo marcador en la localizacion marcada
+function cleanMarkersAndAddingNewMarker(map, latitude, longitude) {
+  // Elimino los marcadores
+  map.eachLayer(function (layer) {
+    if (layer instanceof L.Marker) {
+      map.removeLayer(layer);
+    }
+  });
+  // Creacion del marcador
+  L.marker([latitude, longitude])
+    .addTo(map)
+    .bindPopup('Latitud: ' + latitude + '<br>Longitud: ' + longitude)
+    .openPopup();
 }
