@@ -6,7 +6,8 @@ let region = '';
 let placeType = '';
 let latitude = '';
 let longitude = '';
-let localizationFound = false;
+let localizationFound;
+let requestErrorApiGeoDB;
 
 const API_KEY = '67GUAUV4UMRXHYN5VKG7VBTLA';
 const VISUAL_CROSSING_API_URL =
@@ -48,6 +49,8 @@ document.addEventListener('DOMContentLoaded', () => {
       document
         .getElementById('cargando')
         .setAttribute('style', 'display: block');
+      localizationFound = false;
+      requestErrorApiGeoDB = false;
       // obtener la ciudad
       await getCity();
       // obtener la informacion de la ciudad
@@ -78,6 +81,8 @@ document.addEventListener('DOMContentLoaded', () => {
       document
         .getElementById('cargando')
         .setAttribute('style', 'display: block');
+      localizationFound = false;
+      requestErrorApiGeoDB = false;
       // obtener la ciudad
       await getCity();
       // obtener la informacion de la ciudad
@@ -118,27 +123,22 @@ async function getCity() {
 
 // Funcion para obtener el codigo de pais, tipo de lugar, region, poblacion y pais atraves de la API de GeoDB
 async function getInfoLocalization(city) {
-  const response = await fetch(
-    `${GEODB_API_URL}?namePrefix=${city}&languageCode=es`
-  );
-
-  const data = await response.json();
-  if (data.metadata.totalCount > 0) {
-    if (response.status === 200) {
+  await fetch(`${GEODB_API_URL}?namePrefix=${city}&languageCode=es`)
+    .then(response => response.json())
+    .then(data => {
       for (let localization of data.data) {
-        if (
-          countryCode != undefined &&
-          localization.countryCode === countryCode
-        ) {
+        if (localization.countryCode === 'ES') {
+          countryCode = localization.countryCode;
           placeType = localization.placeType;
           region = localization.region;
           population = localization.population;
           country = localization.country;
-          latitude = localization.latitude;
-          longitude = localization.longitude;
           localizationFound = true;
           break;
-        } else if (localization.countryCode === 'ES') {
+        } else if (
+          countryCode != undefined &&
+          localization.countryCode === countryCode
+        ) {
           countryCode = localization.countryCode;
           placeType = localization.placeType;
           region = localization.region;
@@ -147,29 +147,25 @@ async function getInfoLocalization(city) {
           localizationFound = true;
           break;
         } else {
-          placeType = localization.placeType;
-          region = localization.region;
-          population = localization.population;
-          country = localization.country;
+          countryCode = 'ES';
+          placeType = undefined;
+          region = undefined;
+          population = undefined;
+          country = undefined;
           localizationFound = false;
         }
       }
-    }
-  } else {
-    localizationFound = false;
-    countryCode = undefined;
-    country = undefined;
-    region = undefined;
-    population = undefined;
-    placeType = undefined;
-  }
-  if (countryCode === undefined) {
-    countryCode = 'ES';
-    localizationFound = false;
-    country = undefined;
-    region = undefined;
-    population = undefined;
-  }
+    })
+    .catch(error => {
+      console.log(error);
+      countryCode = 'ES';
+      placeType = undefined;
+      region = undefined;
+      population = undefined;
+      country = undefined;
+      localizationFound = false;
+      requestErrorApiGeoDB = true;
+    });
 }
 
 // Funcion para obtener y mostrar la prevision del tiempo actual
@@ -185,97 +181,9 @@ async function getWeather() {
     document.getElementById('cargando').setAttribute('style', 'display: none');
     return;
   }
-  // Consulto la API de Visual Crossing
-  const response = await fetch(
-    `${VISUAL_CROSSING_API_URL}${city}${
-      countryCode != '' ? `,${countryCode}` : ''
-    }/today?unitGroup=metric&lang=es&key=${API_KEY}`
-  );
 
-  // Si la respuesta es correcta
-  if (response.status === 200) {
-    const data = await response.json();
-
-    // Guardo la longitud y latitud de la ciudad
-    latitude = data.latitude;
-    longitude = data.longitude;
-
-    // Oculto la imagen de cargando
-    document.getElementById('cargando').setAttribute('style', 'display: none');
-    // Muestro el div contenedor de la información a mostrar
-    document
-      .getElementById('tiempoActual')
-      .setAttribute('style', 'display: block');
-
-    // Muestro la tarjeta del tiempo
-    document
-      .getElementById('tarjetaTiempo')
-      .setAttribute('style', 'display: block');
-
-    // Muestro la informacion de la ciudad
-    if (!localizationFound) {
-      document.getElementById('divPais').setAttribute('style', 'display: none');
-      document
-        .getElementById('divRegion')
-        .setAttribute('style', 'display: none');
-      document
-        .getElementById('divPoblacion')
-        .setAttribute('style', 'display: none');
-      document
-        .getElementById('noEncontrada')
-        .setAttribute('style', 'display: block');
-      document.getElementById(
-        'noEncontrada'
-      ).innerHTML = `<p class="error">No se ha encontrado la ciudad ${city} en la API de GeoDB Cities</p>`;
-    } else {
-      document
-        .getElementById('noEncontrada')
-        .setAttribute('style', 'display: none');
-      document
-        .getElementById('infoLugar')
-        .setAttribute('style', 'display: inline-block');
-      document
-        .getElementById('divPais')
-        .setAttribute('style', 'display: inline-block');
-      document
-        .getElementById('divRegion')
-        .setAttribute('style', 'display: inline-block');
-      document
-        .getElementById('divPoblacion')
-        .setAttribute('style', 'display: inline-block');
-      document.getElementById('pais').innerHTML = country;
-      document.getElementById('region').innerHTML = region;
-      document.getElementById('poblacion').innerHTML = population;
-    }
-
-    // Muestro la informacion del tiempo
-    const divCardWeather = document.getElementById('tarjetaTiempo');
-    divCardWeather.innerHTML = '';
-    const divWeatherActual = document.createElement('div');
-    divWeatherActual.innerHTML = `
-    <h2 id="titulo">${city},${countryCode != undefined ? countryCode : ''}</h2>
-    <p id="temperatura">Temperatura Max/Min: ${data.days[0].tempmax} ºC / ${
-      data.days[0].tempmin
-    } ºC</p>
-    <img id="imagen" src="./icons/${data.days[0].icon}.svg" alt="icono tiempo">
-    <p id="descripcion">${data.days[0].conditions}</p>
-    <p id="precipitacion">${
-      data.days[0].precip != 0
-        ? `Llueve. Tipo de lluvia: ${data.days[0].preciptype}`
-        : 'No llueve'
-    }</p>
-    <p id="visibilidad">Visibilidad: ${data.days[0].visibility}</p>
-    ${
-      data.days[0].windspeed != 0
-        ? `<p id="viento"><span>Viento:<span> Velocidad => ${data.days[0].windspeed} / Dirección => ${data.days[0].winddir}</p>`
-        : ''
-    }
-    <p id="indiceUltraviloleta">Índice Ultravioleta: ${data.days[0].uvindex}</p>
-    <p id="estaciones">Estaciones: ${getStations(data.stations)}</p>
-  `;
-
-    divCardWeather.appendChild(divWeatherActual);
-  } else {
+  // hubo un error en alguna de las peticiones anteriormente
+  if (requestErrorApiGeoDB) {
     // Oculto la imagen de cargando
     document.getElementById('cargando').setAttribute('style', 'display: none');
     // Muestro mensaje de error en la obtencion del tiempo
@@ -297,8 +205,187 @@ async function getWeather() {
       .getElementById('noEncontrada')
       .setAttribute('style', 'display: block');
     document.getElementById('noEncontrada').innerHTML =
-      '<p class="error">Error en la petición de obtención del tiempo a través de la API de Visual Crossing</p>';
+      '<p class="error">Error en la petición de obtención de la información de la ciudad a través de la API de GeoDB Cities</p>';
   }
+
+  // Consulto la API de Visual Crossing
+  await fetch(
+    `${VISUAL_CROSSING_API_URL}${city}${
+      countryCode != undefined ? `,${countryCode}` : ''
+    }/today?unitGroup=metric&lang=es&key=${API_KEY}`
+  )
+    .then(response => response.json())
+    .then(data => {
+      // Guardo la longitud y latitud de la ciudad
+      latitude = data.latitude;
+      longitude = data.longitude;
+
+      // Oculto la imagen de cargando
+      document
+        .getElementById('cargando')
+        .setAttribute('style', 'display: none');
+      // Muestro el div contenedor de la información a mostrar
+      document
+        .getElementById('tiempoActual')
+        .setAttribute('style', 'display: block');
+      document
+        .getElementById('infoLugar')
+        .setAttribute('style', 'display: block');
+
+      // Muestro la tarjeta del tiempo
+      document
+        .getElementById('tarjetaTiempo')
+        .setAttribute('style', 'display: block');
+      // Muestro la informacion de la ciudad
+      if (!requestErrorApiGeoDB && !localizationFound) {
+        document
+          .getElementById('infoLugar')
+          .setAttribute('style', 'display: block');
+        document
+          .getElementById('divPais')
+          .setAttribute('style', 'display: none');
+        document
+          .getElementById('divRegion')
+          .setAttribute('style', 'display: none');
+        document
+          .getElementById('divPoblacion')
+          .setAttribute('style', 'display: none');
+        document
+          .getElementById('noEncontrada')
+          .setAttribute('style', 'display: block');
+        document.getElementById(
+          'noEncontrada'
+        ).innerHTML = `<p class="error">No se ha encontrado la ciudad ${city} en la API de GeoDB Cities</p>`;
+      } else if (!requestErrorApiGeoDB && localizationFound) {
+        document
+          .getElementById('divPrevisionMapa')
+          .setAttribute('style', 'display: block');
+        document
+          .getElementById('divPrevisionMapa')
+          .setAttribute('style', 'display: tarjetaTiempo');
+        document
+          .getElementById('noEncontrada')
+          .setAttribute('style', 'display: none');
+        document
+          .getElementById('infoLugar')
+          .setAttribute('style', 'display: inline-block');
+        document
+          .getElementById('divPais')
+          .setAttribute('style', 'display: inline-block');
+        document
+          .getElementById('divRegion')
+          .setAttribute('style', 'display: inline-block');
+        document
+          .getElementById('divPoblacion')
+          .setAttribute('style', 'display: inline-block');
+        document.getElementById('pais').innerHTML = country;
+        document.getElementById('region').innerHTML = region;
+        document.getElementById('poblacion').innerHTML = population;
+      } else if (requestErrorApiGeoDB) {
+        document
+          .getElementById('divPais')
+          .setAttribute('style', 'display: none');
+        document
+          .getElementById('divRegion')
+          .setAttribute('style', 'display: none');
+        document
+          .getElementById('divPoblacion')
+          .setAttribute('style', 'display: none');
+        document
+          .getElementById('noEncontrada')
+          .setAttribute('style', 'display: block');
+        document.getElementById(
+          'noEncontrada'
+        ).innerHTML = `<p class="error">Hubo un error en la petición a la API de GeoDB Cities</p>`;
+      } else {
+        document
+          .getElementById('tarjetaTiempo')
+          .setAttribute('style', 'display: none');
+        document
+          .getElementById('noEncontrada')
+          .setAttribute('style', 'display: none');
+        document
+          .getElementById('infoLugar')
+          .setAttribute('style', 'display: inline-block');
+        document
+          .getElementById('divPais')
+          .setAttribute('style', 'display: inline-block');
+        document
+          .getElementById('divRegion')
+          .setAttribute('style', 'display: inline-block');
+        document
+          .getElementById('divPoblacion')
+          .setAttribute('style', 'display: inline-block');
+        document.getElementById('pais').innerHTML = country;
+        document.getElementById('region').innerHTML = region;
+        document.getElementById('poblacion').innerHTML = population;
+      }
+
+      // Muestro la informacion del tiempo
+      const divCardWeather = document.getElementById('tarjetaTiempo');
+      divCardWeather.innerHTML = '';
+      const divWeatherActual = document.createElement('div');
+      divWeatherActual.innerHTML = `
+    <h2 id="titulo">${city}${
+        countryCode != undefined ? `,${countryCode}` : ''
+      }</h2>
+    <p id="temperatura">Temperatura Max/Min: ${data.days[0].tempmax} ºC / ${
+        data.days[0].tempmin
+      } ºC</p>
+    <img id="imagen" src="./icons/${data.days[0].icon}.svg" alt="icono tiempo">
+    <p id="descripcion">${data.days[0].conditions}</p>
+    <p id="precipitacion">${
+      data.days[0].precip != 0
+        ? `Llueve. Tipo de lluvia: ${data.days[0].preciptype}`
+        : 'No llueve'
+    }</p>
+    <p id="visibilidad">Visibilidad: ${data.days[0].visibility}</p>
+    ${
+      data.days[0].windspeed != 0
+        ? `<p id="viento"><span>Viento:<span> Velocidad => ${data.days[0].windspeed} / Dirección => ${data.days[0].winddir}</p>`
+        : ''
+    }
+    <p id="indiceUltraviloleta">Índice Ultravioleta: ${data.days[0].uvindex}</p>
+    <p id="estaciones">Estaciones: ${getStations(data.stations)}</p>
+  `;
+
+      divCardWeather.appendChild(divWeatherActual);
+    })
+    .catch(error => {
+      console.log(error);
+      // Oculto la imagen de cargando
+      document
+        .getElementById('cargando')
+        .setAttribute('style', 'display: none');
+      document
+        .getElementById('tiempoActual')
+        .setAttribute('style', 'display: block');
+      document
+        .getElementById('tarjetaTiempo')
+        .setAttribute('style', 'display: none');
+      document
+        .getElementById('divPrevisionMapa')
+        .setAttribute('style', 'display: none');
+      document
+        .getElementById('infoLugar')
+        .setAttribute('style', 'display: block');
+      document.getElementById('divPais').setAttribute('style', 'display: none');
+      document
+        .getElementById('divRegion')
+        .setAttribute('style', 'display: none');
+      document
+        .getElementById('divPoblacion')
+        .setAttribute('style', 'display: none');
+      document
+        .getElementById('localizacion')
+        .setAttribute('style', 'display: none');
+      // Muestro mensaje de error en la obtencion del tiempo
+      document
+        .getElementById('noEncontrada')
+        .setAttribute('style', 'display: block');
+      document.getElementById('noEncontrada').innerHTML =
+        '<p class="error">Error en la petición de obtención del tiempo a través de la API de Visual Crossing</p>';
+    });
 }
 
 // Funcion para crear un string con el nombre de las estaciones y su id
@@ -515,8 +602,8 @@ async function getGeolocation() {
           .getElementById('geolocalizacion')
           .setAttribute('style', 'display: block');
         // Muestro mensaje de error de acceso a la geolocalizacion
-        divCardWeather.innerHTML =
-          '<p class="error">El navegador tiene desactivada la opción de geolocalización</p>';
+        document.getElementById('geolocalizacion').innerHTML =
+          '<p class="error">Error en la petición a Visual Crossing para obtener la previsión del tiempo para tu posicion</p>';
         // Oculto el div que muestra el mapa
         document
           .getElementById('mapaGeolocalizacion')
