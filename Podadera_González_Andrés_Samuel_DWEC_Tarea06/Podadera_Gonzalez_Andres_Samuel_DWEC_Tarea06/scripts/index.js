@@ -30,80 +30,73 @@ document.addEventListener('DOMContentLoaded', () => {
     .setAttribute('style', 'display: none');
 
   // Añado evento click en el boton de tiempo actual
-  document
-    .getElementById('botonPrevisionDiaActual')
-    .addEventListener('click', async () => {
-      // Oculto la informacion de la ciudad, la prevision del tiempo y el mapa
-      document
-        .getElementById('tiempoActual')
-        .setAttribute('style', 'display: none');
-      // Oculto la zona de la previsión de los próximos 10 días
-      document
-        .getElementById('prevision10Dias')
-        .setAttribute('style', 'display: none');
-      // Oculto la zona de la previsión por geo localizacion
-      document
-        .getElementById('geolocalizacion')
-        .setAttribute('style', 'display: none');
-      // Muestro la imagen de cargando
-      document
-        .getElementById('cargando')
-        .setAttribute('style', 'display: block');
-      localizationFound = false;
-      requestErrorApiGeoDB = false;
-      // obtener la ciudad
-      await getCity();
-      // obtener la informacion de la ciudad
-      await getInfoLocalization(city);
-      // obtener y mostrar el tiempo
-      await getWeather();
-      // mostrar el mapa con la localizacion de la ciudad(latitude y longitude)
-      showMap(latitude, longitude);
-    });
+  $('#botonPrevisionDiaActual').click(async event => {
+    event.preventDefault();
+    // Oculto la informacion de la ciudad, la prevision del tiempo y el mapa
+    document
+      .getElementById('tiempoActual')
+      .setAttribute('style', 'display: none');
+    // Oculto la zona de la previsión de los próximos 10 días
+    document
+      .getElementById('prevision10Dias')
+      .setAttribute('style', 'display: none');
+    // Oculto la zona de la previsión por geo localizacion
+    document
+      .getElementById('geolocalizacion')
+      .setAttribute('style', 'display: none');
+    // Muestro la imagen de cargando
+    document.getElementById('cargando').setAttribute('style', 'display: block');
+    localizationFound = false;
+    requestErrorApiGeoDB = false;
+    // obtener la ciudad
+    await getCity();
+    // obtener la informacion de la ciudad
+    await getInfoLocalization(city);
+    // obtener y mostrar el tiempo
+    await getWeather();
+    // mostrar el mapa con la localizacion de la ciudad(latitude y longitude)
+    showMap(latitude, longitude);
+  });
 
   // Añado evento click en el boton de tiempo para los proximos 10 dias
-  document
-    .getElementById('botonPrevisionProximos10Dias')
-    .addEventListener('click', async () => {
-      // Oculto la informacion de la ciudad, la prevision del tiempo y el mapa
-      document
-        .getElementById('tiempoActual')
-        .setAttribute('style', 'display: none');
-      // Oculto la previsión del tiempo de los próximos 10 días
-      document
-        .getElementById('prevision10Dias')
-        .setAttribute('style', 'display: none');
-      // OCulto la zona de la previsión por geo localizacion
-      document
-        .getElementById('geolocalizacion')
-        .setAttribute('style', 'display: none');
-      // Muestro la imagen de cargando
-      document
-        .getElementById('cargando')
-        .setAttribute('style', 'display: block');
-      localizationFound = false;
-      requestErrorApiGeoDB = false;
-      // obtener la ciudad
-      await getCity();
-      // obtener la informacion de la ciudad
-      await getInfoLocalization(city);
-      // obtener y mostrar el tiempo para los proximos 10 dias
-      await getWeatherNext10Days();
-    });
+  $('#botonPrevisionProximos10Dias').click(async event => {
+    event.preventDefault();
+    // Oculto la informacion de la ciudad, la prevision del tiempo y el mapa
+    document
+      .getElementById('tiempoActual')
+      .setAttribute('style', 'display: none');
+    // Oculto la previsión del tiempo de los próximos 10 días
+    document
+      .getElementById('prevision10Dias')
+      .setAttribute('style', 'display: none');
+    // OCulto la zona de la previsión por geo localizacion
+    document
+      .getElementById('geolocalizacion')
+      .setAttribute('style', 'display: none');
+    // Muestro la imagen de cargando
+    document.getElementById('cargando').setAttribute('style', 'display: block');
+    localizationFound = false;
+    requestErrorApiGeoDB = false;
+    // obtener la ciudad
+    await getCity();
+    // obtener la informacion de la ciudad
+    await getInfoLocalization(city);
+    // obtener y mostrar el tiempo para los proximos 10 dias
+    await getWeatherNext10Days();
+  });
 });
 
 // Añado evento click en el boton de geolocalizacion
-document
-  .getElementById('botonGeolocalizacion')
-  .addEventListener('click', async () => {
-    // obtener la geolocalizacion del usuario, mostrar la previsión del tiempo y el mapa
-    await getGeolocation();
-  });
+$('#botonGeolocalizacion').click(async event => {
+  event.preventDefault();
+  // obtener la geolocalizacion del usuario, mostrar la previsión del tiempo y el mapa
+  await getGeolocation();
+});
 
 // Funcion para obtener la ciudad apartir de los datos introducidos por el usuario
 async function getCity() {
-  city = document.getElementById('ciudad').value.trim().split(',')[0];
-  countryCode = document.getElementById('ciudad').value.trim().split(',')[1];
+  city = $('#ciudad').val().trim().split(',')[0];
+  countryCode = $('#ciudad').val().trim().split(',')[1];
   if (city == undefined || city === '') {
     alert('Introduce una ciudad');
     city = undefined;
@@ -442,41 +435,53 @@ async function getWeatherNext10Days() {
     .setAttribute('style', 'display: block');
 
   // Consulto la API de Visual Crossing
-  const response = await fetch(
+  $.ajax(
     `${VISUAL_CROSSING_API_URL}${city}${
-      countryCode != undefined ? `,${countryCode}` : 'ES'
-    }/next10days?lang=es&key=${API_KEY}&unitGroup=metric&contentType=json`
+      countryCode != undefined ? `,${countryCode}` : ',ES'
+    }/next10days?lang=es&key=${API_KEY}&unitGroup=metric&contentType=json`,
+    {
+      method: 'GET',
+      dataType: 'json',
+      success: function (data) {
+        // Oculto la imagen de cargando
+        document
+          .getElementById('cargando')
+          .setAttribute('style', 'display: none');
+
+        const weatherDiv = document.getElementById('prevision10Dias');
+        weatherDiv.innerHTML = '';
+        const cityDiv = document.createElement('div');
+        cityDiv.innerHTML = `<h3>Previsión para los próximos 10 días de la ciudad de <span>${city}</span></h3>`;
+        weatherDiv.appendChild(cityDiv);
+        const div10days = document.createElement('div');
+        div10days.id = 'tiempo10Dias';
+        data.days.forEach((day, index) => {
+          if (index === 0) {
+            return;
+          }
+          const divWeatherDay = document.createElement('div');
+          divWeatherDay.className = 'tarjetaTiempo';
+          const divIcon = document.createElement('div');
+          const divTemperatures = document.createElement('div');
+          divIcon.innerHTML = `<img src="./icons/${day.icon}.svg" alt="icono tiempo">`;
+          divTemperatures.innerHTML = `<p>${day.tempmax} ºC / ${day.tempmin} ºC</p>`;
+          divWeatherDay.appendChild(divIcon);
+          divWeatherDay.appendChild(divTemperatures);
+          div10days.appendChild(divWeatherDay);
+          weatherDiv.appendChild(div10days);
+        });
+      },
+      error: function (error) {
+        // Oculto la imagen de cargando
+        document
+          .getElementById('cargando')
+          .setAttribute('style', 'display: none');
+        // Muestro mensaje de error en la obtencion del tiempo
+        document.getElementById('prevision10Dias').innerHTML =
+          '<p class="error">Error en la petición de obtención del tiempo a través de la API de Visual Crossing</p>';
+      },
+    }
   );
-  // Si la respuesta es correcta
-  if (response.status === 200) {
-    const data = await response.json();
-
-    // Oculto la imagen de cargando
-    document.getElementById('cargando').setAttribute('style', 'display: none');
-
-    const weatherDiv = document.getElementById('prevision10Dias');
-    weatherDiv.innerHTML = '';
-    const cityDiv = document.createElement('div');
-    cityDiv.innerHTML = `<h3>Previsión para los próximos 10 días de la ciudad de <span>${city}</span></h3>`;
-    weatherDiv.appendChild(cityDiv);
-    const div10days = document.createElement('div');
-    div10days.id = 'tiempo10Dias';
-    data.days.forEach((day, index) => {
-      if (index === 0) {
-        return;
-      }
-      const divWeatherDay = document.createElement('div');
-      divWeatherDay.className = 'tarjetaTiempo';
-      const divIcon = document.createElement('div');
-      const divTemperatures = document.createElement('div');
-      divIcon.innerHTML = `<img src="./icons/${day.icon}.svg" alt="icono tiempo">`;
-      divTemperatures.innerHTML = `<p>${day.tempmax} ºC / ${day.tempmin} ºC</p>`;
-      divWeatherDay.appendChild(divIcon);
-      divWeatherDay.appendChild(divTemperatures);
-      div10days.appendChild(divWeatherDay);
-      weatherDiv.appendChild(div10days);
-    });
-  }
 }
 
 async function getGeolocation() {
