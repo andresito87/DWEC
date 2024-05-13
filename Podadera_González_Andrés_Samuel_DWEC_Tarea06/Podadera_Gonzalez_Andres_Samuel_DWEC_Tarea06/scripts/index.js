@@ -127,7 +127,6 @@ async function getInfoLocalization(city) {
           region = undefined;
           population = undefined;
           country = undefined;
-          localizationFound = false;
         }
       }
     })
@@ -187,14 +186,16 @@ async function getWeather() {
       // Oculto la imagen de cargando
       $('#cargando').css('display', 'none');
       // Muestro el div contenedor de la información a mostrar
-      $('#tiempoActual').css('display', 'block');
+      $('#divPrevisionMapa').css('display', 'flex');
+      $('#divPrevisionMapa').css('justify-content', 'space-around');
+      $('#tiempoActual').css('display', 'inline-block');
       $('#infoLugar').css('display', 'block');
 
       // Muestro la tarjeta del tiempo
       $('#tarjetaTiempo').css('display', 'block');
+      $('#localizacion').css('display', 'block');
       // Muestro la informacion de la ciudad
       if (!requestErrorApiGeoDB && !localizationFound) {
-        $('#infoLugar').css('display', 'block');
         $('#divPais').css('display', 'none');
         $('#divRegion').css('display', 'none');
         $('#divPoblacion').css('display', 'none');
@@ -204,7 +205,6 @@ async function getWeather() {
         );
       } else if (!requestErrorApiGeoDB && localizationFound) {
         $('#noEncontrada').css('display', 'none');
-        $('#infoLugar').css('display', 'inline-block');
         $('#divPais').css('display', 'inline-block');
         $('#divRegion').css('display', 'inline-block');
         $('#divPoblacion').css('display', 'inline-block');
@@ -221,7 +221,6 @@ async function getWeather() {
         );
       } else {
         $('#noEncontrada').css('display', 'none');
-        $('#infoLugar').css('display', 'inline-block');
         $('#divPais').css('display', 'inline-block');
         $('#divRegion').css('display', 'inline-block');
         $('#divPoblacion').css('display', 'inline-block');
@@ -231,8 +230,7 @@ async function getWeather() {
       }
 
       // Muestro la informacion del tiempo
-      const divCardWeather = document.getElementById('tarjetaTiempo');
-      divCardWeather.innerHTML = '';
+      $('#tarjetaTiempo').empty();
       const divWeatherActual = document.createElement('div');
       divWeatherActual.innerHTML = `
     <h2 id="titulo">${city}${
@@ -258,7 +256,7 @@ async function getWeather() {
     <p id="estaciones">Estaciones: ${getStations(data.stations)}</p>
   `;
 
-      divCardWeather.appendChild(divWeatherActual);
+      $('#tarjetaTiempo').append(divWeatherActual);
     })
     .catch(error => {
       console.log(error);
@@ -295,7 +293,7 @@ function getStations(stations) {
 function showMap(latitude, longitude) {
   // Elimino el mapa si ya existe, al haber buscado la prevision por geolocalizacion
   if (document.getElementById('map')) {
-    document.getElementById('map').remove();
+    $('#map').remove();
   }
   // Muestro el mapa
   $('#localizacion').css('display', 'block');
@@ -444,12 +442,10 @@ async function getGeolocation() {
 
             // Primero elimino el mapa si ya existe, al haber buscado la prevision del dia actual
             if (document.getElementById('map')) {
-              document.getElementById('map').remove();
+              $('#map').remove();
             }
             // Muestro el mapa
-            document
-              .getElementById('mapaGeolocalizacion')
-              .setAttribute('style', 'display: block');
+            $('#mapaGeolocalizacion').css('display', 'block');
             const localizationDiv = document.getElementById(
               'mapaGeolocalizacion'
             );
@@ -468,7 +464,7 @@ async function getGeolocation() {
               {}
             ).addTo(map);
             // Ajusto el zoom
-            map.setZoom(15);
+            map.setZoom(10);
             // Creacion del marcador
             L.marker([myPosition.latitude, myPosition.longitude])
               .addTo(map)
@@ -526,7 +522,6 @@ function addingEventClickMap(map) {
   map.on('click', async function (e) {
     // Muestro la zona de previsión por geolocalizacion
     $('#geolocalizacion').css('display', 'block');
-    const divCardWeather = document.getElementById('previsionGeolocalizacion');
 
     // Consulto la API de Visual Crossing
     await fetch(
@@ -538,7 +533,7 @@ function addingEventClickMap(map) {
         $('#cargando').css('display', 'none');
 
         // Muestro la previsión del tiempo
-        divCardWeather.innerHTML = '';
+        $('#previsionGeolocalizacion').empty();
         const divWeatherActual = document.createElement('div');
         divWeatherActual.innerHTML = `
       <h2 id="titulo">La previsión para la localización marcada en el mapa es:</h2>
@@ -567,7 +562,7 @@ function addingEventClickMap(map) {
       <p id="longitud">Longitud: ${e.latlng.lng}</p>
     `;
         cleanMarkersAndAddingNewMarker(map, e.latlng.lat, e.latlng.lng);
-        divCardWeather.appendChild(divWeatherActual);
+        $('#previsionGeolocalizacion').append(divWeatherActual);
       })
       .catch(error => {
         console.log(error);
@@ -576,8 +571,9 @@ function addingEventClickMap(map) {
         // Muestro la zona de previsión por geolocalizacion
         $('#geolocalizacion').css('display', 'block');
         // Muestro mensaje de error en la obtencion del tiempo
-        divCardWeather.innerHTML =
-          '<p class="error">Error en la petición de obtención del tiempo a través de la API de Visual Crossing</p>';
+        $('#previsionGeolocalizacion').html(
+          '<p class="error">Error en la petición de obtención del tiempo a través de la API de Visual Crossing</p>'
+        );
       });
   });
 }

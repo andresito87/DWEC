@@ -110,6 +110,10 @@ button {
     align-items: center;
 }
 
+#divPrevisionMapa div {
+    margin: 20px;
+}
+
 #tarjetaTiempo {
     display: flex;
     flex-direction: column;
