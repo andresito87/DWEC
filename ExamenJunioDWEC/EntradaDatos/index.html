@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entrada de datos</title>
+</head>
+
+<body>
+    <h1>Pedir, modificar y mostrar datos del usuario</h1>
+    <div id="contenido"></div>
+
+    <script>
+        let nombre;
+        do {
+            nombre = prompt("Introduce tu nombre");
+        } while (typeof nombre === "string" && nombre.trim().length > 0);
+
+        let edad;
+        do {
+            edad = parseInt(prompt("Introduce tu edad"));
+        } while (!typeof nombre === "number" && isNaN(edad));
+
+        document.getElementById("contenido").innerHTML = `Su nombre es ${nombre}`;
+        document.getElementById("contenido").innerHTML += `<br>Su edad es ${edad}`;
+
+    </script>
+</body>
+
+</html>
