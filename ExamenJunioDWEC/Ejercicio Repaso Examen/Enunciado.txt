@@ -1,0 +1,126 @@
+1º. Tu misión es proteger de la extinción a los quokkas. 
+
+Para ello vamos a crear un formulario de se va a realizar un formulario de adopción de Quokkas (utilizando DOM o jQuery). Deberéis contemplar los siguientes puntos:
+
+
+Un primer campo que es el nombre del quokka. No se especifica la longitud. Va a estar compuesto de dos palabras separadas por un espacio a tres máximo. Los caracteres válidos para el nombre serán alfabéticos latinos desde «a» a la «z» mayúsculas o minúsculas SIN ACENTOS. La segunda palabra debe comenzar en mayúscula.
+
+
+Perry Come → Correcto.
+
+Perry   come→ Incorrecto. Aunque tiene tres espacios máximo la segunda es mayúscula.
+
+elvis Quokka → Correcto. No es obligatorio que empiece la primera palabra en mayúscula.
+
+Reggaeton. → Incorrecta. Una sola palabra y a los quokkas les mola el rock y Madonna.
+
+Un segundo campo de texto, humano adoptador, va a ser un código de adopción (password) con las siguientes condiciones:
+
+La última letra debe estar en minúscula.
+
+Debe aparecer “,” obligatoriamente. No hay límite.
+
+No puede contener la palabra "extinción" (sin acento).
+
+Debe comenzar por * y la longitud máxima es de 20.
+
+No pueden aparecer dígitos. El resto de los caracteres está permitido.
+
+Un tercer campo de texto, donación anual, debe ser un número entre 0 y 1000. La ,  (coma) va a ser el separador y no el punto.
+
+Un botón enviar que muestra un div con id=”resultado” el contenido del formulario sin enviarse realmente. Al enviar correctamente se debe mostrar la foto del animal seleccionado, el nombre del quokka, los datos del humano. Debe ser elegido entre varias fotos que se adjuntan al examen. Esa elección será al azar entre el total.
+
+Los mensajes de error deben ser creados con DOM.  O sea creas un párrafo, con negr
+
+<p> contenido  texto indicando corrección o error <b> contenido campo error  o éxito </b> </p>
+
+Deberéis cambiar el color de fondo a amarillo si ha habido un error en ese campo.
+
+Nota: No se puede utilizar pattern. Se pueden utilizar regex101 y páginas similares (pero preguntándome antes). La elegancia del código también está en esos puntos. Primero que funcione. Puedes hacer otra solución con pattern para practicar.
+
+
+2.Quokkas en adopción.
+
+
+Realiza el examen dos veces, una con jQuery y otra con  fetch.
+
+Se va a obtener la siguiente información (calculando):
+
+Tenemos 6 quokkas.
+
+Felcicín es el que más amigos tiene.
+
+El alimento que más gusta es: “Hierbas Frescas”.
+
+Hay 4 saltadores profesionales.
+
+—
+
+
+Quokka 1: Felicín.
+
+Su color es: marrón y gris
+
+Amigos:
+
+- Saltarín.
+
+- Dormilón.
+
+
+Quokka 2: Saltarín.
+
+Su color es: marrón
+
+Amigos:
+
+- Felicín.
+
+- Dormilón.
+
+
+Quokka 3: Dormilón.
+
+Su color es: gris
+
+Amigos:
+
+- Felicín.
+
+- Saltarín.
+
+
+Quokka 4: Curioso.
+
+Su color es: amarillo y marrón
+
+Amigos:
+
+- Felicín.
+
+- Dormilón.
+
+
+Quokka 5: Jovial.
+
+Su color es: blanco y gris
+
+Amigos:
+
+- Saltarín.
+
+- Curioso.
+
+
+Quokka 6: Tranquilo.
+
+Su color es: gris y blanco
+
+Amigos:
+
+- Dormilón.
+
+- Jovial.
+
+
+

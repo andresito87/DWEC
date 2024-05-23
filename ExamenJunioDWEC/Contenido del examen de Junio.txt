@@ -1,0 +1,5 @@
+Ejercicio 1 -> Clases y objetos. Similar al segundo ejercicio del primer cuatrimestre.
+
+Ejercicio 2-> Formularios, eventos, vaalidaciones y expresiones regulares. Trabajar con DOM
+
+Ejercicio 3 -> Procesar un archivo json, javascript asíncrono y recorrer objetos devueltos para su análisis

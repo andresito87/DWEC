@@ -1,0 +1,69 @@
+{
+  "quokka1": {
+    "nombre": "Felicín",
+    "edad": 2,
+    "color": "marrón y gris",
+    "estado_animo": "feliz",
+    "caracteristicas_adicionales": {
+      "saltador_profesional": true,
+      "comida_favorita": ["Hierbas frescas", "Frutas"],
+      "amigos": ["Saltarín", "Dormilón"]
+    }
+  },
+  "quokka2": {
+    "nombre": "Saltarín",
+    "edad": 1,
+    "color": "marrón",
+    "estado_animo": "juguetón",
+    "caracteristicas_adicionales": {
+      "saltador_profesional": true,
+      "comida_favorita": ["Hierbas frescas", "Insectos"],
+      "amigos": ["Felicín", "Dormilón"]
+    }
+  },
+  "quokka3": {
+    "nombre": "Dormilón",
+    "edad": 3,
+    "color": "gris",
+    "estado_animo": "tranquilo",
+    "caracteristicas_adicionales": {
+      "saltador_profesional": false,
+      "comida_favorita": ["Hierbas frescas", "Raíces"],
+      "amigos": ["Felicín", "Saltarín"]
+    }
+  },
+  "quokka4": {
+    "nombre": "Curioso",
+    "edad": 2,
+    "color": "amarillo y marrón",
+    "estado_animo": "curioso",
+    "caracteristicas_adicionales": {
+      "saltador_profesional": true,
+      "comida_favorita": ["Frutas", "Insectos"],
+      "amigos": ["Felicín", "Dormilón"]
+    }
+  },
+  "quokka5": {
+    "nombre": "Jovial",
+    "edad": 1,
+    "color": "blanco y gris",
+    "estado_animo": "jovial",
+    "caracteristicas_adicionales": {
+      "saltador_profesional": true,
+      "comida_favorita": ["Hierbas frescas", "Frutas"],
+      "amigos": ["Saltarín", "Curioso"]
+    }
+  },
+  "quokka6": {
+    "nombre": "Tranquilo",
+    "edad": 2,
+    "color": "gris y blanco",
+    "estado_animo": "tranquilo",
+    "caracteristicas_adicionales": {
+      "saltador_profesional": false,
+      "comida_favorita": ["Hierbas frescas", "Hojas"],
+      "amigos": ["Dormilón", "Jovial"]
+    }
+  }
+}
+
