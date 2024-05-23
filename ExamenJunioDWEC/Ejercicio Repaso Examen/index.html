@@ -7,9 +7,51 @@
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"
         integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
     <title>Repaso examen Junio</title>
+    <style>
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: start;
+            justify-content: start;
+            width: 50%;
+        }
+
+        img {
+            width: 150px;
+            height: 150px;
+        }
+
+        #resultado {
+            display: flex;
+            flex-direction: column;
+            align-items: start;
+            justify-content: start;
+            width: 50%;
+            margin: 20px;
+        }
+    </style>
 </head>
 
 <body>
+    <h1>Formulario de adopcion de Quokkas</h1>
+    <form action="./index.html" method="post">
+        <label for="nombre">
+            Nombre:
+            <input type="text" name="nombre" id="nombre">
+        </label>
+        <label for="humanoAdoptador">
+            Humano adoptador:
+            <input type="password" name="humanoAdoptador" id="humanoAdoptador">
+        </label>
+        <label for="donacionAnual">
+            Donación anual:
+            <input type="text" name="donacionAnual" id="donacionAnual">
+        </label>
+        <input type="submit" value="Enviar" id="botonEnviarFormulario">
+    </form>
+
+    <div id="resultado"></div>
+
     <h2>Información de los Quokkas usando Vanilla JS y Fetch</h2>
     <button id="botonFetch">Mostrar información Quokkas usando Fetch</button>
     <div id="contenidoFetch"></div>
