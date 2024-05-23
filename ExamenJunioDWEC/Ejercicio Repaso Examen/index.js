@@ -42,7 +42,9 @@ Nota: No se puede utilizar pattern. Se pueden utilizar regex101 y páginas simil
     'botonEnviarFormulario'
   );
 
+  // Cuando hacen click en el botón enviar formulario
   botonEnviarFormulario.addEventListener('click', event => {
+    // cancelo el envío del formulario
     event.preventDefault();
     // eliminar el contenido de resultado
     // document.getElementById('resultado').innerHTML = '';
@@ -56,7 +58,8 @@ Nota: No se puede utilizar pattern. Se pueden utilizar regex101 y páginas simil
     const donacionAnual = document.getElementById('donacionAnual').value;
 
     const patronNombre = /[A-Z]?[a-z]+ [A-Z][a-z]+( [A-Z][a-z]+)?/;
-    const patronHumanoAdoptador = /^\*[^0-9extincion]{0,18},[^0-9]*[a-z]$/;
+    const patronHumanoAdoptador =
+      /^\*(?:([^0-9extincion]{0,17}),[^0-9]*[a-z]|[^0-9extincion]{0,18},[^0-9]*[a-z])$/;
     const patronDonacionAnual = /^(0|[1-9]\d{0,2})(,\d{1,2})?$/;
 
     if (!patronNombre.test(nombre)) {
@@ -65,7 +68,7 @@ Nota: No se puede utilizar pattern. Se pueden utilizar regex101 y páginas simil
       parrafoNombre.textContent = `Nombre incorrecto: ${nombre}`;
       document.getElementById('resultado').appendChild(parrafoNombre);
     } else {
-      document.getElementById('nombre').style.backgroundColor = 'white';
+      document.getElementById('nombre').style.backgroundColor = '';
     }
 
     if (!patronHumanoAdoptador.test(humanoAdoptador)) {
@@ -75,8 +78,7 @@ Nota: No se puede utilizar pattern. Se pueden utilizar regex101 y páginas simil
       parrafoHumanoAdoptador.textContent = `Código de adopción incorrecto: ${humanoAdoptador}`;
       document.getElementById('resultado').appendChild(parrafoHumanoAdoptador);
     } else {
-      document.getElementById('humanoAdoptador').style.backgroundColor =
-        'white';
+      document.getElementById('humanoAdoptador').style.backgroundColor = '';
     }
 
     if (!patronDonacionAnual.test(donacionAnual)) {
@@ -85,7 +87,7 @@ Nota: No se puede utilizar pattern. Se pueden utilizar regex101 y páginas simil
       parrafoDonacionAnual.textContent = `Donación anual incorrecta: ${donacionAnual}`;
       document.getElementById('resultado').appendChild(parrafoDonacionAnual);
     } else {
-      document.getElementById('donacionAnual').style.backgroundColor = 'white';
+      document.getElementById('donacionAnual').style.backgroundColor = '';
     }
 
     if (
@@ -110,6 +112,7 @@ Nota: No se puede utilizar pattern. Se pueden utilizar regex101 y páginas simil
       parrafoHumanoAdoptador.textContent = `Código de adopción: ${humanoAdoptador}`;
       document.getElementById('resultado').appendChild(parrafoHumanoAdoptador);
 
+      // añadir la donación anual
       const parrafoDonacionAnual = document.createElement('p');
       parrafoDonacionAnual.textContent = `Donación anual: ${donacionAnual}`;
       document.getElementById('resultado').appendChild(parrafoDonacionAnual);
@@ -140,6 +143,12 @@ Hay 4 saltadores profesionales.
     while (divContenidoFetch.hasChildNodes()) {
       divContenidoFetch.removeChild(divContenidoFetch.firstChild);
     }
+    // añadir imagen de carga
+    const imagenCarga = document.createElement('img');
+    imagenCarga.src = './ajaxquokka.gif';
+    imagenCarga.alt = 'imagen de carga quokka';
+    imagenCarga.id = 'imagenCarga';
+    divContenidoFetch.appendChild(imagenCarga);
     fetch('./quokka.json')
       .then(res => res.json())
       .then(data => {
@@ -271,14 +280,24 @@ Hay 4 saltadores profesionales.
         divContenidoFetch.appendChild(parrafoColorMasPopular);
       })
       .catch(error => console.error('Error al obtener los datos', error))
-      .finally(console.warn(`La consulta ha finalizado`));
+      .finally(() => {
+        console.warn('La consulta ha finalizado');
+        // quito la imagen de carga
+        document.getElementById('imagenCarga').remove();
+      });
   });
 });
 
 // ************ JQUERY ************ //
 $(document).ready(() => {
   $('#botonJQuery').click(() => {
+    // limpiar el contenido anterior
     $('#contenidoJQuery').empty();
+    // añadir imagen de carga
+    $('#contenidoJQuery').append(
+      '<img src="./ajaxquokka.gif" alt="imagen de carga quokka" id="imagenCarga">'
+    );
+    // realizo la consulta con jQuery
     $.getJSON('./quokka.json', data => {
       let contadorQuokkas = 0;
       let cantidadQuokkasSaltadores = 0;
@@ -418,6 +437,10 @@ $(document).ready(() => {
           error.statusText
         )
       )
-      .always(() => console.warn(`La consulta ha finalizado`));
+      .always(() => {
+        console.warn(`La consulta ha finalizado`);
+        // quito la imagen de carga
+        $('#imagenCarga').remove();
+      });
   });
 });
