@@ -57,15 +57,18 @@ Nota: No se puede utilizar pattern. Se pueden utilizar regex101 y páginas simil
     const humanoAdoptador = document.getElementById('humanoAdoptador').value;
     const donacionAnual = document.getElementById('donacionAnual').value;
 
-    const patronNombre = /[A-Z]?[a-z]+ [A-Z][a-z]+( [A-Z][a-z]+)?/;
+    const patronNombre = /[A-Z]?[a-zA-Z]+ [A-Z][a-zA-Z]+( [A-Z][a-zA-Z]+)?/;
+    // no excluye la palabra extinción
     const patronHumanoAdoptador =
-      /^\*(?:([^0-9extincion]{0,17}),[^0-9]*[a-z]|[^0-9extincion]{0,18},[^0-9]*[a-z])$/;
+      /^\*(?:([^0-9]{0,17}),[^0-9]*[a-z]|[^0-9]{0,18},[^0-9]*[a-z])(?<!extincion)$/;
     const patronDonacionAnual = /^(0|[1-9]\d{0,2})(,\d{1,2})?$/;
 
     if (!patronNombre.test(nombre)) {
       document.getElementById('nombre').style.backgroundColor = 'yellow';
       const parrafoNombre = document.createElement('p');
-      parrafoNombre.textContent = `Nombre incorrecto: ${nombre}`;
+      parrafoNombre.innerHTML = `Nombre incorrecto: <b>${
+        nombre == '' ? '"(campo vacío)"' : nombre
+      }</b>`;
       document.getElementById('resultado').appendChild(parrafoNombre);
     } else {
       document.getElementById('nombre').style.backgroundColor = '';
@@ -75,7 +78,9 @@ Nota: No se puede utilizar pattern. Se pueden utilizar regex101 y páginas simil
       document.getElementById('humanoAdoptador').style.backgroundColor =
         'yellow';
       const parrafoHumanoAdoptador = document.createElement('p');
-      parrafoHumanoAdoptador.textContent = `Código de adopción incorrecto: ${humanoAdoptador}`;
+      parrafoHumanoAdoptador.innerHTML = `Código de adopción incorrecto: <b>${
+        humanoAdoptador == '' ? '"(campo vacío)"' : humanoAdoptador
+      }</b>`;
       document.getElementById('resultado').appendChild(parrafoHumanoAdoptador);
     } else {
       document.getElementById('humanoAdoptador').style.backgroundColor = '';
@@ -84,7 +89,9 @@ Nota: No se puede utilizar pattern. Se pueden utilizar regex101 y páginas simil
     if (!patronDonacionAnual.test(donacionAnual)) {
       document.getElementById('donacionAnual').style.backgroundColor = 'yellow';
       const parrafoDonacionAnual = document.createElement('p');
-      parrafoDonacionAnual.textContent = `Donación anual incorrecta: ${donacionAnual}`;
+      parrafoDonacionAnual.innerHTML = `Donación anual incorrecta: <b>${
+        donacionAnual == '' ? '"(campo vacío)"' : donacionAnual
+      }</b>`;
       document.getElementById('resultado').appendChild(parrafoDonacionAnual);
     } else {
       document.getElementById('donacionAnual').style.backgroundColor = '';

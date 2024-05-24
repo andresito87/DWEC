@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Música</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 20px;
+            font-size: 14px;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+            text-transform: uppercase;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        li {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 5px;
+            padding: 7px;
+            transition: transform 0.3s ease-in-out;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        li:hover {
+            transform: scale(1.05);
+        }
+
+        h3 {
+            color: #333;
+            margin: 0;
+            font-size: 1.2em;
+        }
+
+        p {
+            color: #666;
+            margin: 0;
+            font-size: 0.9em;
+        }
+
+        .premium {
+            color: #ff8c00;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 id="nombre-lista">Lista de Reproducción Premium</h1>
+
+    <h2>Canciones originales</h2>
+    <div id="canciones-originales"></div>
+
+    <h2>Canciones premium</h2>
+    <div id="canciones-premium"></div>
+
+    <h2>Canciones con "Me gusta" aumentado</h2>
+    <div id="canciones-aumento-megusta"></div>
+
+    <h2>Canciones con más "Me gusta"</h2>
+    <div id="canciones-mas-megusta"></div>
+
+    <script type="module" src="./app.js"></script>;
+
+</body>
+
+</html>
